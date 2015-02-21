@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="libs/com.badlogicgames.gdx/gdx/1.5.3/3b8f2a7e697b097735ec8fd2b9d576d0959cb7c9/gdx-1.5.3.jar"/>
+	<classpathentry kind="lib" path="libs/com.badlogicgames.gdx/gdx-box2d/1.5.3/52bc9ff881a6eb1731eb2f54b5016425cae05024/gdx-box2d-1.5.3.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
