@@ -1,0 +1,48 @@
+
+jetTiles.png
+size: 512,256
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+001
+  rotate: false
+  xy: 2, 104
+  size: 197, 140
+  orig: 197, 140
+  offset: 0, 0
+  index: -1
+002
+  rotate: false
+  xy: 201, 45
+  size: 119, 84
+  orig: 119, 84
+  offset: 0, 0
+  index: -1
+003
+  rotate: false
+  xy: 201, 131
+  size: 124, 113
+  orig: 124, 113
+  offset: 0, 0
+  index: -1
+004
+  rotate: false
+  xy: 327, 24
+  size: 115, 112
+  orig: 115, 112
+  offset: 0, 0
+  index: -1
+005
+  rotate: false
+  xy: 327, 138
+  size: 130, 106
+  orig: 130, 106
+  offset: 0, 0
+  index: -1
+006
+  rotate: false
+  xy: 2, 2
+  size: 157, 100
+  orig: 157, 100
+  offset: 0, 0
+  index: -1
