@@ -7,6 +7,15 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+
+// ApplicationAdapter is just a default implementation of
+// ApplicationListener, so it provides implementations of required methods.
+// Otherwise there is no difference. If you want the stock implementation of
+// create(), pause(), render(), etc, use ApplicationAdapter, otherwise
+// inherit from ApplicationListener.
+
+
+
 public class HelloWorld implements ApplicationListener {
 	private SpriteBatch batch;
 	private BitmapFont font;
