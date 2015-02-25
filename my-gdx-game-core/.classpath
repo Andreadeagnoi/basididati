@@ -4,10 +4,10 @@
 	<classpathentry kind="src" path="assets"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry exported="true" kind="lib" path="libs/com.badlogicgames.gdx/gdx-box2d/1.5.3/52bc9ff881a6eb1731eb2f54b5016425cae05024/gdx-box2d-1.5.3.jar"/>
-	<classpathentry kind="lib" path="libs/com.badlogicgames.jlayer/jlayer/1.0.1-gdx/7cca83cec5c1b2f011362f4d85aabd71a73b049d/jlayer-1.0.1-gdx.jar"/>
-	<classpathentry kind="lib" path="libs/net.java.jutils/jutils/1.0.0/e12fe1fda814bd348c1579329c86943d2cd3c6a6/jutils-1.0.0.jar"/>
-	<classpathentry kind="lib" path="libs/gdx-1.5.4.jar" sourcepath="libs/gdx-sources-1.5.4.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/com.badlogicgames.jlayer/jlayer/1.0.1-gdx/7cca83cec5c1b2f011362f4d85aabd71a73b049d/jlayer-1.0.1-gdx.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/net.java.jutils/jutils/1.0.0/e12fe1fda814bd348c1579329c86943d2cd3c6a6/jutils-1.0.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/gdx-1.5.4.jar" sourcepath="libs/gdx-sources-1.5.4.jar"/>
 	<classpathentry kind="lib" path="libs/gdx-sources-1.5.4.jar"/>
-	<classpathentry kind="lib" path="libs/com.badlogicgames.gdx/gdx-tools/1.5.3/845e8e7c2c2a3072901db18e076404ed8abaaa37/gdx-tools-1.5.3.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/com.badlogicgames.gdx/gdx-tools/1.5.3/845e8e7c2c2a3072901db18e076404ed8abaaa37/gdx-tools-1.5.3.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
