@@ -3,18 +3,18 @@ package com.tutorial;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.input.GestureDetector.GestureListener;
 import com.badlogic.gdx.math.Vector2;
 
-//the original tutorial had examples with gestures, but sticazzi
-public class CameraDemo implements ApplicationListener, GestureListener, InputProcessor {
+
+public class CameraDemo implements ApplicationListener, GestureListener {
 
 	private OrthographicCamera camera;
 	private SpriteBatch batch;
@@ -37,6 +37,7 @@ public class CameraDemo implements ApplicationListener, GestureListener, InputPr
 		sprite = new Sprite(texture);
 		sprite.setOrigin(0, 0);
 		sprite.setPosition(-sprite.getWidth() / 2, -sprite.getHeight() / 2);
+		Gdx.input.setInputProcessor(new GestureDetector(this));
 	}
 
 	@Override
@@ -126,55 +127,6 @@ public class CameraDemo implements ApplicationListener, GestureListener, InputPr
 		return false;
 	}
 
-	@Override
-	public boolean keyDown(int keycode) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean keyUp(int keycode) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean keyTyped(char character) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		
-		return false;
-	}
-
-	@Override
-	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean touchDragged(int screenX, int screenY, int pointer) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean mouseMoved(int screenX, int screenY) {
-		
-			camera.translate(screenX,0);
-			camera.update();
-		
-		return false;
-	}
-
-	@Override
-	public boolean scrolled(int amount) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+	
 
 }
