@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
+	<classpathentry exported="true" kind="lib" path="libs/gdx-1.5.4.jar"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry exported="true" kind="src" path="/my-gdx-game-core"/>
@@ -12,7 +13,6 @@
 	<classpathentry exported="true" kind="lib" path="libs/org.lwjgl.lwjgl/lwjgl-platform/2.9.2/510c7d317f5e9e700b9cfaac5fd38bdebf0702e0/lwjgl-platform-2.9.2-natives-windows.jar"/>
 	<classpathentry exported="true" kind="lib" path="libs/com.badlogicgames.gdx/gdx-platform/1.5.3/692d7da06f9912797e759b8588564d83ae1644a6/gdx-platform-1.5.3-natives-x86.jar"/>
 	<classpathentry exported="true" kind="lib" path="libs/com.badlogicgames.gdx/gdx-platform/1.5.3/ca6446f72f86f99ae181da5d327094aa758f2023/gdx-platform-1.5.3-natives-desktop.jar"/>
-	<classpathentry kind="lib" path="libs/gdx-1.5.4.jar"/>
 	<classpathentry kind="src" path="assets"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
