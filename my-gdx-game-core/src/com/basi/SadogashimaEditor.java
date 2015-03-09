@@ -1,55 +1,46 @@
 package com.basi;
 
-import com.badlogic.gdx.ApplicationAdapter;
+import java.util.Date;
+import java.util.Random;
+
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
-public class SadogashimaEditor extends ApplicationAdapter{
-//UI
-private Stage stage;
+public class SadogashimaEditor extends Game{
+	
+SpriteBatch batch;
+BitmapFont font;	
+	
 
-//First screen buttons
-private TextButton menu;
-private TextButton commonTables;
-private TextButton editSavedGames;
 
-private Table buttons;
+
 
 	@Override
 	public void create() {		
-		super.create();
-		//Setting up the UI
-		stage = new Stage();
-		//Setting up the table containing the buttons
-		buttons = new Table(ResPack._SKIN);	
-		buttons.setFillParent(true);
-		buttons.center();
-
-		//Adding the menu button
-		menu = new TextButton("Menu", ResPack._SKIN);		
-		buttons.add(menu).width(400);
-		buttons.row();
-		//Adding the common tables button
-		commonTables = new TextButton("Common tables", ResPack._SKIN);
-		buttons.add(commonTables).width(400);
-		buttons.row();
-		//Adding the edit saved games button
-		editSavedGames = new TextButton("Edit saved games", ResPack._SKIN);
-		editSavedGames.setWidth(600);
-		buttons.add(editSavedGames).width(400);
-						
-		stage.addActor(buttons);
-		Gdx.input.setInputProcessor(stage);
+		
+		//Setting up the firstscreen
+		batch = new SpriteBatch();
+		// Use LibGDX's default Arial font.
+		font = new BitmapFont();
+		this.setScreen(new FirstScreen(this));
+		
+		
 	}
 
 	@Override
 	public void render() {
 		super.render();
 		
-		stage.act();
-		stage.draw();
+		
 	}
 
 	@Override
@@ -57,5 +48,18 @@ private Table buttons;
 		// TODO Auto-generated method stub
 		super.dispose();
 	}
+	
+
+
+	
+
+
+	/**
+	 * temporary methods to fill the saveData structure, it will be replaced by
+	 * the call to the db.
+	 * field of SaveGame(name, creationTime, lastSaveTime, total play time)
+	 * @param nSaves number of saves to generate
+	 * @return an array of array of Strings containing temp data for savegames
+	 */
 	
 }
