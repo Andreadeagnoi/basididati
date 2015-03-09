@@ -22,22 +22,20 @@ private Table buttons;
 		super.create();
 		//Setting up the UI
 		stage = new Stage();
-		buttons = new Table(ResPack._SKIN);
-		
+		//Setting up the table containing the buttons
+		buttons = new Table(ResPack._SKIN);	
 		buttons.setFillParent(true);
 		buttons.center();
-		buttons.setLayoutEnabled(true);
-		
-		menu = new TextButton("Menu", ResPack._SKIN);
-		
+
+		//Adding the menu button
+		menu = new TextButton("Menu", ResPack._SKIN);		
 		buttons.add(menu).width(400);
 		buttons.row();
-		
+		//Adding the common tables button
 		commonTables = new TextButton("Common tables", ResPack._SKIN);
-		commonTables.setWidth(600);
 		buttons.add(commonTables).width(400);
 		buttons.row();
-		
+		//Adding the edit saved games button
 		editSavedGames = new TextButton("Edit saved games", ResPack._SKIN);
 		editSavedGames.setWidth(600);
 		buttons.add(editSavedGames).width(400);
