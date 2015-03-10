@@ -8,8 +8,10 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
+import com.badlogic.gdx.scenes.scene2d.utils.Align;
 
 public class SelectSaveData implements Screen{
 	//DB FINALS
@@ -30,6 +32,7 @@ public class SelectSaveData implements Screen{
 	private TextField[] totalPlaytime;
 	private TextField[] creationTime;
 	private TextField[] lastSaveTime;
+	private ScrollPane scroll;
 	
 	
 	public SelectSaveData(final SadogashimaEditor editor){
@@ -43,11 +46,15 @@ public class SelectSaveData implements Screen{
 		
 		//set up table for the saves
 		Table table = new Table(ResPack._SKIN);
-		table.setFillParent(true);
-		table.center();
+		table.top();
+		
+		//set up the scrolling component
+		scroll = new ScrollPane(table, ResPack._SKIN);	
+		scroll.setFillParent(true);
+		
 		
 		//initialize the saves data
-		String[][] saveData = genSaveData(4);
+		String[][] saveData = genSaveData(100);
 		name = new TextField[saveData.length];
 		totalPlaytime = new TextField[saveData.length];
 		creationTime = new TextField[saveData.length];
@@ -77,7 +84,7 @@ public class SelectSaveData implements Screen{
 			table.row();
 		}
 		
-		savesStage.addActor(table);
+		savesStage.addActor(scroll);
 
 	}
 
