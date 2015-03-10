@@ -6,24 +6,26 @@ import java.util.Random;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
-public class SelectSaveData implements Screen{
-	//DB FINALS
+public class SelectSaveData implements Screen {
+	// DB FINALS
 	private final int fieldsSave = 4;
 	final SadogashimaEditor editor;
 	Stage savesStage;
-	
-	
+
 	private TextField nameText;
 	private Label addressLabel;
 	private TextField addressText;
-	
+
 	private Label nameLabel;
 	private Label totalPlaytimeLabel;
 	private Label creationTimeLabel;
@@ -33,46 +35,52 @@ public class SelectSaveData implements Screen{
 	private TextField[] creationTime;
 	private TextField[] lastSaveTime;
 	private ScrollPane scroll;
-	
-	
-	public SelectSaveData(final SadogashimaEditor editor){
+
+
+	public SelectSaveData(final SadogashimaEditor editor) {
 		this.editor = editor;
 	}
-	
+
 	@Override
 	public void show() {
 		savesStage = new Stage();
 		Gdx.input.setInputProcessor(savesStage);
-		
-		//set up table for the saves
+
+		// set up table for the saves
 		Table table = new Table(ResPack._SKIN);
 		table.top();
-		
-		//set up the scrolling component
-		scroll = new ScrollPane(table, ResPack._SKIN);	
+		table.defaults().width(200);
+		// set up the scrolling component
+		scroll = new ScrollPane(table, ResPack._SKIN);
 		scroll.setFillParent(true);
-		
-		
-		//initialize the saves data
+
+		// initialize the saves data
 		String[][] saveData = genSaveData(100);
 		name = new TextField[saveData.length];
 		totalPlaytime = new TextField[saveData.length];
 		creationTime = new TextField[saveData.length];
 		lastSaveTime = new TextField[saveData.length];
-		
-		//create labels for the columns
-		nameLabel = new Label("NOME",ResPack._SKIN);
+
+		// create labels for the columns
+		nameLabel = new Label("NOME", ResPack._SKIN);
+		nameLabel.setAlignment(Align.center);
 		table.add(nameLabel);
-		totalPlaytimeLabel = new Label("TEMPO DI GIOCO", ResPack._SKIN);
-		table.add(totalPlaytimeLabel);
 		creationTimeLabel = new Label("DATA DI CREAZIONE", ResPack._SKIN);
+		creationTimeLabel.setAlignment(Align.center);
 		table.add(creationTimeLabel);
-		lastSaveTimeLabel = new Label("DATA ULTIMO SALVATAGGIO", ResPack._SKIN);
+		lastSaveTimeLabel = new Label("DATA ULTIMO \nSALVATAGGIO", ResPack._SKIN);
+		lastSaveTimeLabel.setAlignment(Align.center);
 		table.add(lastSaveTimeLabel);
+		totalPlaytimeLabel = new Label("TEMPO DI GIOCO", ResPack._SKIN);
+		table.add(totalPlaytimeLabel).width(100);
+		totalPlaytimeLabel.setAlignment(Align.center);
 		table.row();
-		
-		//filling the table with the save data
-		for(int row = 0; row < saveData.length; row++) {
+
+		// create buttons that pass to a new screen the creation time near that
+		// button
+
+		// filling the table with the save data
+		for (int row = 0; row < saveData.length; row++) {
 			name[row] = new TextField(saveData[row][0], ResPack._SKIN);
 			table.add(name[row]);
 			totalPlaytime[row] = new TextField(saveData[row][1], ResPack._SKIN);
@@ -80,10 +88,12 @@ public class SelectSaveData implements Screen{
 			creationTime[row] = new TextField(saveData[row][2], ResPack._SKIN);
 			table.add(creationTime[row]);
 			lastSaveTime[row] = new TextField(saveData[row][3], ResPack._SKIN);
-			table.add(lastSaveTime[row]);
+			table.add(lastSaveTime[row]).width(150);
+			table.add(buttonRow(row,ResPack.EDIT)).width(100);
+			table.add(buttonRow(row,ResPack.MENU)).width(100);
 			table.row();
 		}
-		
+
 		savesStage.addActor(scroll);
 
 	}
@@ -92,7 +102,7 @@ public class SelectSaveData implements Screen{
 	public void render(float delta) {
 		Gdx.gl.glClearColor(0, 0, 0.2f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		
+
 		savesStage.act();
 		savesStage.draw();
 	}
@@ -131,7 +141,7 @@ public class SelectSaveData implements Screen{
 		Random rng = new Random();
 		Date date = new Date();
 		String[][] tempSaveData = new String[nSaves][fieldsSave];
-		for(int row = 0; row < nSaves; row++){
+		for (int row = 0; row < nSaves; row++) {
 			tempSaveData[row][0] = "Salvataggio " + row;
 			tempSaveData[row][1] = "" + new Date(rng.nextLong());
 			tempSaveData[row][2] = "" + new Date(rng.nextLong());
@@ -139,4 +149,30 @@ public class SelectSaveData implements Screen{
 		}
 		return tempSaveData;
 	}
+
+	/**
+	 * Used by SelectSaveData to create a button that opens a edit screen with
+	 * the row's save as reference
+	 * It accepts only ResPack.EDIT and ResPack.MENU as input parameters for mode
+	 * @param row
+	 * @return
+	 */
+	private TextButton buttonRow(int row, String mode) {
+		TextButton button = new TextButton(mode,ResPack._SKIN);
+		final String modeListener = mode;
+		button.addListener(new ClickListener(){
+			@Override 
+			public void clicked(InputEvent event, float x, float y){
+				if(modeListener.equals(ResPack.EDIT)){
+					editor.setScreen(new TableView(editor));
+				}
+				else {
+					editor.setScreen(new MenuView(editor));				
+				}
+				dispose();
+			}
+		});
+		return button;
+	}
+
 }
