@@ -3,6 +3,7 @@ package com.basi;
 import java.util.Date;
 import java.util.Random;
 
+
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -25,7 +26,8 @@ BitmapFont font;
 
 	@Override
 	public void create() {		
-
+		
+		
 		//Setting up the firstscreen
 		batch = new SpriteBatch();
 		// Use LibGDX's default Arial font.

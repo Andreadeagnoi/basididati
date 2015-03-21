@@ -17,6 +17,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.sql.Database;
 
+
+
 public class SelectSaveData implements Screen {
 	// DB FINALS
 	private final int fieldsSave = 4;
@@ -37,12 +39,12 @@ public class SelectSaveData implements Screen {
 	private TextField[] lastSaveTime;
 	private ScrollPane scroll;
 
-	
+	private DBManager db;
 
 
 	public SelectSaveData(final SadogashimaEditor editor) {
 		this.editor = editor;
-		
+		db = new DBManager();
 	}
 
 	@Override
@@ -59,7 +61,7 @@ public class SelectSaveData implements Screen {
 		scroll.setFillParent(true);
 
 		// initialize the saves data
-		String[][] saveData = genSaveData(100);
+		String[][] saveData = genSaveData(1);
 		name = new TextField[saveData.length];
 		totalPlaytime = new TextField[saveData.length];
 		creationTime = new TextField[saveData.length];
@@ -147,7 +149,7 @@ public class SelectSaveData implements Screen {
 		Date date = new Date();
 		String[][] tempSaveData = new String[nSaves][fieldsSave];
 		for (int row = 0; row < nSaves; row++) {
-			ResPack.DB.insertSaveTemp();
+			db.insertSaveTemp();
 			tempSaveData[row][0] = "Salvataggio " + row;
 			tempSaveData[row][1] = "" + new Date(rng.nextLong());
 			tempSaveData[row][2] = "" + new Date(rng.nextLong());
