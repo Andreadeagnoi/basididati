@@ -1,8 +1,10 @@
 package com.basi;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.files.FileHandle;
+import java.util.ArrayList;
+import java.util.Date;
+
 import com.badlogic.gdx.sql.Database;
+import com.badlogic.gdx.sql.DatabaseCursor;
 import com.badlogic.gdx.sql.DatabaseFactory;
 import com.badlogic.gdx.sql.SQLiteGdxException;
 
@@ -22,6 +24,7 @@ public class DBManager {
 		createTables();
 
 	}
+	
 	//temp method to test the dbManager
 	public int insertSaveTemp(){
 		try {
@@ -35,7 +38,9 @@ public class DBManager {
 	}
 	
 
-	
+	/** creating the necessary tables for the db for the first time
+	 * 
+	 */
 	private  void createTables(){
 		try {
 			dbHandler.openOrCreateDatabase();
@@ -62,6 +67,38 @@ public class DBManager {
 			e.printStackTrace();
 		}
 		
+	}
+	
+
+	/**
+	 * Select query to get all the saves.
+	 * @return a list of SaveData
+	 */
+	public ArrayList<SaveData> getSaves() {
+		ArrayList<SaveData> saveList = new ArrayList<SaveData>();
+		DatabaseCursor cursor = null;
+		SaveData tempSave;
+		
+		try {
+			cursor = dbHandler.rawQuery("SELECT * FROM " + ResPack.t_SALVATAGGIO);
+		} catch (SQLiteGdxException e) {
+			e.printStackTrace();
+		}
+
+		while (cursor.next()) {
+		
+			saveList.add(new SaveData(new Date(cursor.getInt(0)),
+							new Date(cursor.getInt(1)),
+							(cursor.getInt(2)),
+							(cursor.getString(3))));
+		}
+
+		try {
+			cursor = dbHandler.rawQuery(cursor, "SELECT * FROM comments");
+		} catch (SQLiteGdxException e) {
+			e.printStackTrace();
+		}
+		return saveList;
 	}
 
 }

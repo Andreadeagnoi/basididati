@@ -1,5 +1,6 @@
 package com.basi;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
 
@@ -56,16 +57,19 @@ public class SelectSaveData implements Screen {
 		Table table = new Table(ResPack._SKIN);
 		table.top();
 		table.defaults().width(200);
+		
 		// set up the scrolling component
 		scroll = new ScrollPane(table, ResPack._SKIN);
 		scroll.setFillParent(true);
 
 		// initialize the saves data
-		String[][] saveData = genSaveData(1);
-		name = new TextField[saveData.length];
-		totalPlaytime = new TextField[saveData.length];
-		creationTime = new TextField[saveData.length];
-		lastSaveTime = new TextField[saveData.length];
+		ArrayList<SaveData> saveData = db.getSaves();
+		
+		//initialize textfields for the layout of the table
+		name = new TextField[saveData.size()];
+		totalPlaytime = new TextField[saveData.size()];
+		creationTime = new TextField[saveData.size()];
+		lastSaveTime = new TextField[saveData.size()];
 
 		// create labels for the columns
 		nameLabel = new Label("NOME", ResPack._SKIN);
@@ -82,18 +86,17 @@ public class SelectSaveData implements Screen {
 		totalPlaytimeLabel.setAlignment(Align.center);
 		table.row();
 
-		// create buttons that pass to a new screen the creation time near that
-		// button
-
+		SaveData readSave = null;
 		// filling the table with the save data
-		for (int row = 0; row < saveData.length; row++) {
-			name[row] = new TextField(saveData[row][0], ResPack._SKIN);
+		for (int row = 0; row < saveData.size(); row++) {
+			readSave = saveData.get(row);
+			name[row] = new TextField(readSave.getSaveName(), ResPack._SKIN);
 			table.add(name[row]);
-			totalPlaytime[row] = new TextField(saveData[row][1], ResPack._SKIN);
+			totalPlaytime[row] = new TextField(String.valueOf(readSave.getTotalPlayTime()), ResPack._SKIN);
 			table.add(totalPlaytime[row]);
-			creationTime[row] = new TextField(saveData[row][2], ResPack._SKIN);
+			creationTime[row] = new TextField(String.valueOf(readSave.getCreationTime()), ResPack._SKIN);
 			table.add(creationTime[row]);
-			lastSaveTime[row] = new TextField(saveData[row][3], ResPack._SKIN);
+			lastSaveTime[row] = new TextField(String.valueOf(readSave.getLastSaveTime()), ResPack._SKIN);
 			table.add(lastSaveTime[row]).width(150);
 			table.add(buttonRow(row,ResPack.EDIT)).width(100);
 			table.add(buttonRow(row,ResPack.MENU)).width(100);
@@ -159,19 +162,19 @@ public class SelectSaveData implements Screen {
 	}
 	
 	
-	//method to randomly generate saves
-	private String[][] genRandomSaveData(int nSaves) {
-		Random rng = new Random();
-		Date date = new Date();
-		String[][] tempSaveData = new String[nSaves][fieldsSave];
-		for (int row = 0; row < nSaves; row++) {
-			tempSaveData[row][0] = "Salvataggio " + row;
-			tempSaveData[row][1] = "" + new Date(rng.nextLong());
-			tempSaveData[row][2] = "" + new Date(rng.nextLong());
-			tempSaveData[row][3] = "" + rng.nextInt();
-		}
-		return tempSaveData;
-	}
+	//method to randomly generate saves (not used anymore)
+//	private String[][] genRandomSaveData(int nSaves) {
+//		Random rng = new Random();
+//		Date date = new Date();
+//		String[][] tempSaveData = new String[nSaves][fieldsSave];
+//		for (int row = 0; row < nSaves; row++) {
+//			tempSaveData[row][0] = "Salvataggio " + row;
+//			tempSaveData[row][1] = "" + new Date(rng.nextLong());
+//			tempSaveData[row][2] = "" + new Date(rng.nextLong());
+//			tempSaveData[row][3] = "" + rng.nextInt();
+//		}
+//		return tempSaveData;
+//	}
 
 	/**
 	 * Used by SelectSaveData to create a button that opens a edit screen with
