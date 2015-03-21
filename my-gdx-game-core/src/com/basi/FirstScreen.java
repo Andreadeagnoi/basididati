@@ -21,9 +21,12 @@ public class FirstScreen implements Screen{
 	private TextButton editSavedGames;
 
 	private Table buttons;
+	
+
 
 	public FirstScreen(final SadogashimaEditor editor){
 		this.editor = editor;
+
 	}
 
 	@Override

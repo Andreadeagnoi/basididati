@@ -19,14 +19,13 @@ public class SadogashimaEditor extends Game{
 	
 SpriteBatch batch;
 BitmapFont font;	
-	
 
 
 
 
 	@Override
 	public void create() {		
-		
+
 		//Setting up the firstscreen
 		batch = new SpriteBatch();
 		// Use LibGDX's default Arial font.

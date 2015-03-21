@@ -3,7 +3,7 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="assets"/>
 	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/my-gdx-game-core"/>
-	<classpathentry kind="lib" path="libs/gdx-1.5.4.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/gdx-1.5.4.jar"/>
 	<classpathentry exported="true" kind="lib" path="libs/gdx-sqlite-desktop.jar"/>
 	<classpathentry exported="true" kind="lib" path="libs/sqlite-jdbc-3.7.2.jar"/>
 	<classpathentry exported="true" kind="lib" path="libs/org.lwjgl.lwjgl/lwjgl/2.9.2/a9d80fe5935c7a9149f6584d9777cfd471f65489/lwjgl-2.9.2.jar"/>
@@ -14,9 +14,9 @@
 	<classpathentry exported="true" kind="lib" path="libs/com.badlogicgames.gdx/gdx-backend-lwjgl/1.5.3/1dac61f666ee49787b623de5ac006245a06572b1/gdx-backend-lwjgl-1.5.3.jar"/>
 	<classpathentry exported="true" kind="lib" path="libs/net.java.jutils/jutils/1.0.0/e12fe1fda814bd348c1579329c86943d2cd3c6a6/jutils-1.0.0.jar"/>
 	<classpathentry exported="true" kind="lib" path="libs/com.badlogicgames.gdx/gdx/1.5.3/3b8f2a7e697b097735ec8fd2b9d576d0959cb7c9/gdx-1.5.3.jar"/>
-	<classpathentry kind="lib" path="libs/com.badlogicgames.gdx/gdx-platform/1.5.3/ca6446f72f86f99ae181da5d327094aa758f2023/gdx-platform-1.5.3-natives-desktop.jar"/>
-	<classpathentry kind="lib" path="libs/com.badlogicgames.gdx/gdx-platform/1.5.3/692d7da06f9912797e759b8588564d83ae1644a6/gdx-platform-1.5.3-natives-x86.jar"/>
-	<classpathentry kind="lib" path="libs/com.badlogicgames.gdx/gdx-platform/1.5.3/cbb1abd2bb354a93679fdb1c512244d53c3f16a4/gdx-platform-1.5.3-natives-ios.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/com.badlogicgames.gdx/gdx-platform/1.5.3/ca6446f72f86f99ae181da5d327094aa758f2023/gdx-platform-1.5.3-natives-desktop.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/com.badlogicgames.gdx/gdx-platform/1.5.3/692d7da06f9912797e759b8588564d83ae1644a6/gdx-platform-1.5.3-natives-x86.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/com.badlogicgames.gdx/gdx-platform/1.5.3/cbb1abd2bb354a93679fdb1c512244d53c3f16a4/gdx-platform-1.5.3-natives-ios.jar"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

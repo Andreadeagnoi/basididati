@@ -15,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.sql.Database;
 
 public class SelectSaveData implements Screen {
 	// DB FINALS
@@ -36,9 +37,12 @@ public class SelectSaveData implements Screen {
 	private TextField[] lastSaveTime;
 	private ScrollPane scroll;
 
+	
+
 
 	public SelectSaveData(final SadogashimaEditor editor) {
 		this.editor = editor;
+		
 	}
 
 	@Override
@@ -137,7 +141,24 @@ public class SelectSaveData implements Screen {
 
 	}
 
+	//method to test the link with the dbmanager
 	private String[][] genSaveData(int nSaves) {
+		Random rng = new Random();
+		Date date = new Date();
+		String[][] tempSaveData = new String[nSaves][fieldsSave];
+		for (int row = 0; row < nSaves; row++) {
+			ResPack.DB.insertSaveTemp();
+			tempSaveData[row][0] = "Salvataggio " + row;
+			tempSaveData[row][1] = "" + new Date(rng.nextLong());
+			tempSaveData[row][2] = "" + new Date(rng.nextLong());
+			tempSaveData[row][3] = "" + rng.nextInt();
+		}
+		return tempSaveData;
+	}
+	
+	
+	//method to randomly generate saves
+	private String[][] genRandomSaveData(int nSaves) {
 		Random rng = new Random();
 		Date date = new Date();
 		String[][] tempSaveData = new String[nSaves][fieldsSave];
@@ -160,11 +181,13 @@ public class SelectSaveData implements Screen {
 	private TextButton buttonRow(int row, String mode) {
 		TextButton button = new TextButton(mode,ResPack._SKIN);
 		final String modeListener = mode;
+		final DBManager dbinsert = new DBManager();
 		button.addListener(new ClickListener(){
 			@Override 
 			public void clicked(InputEvent event, float x, float y){
 				if(modeListener.equals(ResPack.EDIT)){
 					editor.setScreen(new TableView(editor));
+					
 				}
 				else {
 					editor.setScreen(new MenuView(editor));				

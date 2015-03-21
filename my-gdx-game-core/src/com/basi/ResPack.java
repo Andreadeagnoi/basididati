@@ -11,4 +11,7 @@ public class ResPack {
 	//Strings
 	public static final String EDIT = "Modifica";
 	public static final String MENU = "Menu";
+	
+	//Database
+	public static final DBManager DB = new DBManager();
 }
