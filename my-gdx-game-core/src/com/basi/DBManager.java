@@ -3,6 +3,7 @@ package com.basi;
 import java.util.ArrayList;
 import java.util.Date;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.sql.Database;
 import com.badlogic.gdx.sql.DatabaseCursor;
 import com.badlogic.gdx.sql.DatabaseFactory;
@@ -16,7 +17,7 @@ public class DBManager {
 
 
 
-	
+
 	public DBManager() {
 		dbHandler = DatabaseFactory.getNewDatabase(DATABASE_NAME,
 				DATABASE_VERSION, ResPack.DBCREATE, null);
@@ -24,7 +25,7 @@ public class DBManager {
 		createTables();
 
 	}
-	
+
 	//temp method to test the dbManager
 	public int insertSaveTemp(){
 		try {
@@ -36,7 +37,7 @@ public class DBManager {
 			return 0;
 		}
 	}
-	
+
 
 	/** creating the necessary tables for the db for the first time
 	 * 
@@ -62,13 +63,13 @@ public class DBManager {
 			dbHandler.execSQL(ResPack.q_PROMUOVE);
 			dbHandler.execSQL(ResPack.q_RICHIEDE);
 			dbHandler.execSQL(ResPack.q_UTILIZZA);		
-			
+
 		} catch (SQLiteGdxException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
-	
+
 
 	/**
 	 * Select query to get all the saves.
@@ -78,26 +79,25 @@ public class DBManager {
 		ArrayList<SaveData> saveList = new ArrayList<SaveData>();
 		DatabaseCursor cursor = null;
 		SaveData tempSave;
-		
+
 		try {
-			cursor = dbHandler.rawQuery("SELECT * FROM " + ResPack.t_SALVATAGGIO);
+			cursor = dbHandler.rawQuery("SELECT Nome,DataCreazione,TempoGiocato,DataUltimoSalvataggio "
+					+ "FROM SALVATAGGIO_GIOCATORE ;") ;
 		} catch (SQLiteGdxException e) {
 			e.printStackTrace();
 		}
 
 		while (cursor.next()) {
-		
-			saveList.add(new SaveData(new Date(cursor.getInt(0)),
-							new Date(cursor.getInt(1)),
-							(cursor.getInt(2)),
-							(cursor.getString(3))));
+
+			saveList.add(new SaveData(cursor.getString(1),
+					cursor.getString(3),
+					cursor.getInt(2),
+					cursor.getString(0)));
+			Gdx.app.log("DatabaseTest",saveList.get(0).toString());
+			Gdx.app.log("DatabaseTest", String.valueOf(cursor.getInt(1)));
 		}
 
-		try {
-			cursor = dbHandler.rawQuery(cursor, "SELECT * FROM comments");
-		} catch (SQLiteGdxException e) {
-			e.printStackTrace();
-		}
+
 		return saveList;
 	}
 

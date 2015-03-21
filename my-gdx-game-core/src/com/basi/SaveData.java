@@ -1,6 +1,10 @@
 package com.basi;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.Locale;
 
 public class SaveData {
 	
@@ -15,9 +19,9 @@ public class SaveData {
 	 * @param totalPlayTime
 	 * @param saveName
 	 */
-	public SaveData(Date creationTime, Date lastSaveTime, int totalPlayTime,String saveName) {
-		this.creationTime = creationTime;
-		this.lastSaveTime = lastSaveTime;
+	public SaveData(String creationTime, String lastSaveTime, int totalPlayTime,String saveName) {
+		this.creationTime = toDate(creationTime);
+		this.lastSaveTime = toDate(lastSaveTime);
 		this.totalPlayTime = totalPlayTime;
 		this.saveName = saveName;
 	}
@@ -43,4 +47,18 @@ public class SaveData {
 	public void setSaveName(String saveName) {
 		this.saveName = saveName;
 	}
+
+	@Override
+	public String toString() {
+		return "SaveData [creationTime=" + creationTime + ", lastSaveTime="
+				+ lastSaveTime + ", totalPlayTime=" + totalPlayTime
+				+ ", saveName=" + saveName + "]";
+	}
+	
+	private Date toDate(String stringDate) {
+		//Sql format 2015-03-21 11:28:35
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
+		LocalDateTime date = LocalDateTime.parse(stringDate, formatter);
+		return Date.from(date.atZone(ZoneId.systemDefault()).toInstant());
+		}
 }
