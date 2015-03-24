@@ -29,6 +29,9 @@ public class SelectSaveData implements Screen {
 	private TextField nameText;
 	private Label addressLabel;
 	private TextField addressText;
+	
+	//button to crete new saves
+	private TextButton genSave;
 
 	private Label nameLabel;
 	private Label totalPlaytimeLabel;
@@ -85,9 +88,25 @@ public class SelectSaveData implements Screen {
 		lastSaveTimeLabel = new Label("DATA ULTIMO SALVATAGGIO", ResPack._SKIN);
 		lastSaveTimeLabel.setAlignment(Align.center);
 		table.add(lastSaveTimeLabel);
-		
 		table.row();
-
+		
+		//let's add a button to generate saves
+		genSave = new TextButton("inserisci salvataggio",ResPack._SKIN);
+		genSave.addListener(new ClickListener(){
+			@Override 
+			public void clicked(InputEvent event, float x, float y){
+				SaveData genSave = db.insertSave("prova");
+				table.add(new TextField(String.valueOf(genSave.getCreationTime()), ResPack._SKIN));
+				table.add(new TextField(genSave.getSaveName(), ResPack._SKIN));
+				table.add(new TextField(String.valueOf(genSave.getTotalPlayTime()), ResPack._SKIN));
+				table.add(new TextField(String.valueOf(genSave.getLastSaveTime()), ResPack._SKIN));
+				table.row();
+				
+			}
+		});
+		table.add(genSave);
+		table.row();
+		
 		SaveData readSave = null;
 		// filling the table with the save data
 		for (int row = 0; row < saveData.size(); row++) {
@@ -188,7 +207,7 @@ public class SelectSaveData implements Screen {
 	private TextButton buttonRow(int row, String mode) {
 		TextButton button = new TextButton(mode,ResPack._SKIN);
 		final String modeListener = mode;
-		final DBManager dbinsert = new DBManager();
+	
 		button.addListener(new ClickListener(){
 			@Override 
 			public void clicked(InputEvent event, float x, float y){

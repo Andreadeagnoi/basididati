@@ -38,6 +38,32 @@ public class DBManager {
 		}
 	}
 
+	//create a save and return the info about the save
+	public SaveData insertSave(String name){
+		//insert save in the db
+		try {
+			dbHandler.execSQL("INSERT INTO SALVATAGGIO_GIOCATORE (Nome, TempoGiocato)"
+					+ " VALUES ('" + name + "', 0)");
+		} catch (SQLiteGdxException e) {
+			e.printStackTrace();
+			return null;
+		}
+		//retrieve the save
+		DatabaseCursor cursor = null;
+		try {
+			cursor = dbHandler.rawQuery("SELECT Nome,DataCreazione,TempoGiocato,DataUltimoSalvataggio "
+					+ "FROM SALVATAGGIO_GIOCATORE ORDER BY DataCreazione DESC;") ;
+		} catch (SQLiteGdxException e) {
+			e.printStackTrace();
+		}
+
+		SaveData genSave = new SaveData(cursor.getString(1),
+				cursor.getString(3),
+				cursor.getInt(2),
+				cursor.getString(0));
+		return genSave;
+	}
+
 
 	/** creating the necessary tables for the db for the first time
 	 * 
