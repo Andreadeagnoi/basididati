@@ -217,15 +217,18 @@ public class SelectSaveData implements Screen {
 	private TextButton buttonRow(Date save_id, String mode) {
 		TextButton button = new TextButton(mode,ResPack._SKIN);
 		final String modeListener = mode;
+		final Date currentSaveId = save_id;
 	
 		button.addListener(new ClickListener(){
 			@Override 
 			public void clicked(InputEvent event, float x, float y){
 				if(modeListener.equals(ResPack.EDIT)){
+					ResPack.currentSave = currentSaveId;
 					editor.setScreen(new TableView(editor));
 					
 				}
 				else {
+					ResPack.currentSave = currentSaveId;
 					editor.setScreen(new MenuView(editor));				
 				}
 				dispose();

@@ -1,20 +1,33 @@
 package com.basi;
 
+import java.util.Date;
+
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 /** Class to load all assets for the game */
 public class ResPack {
+	//GameState
+	public static Date currentSave;
+	
 	//UI
 	public static final Skin _SKIN = new Skin(Gdx.files.internal("skin/uiskin.json"));
 	
 	//Strings
 	public static final String EDIT = "Modifica";
 	public static final String MENU = "Menu";
+	public static final String STATUS = "Status";
+	public static final String EQUIP = "Equip";
+	public static final String SKILLS = "Tecniche";
+	public static final String INVENTORY = "Inventario";
 	
-	//Database
+	//Graphic Resources
+
 	
-	
+	//Database	
 	//Tables
 	//I could make tables with a map maybe for future optimization
 	public static final String t_PERSONAGGIO = "PERSONAGGIO";
