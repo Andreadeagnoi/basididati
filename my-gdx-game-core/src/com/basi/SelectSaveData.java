@@ -32,6 +32,7 @@ public class SelectSaveData implements Screen {
 	
 	//button to crete new saves
 	private TextButton genSave;
+	private TextField genSaveName;
 
 	private Label nameLabel;
 	private Label totalPlaytimeLabel;
@@ -57,7 +58,7 @@ public class SelectSaveData implements Screen {
 		Gdx.input.setInputProcessor(savesStage);
 
 		// set up table for the saves
-		Table table = new Table(ResPack._SKIN);
+		final Table table = new Table(ResPack._SKIN);
 		table.top();
 		table.defaults().width(250);
 		
@@ -84,7 +85,7 @@ public class SelectSaveData implements Screen {
 		table.add(nameLabel);
 		totalPlaytimeLabel = new Label("TEMPO DI GIOCO", ResPack._SKIN);
 		totalPlaytimeLabel.setAlignment(Align.center);
-		table.add(totalPlaytimeLabel).width(100);
+		table.add(totalPlaytimeLabel).width(150);
 		lastSaveTimeLabel = new Label("DATA ULTIMO SALVATAGGIO", ResPack._SKIN);
 		lastSaveTimeLabel.setAlignment(Align.center);
 		table.add(lastSaveTimeLabel);
@@ -92,19 +93,28 @@ public class SelectSaveData implements Screen {
 		
 		//let's add a button to generate saves
 		genSave = new TextButton("inserisci salvataggio",ResPack._SKIN);
+		genSaveName = new TextField("",ResPack._SKIN);
+		
 		genSave.addListener(new ClickListener(){
 			@Override 
 			public void clicked(InputEvent event, float x, float y){
-				SaveData genSave = db.insertSave("prova");
-				table.add(new TextField(String.valueOf(genSave.getCreationTime()), ResPack._SKIN));
-				table.add(new TextField(genSave.getSaveName(), ResPack._SKIN));
-				table.add(new TextField(String.valueOf(genSave.getTotalPlayTime()), ResPack._SKIN));
-				table.add(new TextField(String.valueOf(genSave.getLastSaveTime()), ResPack._SKIN));
-				table.row();
+				final String saveName = genSaveName.getText();
+				if(!saveName.equals("")){
+					SaveData genSave = db.insertSave(saveName);
+					table.add(new TextField(String.valueOf(genSave.getCreationTime()), ResPack._SKIN));
+					table.add(new TextField(genSave.getSaveName(), ResPack._SKIN));
+					table.add(new TextField(String.valueOf(genSave.getTotalPlayTime()), ResPack._SKIN)).width(150);
+					table.add(new TextField(String.valueOf(genSave.getLastSaveTime()), ResPack._SKIN));
+					table.add(buttonRow(genSave.getCreationTime(),ResPack.EDIT)).width(100);
+					table.add(buttonRow(genSave.getCreationTime(),ResPack.MENU)).width(100);
+					table.row();
+				}
+				
 				
 			}
 		});
 		table.add(genSave);
+		table.add(genSaveName);
 		table.row();
 		
 		SaveData readSave = null;
@@ -119,8 +129,8 @@ public class SelectSaveData implements Screen {
 			table.add(totalPlaytime[row]).width(150);		
 			lastSaveTime[row] = new TextField(String.valueOf(readSave.getLastSaveTime()), ResPack._SKIN);
 			table.add(lastSaveTime[row]);
-			table.add(buttonRow(row,ResPack.EDIT)).width(100);
-			table.add(buttonRow(row,ResPack.MENU)).width(100);
+			table.add(buttonRow(readSave.getCreationTime(),ResPack.EDIT)).width(100);
+			table.add(buttonRow(readSave.getCreationTime(),ResPack.MENU)).width(100);
 			table.row();
 		}
 
@@ -204,7 +214,7 @@ public class SelectSaveData implements Screen {
 	 * @param row
 	 * @return
 	 */
-	private TextButton buttonRow(int row, String mode) {
+	private TextButton buttonRow(Date save_id, String mode) {
 		TextButton button = new TextButton(mode,ResPack._SKIN);
 		final String modeListener = mode;
 	
