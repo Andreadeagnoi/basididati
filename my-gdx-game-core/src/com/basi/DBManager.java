@@ -101,4 +101,37 @@ public class DBManager {
 		return saveList;
 	}
 
+	public ArrayList<CharacterData> getParty() {
+		ArrayList<CharacterData> charList = new ArrayList<CharacterData>();
+		DatabaseCursor cursor = null;
+		CharacterData tempChar;
+		
+		try {
+			cursor = dbHandler.rawQuery("SELECT DataCreazione, Id_personaggio, Nome, Sprite"
+					+ "IP_HP, IP_MP ,IP_ATK, IP_DEF, IP_INT, IP_AGI, "
+					+ "ID_Classe, NomeClasse,"
+					+ "InUso, LivelloClasse, EXP "
+					+ "FROM ISTANZA_PERSONAGGIO NATURAL JOIN Appartiene NATURAL JOIN CLASSE");
+		} catch (SQLiteGdxException e) {
+			e.printStackTrace();
+		}
+
+		while (cursor.next()) {
+			tempChar = new CharacterData
+					.CharacterBuilder(cursor.getString(0), cursor.getInt(1))
+					.name(cursor.getString(2))
+					.sprite(cursor.getString(3))
+					.hpmp(cursor.getInt(4), cursor.getInt(5))
+					.atkdef(cursor.getInt(6), cursor.getInt(7))
+					.intagi(cursor.getInt(8), cursor.getInt(9))
+					.activeClass(cursor.getString(11), cursor.getInt(13), cursor.getInt(14))
+					.build();
+			charList.add(tempChar);
+			Gdx.app.log("DatabaseTest",charList.get(0).toString());
+			Gdx.app.log("DatabaseTest", String.valueOf(cursor.getInt(1)));
+		}
+
+
+		return charList;
+	}
 }

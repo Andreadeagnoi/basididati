@@ -75,7 +75,7 @@ public class ResPack {
 	public static final String t_CLASSE = "CLASSE";
 	public static final String q_CLASSE = "CREATE TABLE  if not exists CLASSE(\r\n" + 
 			"ID_Classe INTEGER PRIMARY KEY NOT NULL,\r\n" + 
-			"Nome VARCHAR(20) NOT NULL,\r\n" + 
+			"NomeClasse VARCHAR(20) NOT NULL,\r\n" + 
 			"LivelloMax INTEGER NOT NULL,\r\n" + 
 			"C_HP INTEGER NOT NULL,\r\n" + 
 			"C_MP INTEGER NOT NULL,\r\n" + 
