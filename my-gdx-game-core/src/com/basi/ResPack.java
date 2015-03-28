@@ -5,13 +5,18 @@ import java.util.Date;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Pixmap.Format;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 /** Class to load all assets for the game */
 public class ResPack {
 	//GameState
 	public static Date currentSave;
+
+	
 	
 	//UI
 	public static final Skin _SKIN = new Skin(Gdx.files.internal("skin/uiskin.json"));
@@ -23,9 +28,25 @@ public class ResPack {
 	public static final String EQUIP = "Equip";
 	public static final String SKILLS = "Tecniche";
 	public static final String INVENTORY = "Inventario";
+	public static final String PARTY = "Party";
+	public static final String NAME = "Nome";
 	
 	//Graphic Resources
 
+	/**
+	 * 
+	 * @param pixmapColor something like Color.desired color
+	 * @return a monochrome TextureRegionDrawable
+	 */
+	public static TextureRegionDrawable createMonocromeDrawable(Color pixmapColor) {
+		//create a pixmap to color the title row
+		Pixmap pm1 = new Pixmap(1, 1, Format.RGB565);
+		pm1.setColor(pixmapColor);
+		pm1.fill();
+		TextureRegionDrawable drawable = new TextureRegionDrawable(new TextureRegion(new Texture(pm1)));
+		return drawable;
+		
+	}
 	
 	//Database	
 	//Tables
@@ -291,4 +312,6 @@ public class ResPack {
 			");\r\n";
 	
 	public static final String DBCREATE = q_SALVATAGGIO ;
+
+	
 }	

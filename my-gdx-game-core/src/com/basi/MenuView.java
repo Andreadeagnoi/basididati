@@ -55,12 +55,8 @@ public class MenuView implements Screen{
 				title.setAlignment(Align.center);
 				titleRow.add(title);
 				
-				//create a pixmap to color the title row
-				Pixmap pm1 = new Pixmap(1, 1, Format.RGB565);
-				pm1.setColor(Color.GRAY);
-				pm1.fill();
 				
-				titleRow.setBackground(new TextureRegionDrawable(new TextureRegion(new Texture(pm1))));
+				titleRow.setBackground(ResPack.createMonocromeDrawable(Color.GRAY));
 				buttons.add(titleRow).colspan(2).width(600);
 				
 				buttons.row();
@@ -70,7 +66,7 @@ public class MenuView implements Screen{
 				status.addListener(new ClickListener(){
 					@Override 
 					public void clicked(InputEvent event, float x, float y){
-						
+						editor.setScreen(new StatusMenuView(editor));
 					}
 				});
 				buttons.add(status);
@@ -111,16 +107,16 @@ public class MenuView implements Screen{
 				stage.addActor(buttons);
 
 
-			}
+	}
 
-			@Override
-			public void render(float delta) {
-				Gdx.gl.glClearColor(0, 0, 0.2f, 1);
-				Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+	@Override
+	public void render(float delta) {
+		Gdx.gl.glClearColor(0, 0, 0.2f, 1);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-				stage.act();
-				stage.draw();
-			}
+		stage.act();
+		stage.draw();
+	}
 	@Override
 	public void resize(int width, int height) {
 		// TODO Auto-generated method stub

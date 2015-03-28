@@ -108,11 +108,7 @@ public class CharacterData {
 	}
 	@Override
 	public String toString() {
-		return "CharacterData [name=" + name + ", sprite=" + sprite
-				+ ", activeClass=" + activeClass + ", classLevel=" + classLevel
-				+ ", exp=" + exp + ", c_hp=" + c_hp + ", c_mp=" + c_mp
-				+ ", c_atk=" + c_atk + ", c_def=" + c_def + ", c_agi=" + c_agi
-				+ ", c_int=" + c_int + "]";
+		return this.getName();
 	}
 	
 	 public String getId_salvataggio() {
