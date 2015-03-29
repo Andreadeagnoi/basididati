@@ -9,5 +9,6 @@
 	<classpathentry exported="true" kind="lib" path="libs/gdx-1.5.4.jar" sourcepath="libs/gdx-sources-1.5.4.jar"/>
 	<classpathentry exported="true" kind="lib" path="libs/gdx-sources-1.5.4.jar"/>
 	<classpathentry exported="true" kind="lib" path="libs/com.badlogicgames.gdx/gdx-tools/1.5.3/845e8e7c2c2a3072901db18e076404ed8abaaa37/gdx-tools-1.5.3.jar"/>
+	<classpathentry kind="lib" path="libs/com.badlogicgames.gdx/gdx-freetype/1.5.3/f77c1547eca7c5f508367f7034a509677b157a8b/gdx-freetype-1.5.3.jar" sourcepath="C:/Users/Andrea/.sourceattacher/gdx-freetype-1.5.3-sources.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

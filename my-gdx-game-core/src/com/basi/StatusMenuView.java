@@ -6,10 +6,15 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.List;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -19,6 +24,8 @@ public class StatusMenuView implements Screen{
 	
 	private SadogashimaEditor editor;
 	private Stage stage;
+	private Skin uiSkin;
+	private Skin uiSkinReduced;
 	//TABLES
 	private Table statusMenuTable;
 	private Table party;
@@ -90,25 +97,26 @@ public class StatusMenuView implements Screen{
 	public void show() {
 		stage = new Stage();
 		Gdx.input.setInputProcessor(stage);	
+		skinBigFont();
 		//setup main table
 		//it will have a 9x7 base grid
-		statusMenuTable = new Table(ResPack._SKIN);
+		statusMenuTable = new Table(uiSkin);
 		statusMenuTable.setFillParent(true);
 				
-		statusMenuTitle = new Label(ResPack.STATUS, ResPack._SKIN);
+		statusMenuTitle = new Label(ResPack.STATUS, uiSkin);
 		statusMenuTable.add(statusMenuTitle).height(HEIGHT).colspan(2);
 		statusMenuTable.row();
 		statusMenuTable.setBackground(ResPack.createMonocromeDrawable(Color.GRAY));
 		
 		//setup party table
 		//it will occupy a space of 8x2 cells, with the head of 2x2 cells
-		party = new Table(ResPack._SKIN);
+		party = new Table(uiSkin);
 		party.defaults().width(WIDTH*2);
 		
-		partyTitle = new Label(ResPack.PARTY, ResPack._SKIN);
+		partyTitle = new Label(ResPack.PARTY, uiSkin);
 		party.add(partyTitle).height(HEIGHT*2).row();
 		//creating a list of character's data
-		partyList = new  List<CharacterData>(ResPack._SKIN);
+		partyList = new  List<CharacterData>(uiSkin);
 		partyList.setHeight(HEIGHT*6);
 		//set up the list of characters and the data of the first character of the list
 		partyArray = genTempCharacters();
@@ -129,93 +137,94 @@ public class StatusMenuView implements Screen{
 		
 		//specific character status table
 		//status tables setup
-		status = new Table(ResPack._SKIN);
-		charStats = new Table(ResPack._SKIN);
+		status = new Table(uiSkin);
+		charStats = new Table(uiSkin);
 		charStats.defaults().width(WIDTH).height(HEIGHT);
-		spriteTable = new Table(ResPack._SKIN);
+		spriteTable = new Table(uiSkin);
 		spriteTable.defaults().width(WIDTH).height(HEIGHT*4);
-		classStats = new Table(ResPack._SKIN);
+		classStats = new Table(uiSkin);
 		classStats.defaults().width(WIDTH).height(HEIGHT);
-		equipment = new Table(ResPack._SKIN);
+		equipment = new Table(uiSkin);
 		equipment.defaults().width(WIDTH).height(HEIGHT);
 		
 		
 		//define charStats content (4x4 cells)
 		//first row, name LV classLevel
-		t_charName = new Label(selectedChar.getName(), ResPack._SKIN);
-		charStats.add(t_charName).colspan(2);
-		l_classLevel = new Label(ResPack.LEVEL, ResPack._SKIN);
+		t_charName = new Label(selectedChar.getName(), uiSkin);
+		charStats.add(t_charName).colspan(2).align(Align.left);
+		l_classLevel = new Label(ResPack.LEVEL, uiSkin);
 		charStats.add(l_classLevel);
-		t_classLevel = new Label(String.valueOf(selectedChar.getClassLevel()), ResPack._SKIN);
+		t_classLevel = new Label(String.valueOf(selectedChar.getClassLevel()), uiSkin);
 		charStats.add(t_classLevel).row();
 		//second row, HP hp MP mp
-		l_hp = new Label(ResPack.HP, ResPack._SKIN);
+		l_hp = new Label(ResPack.HP, uiSkin);
 		charStats.add(l_hp);
-		t_hp = new Label(String.valueOf(selectedChar.getC_hp()), ResPack._SKIN);
+		t_hp = new Label(String.valueOf(selectedChar.getC_hp()), uiSkin);
 		charStats.add(t_hp);
-		l_mp = new Label(ResPack.MP, ResPack._SKIN);
+		l_mp = new Label(ResPack.MP, uiSkin);
 		charStats.add(l_mp);
-		t_mp = new Label(String.valueOf(selectedChar.getC_mp()), ResPack._SKIN);
+		t_mp = new Label(String.valueOf(selectedChar.getC_mp()), uiSkin);
 		charStats.add(t_mp).row();
 		//third row, ATK atk DEF def
-		l_atk = new Label(ResPack.ATK, ResPack._SKIN);
+		l_atk = new Label(ResPack.ATK, uiSkin);
 		charStats.add(l_atk);
-		t_atk = new Label(String.valueOf(selectedChar.getC_atk()), ResPack._SKIN);
+		t_atk = new Label(String.valueOf(selectedChar.getC_atk()), uiSkin);
 		charStats.add(t_atk);
-		l_def = new Label(ResPack.DEF, ResPack._SKIN);
+		l_def = new Label(ResPack.DEF, uiSkin);
 		charStats.add(l_def);
-		t_def = new Label(String.valueOf(selectedChar.getC_def()), ResPack._SKIN);
+		t_def = new Label(String.valueOf(selectedChar.getC_def()), uiSkin);
 		charStats.add(t_def).row();
 		//fourth row, INT int AGI agi
-		l_int = new Label(ResPack.INT, ResPack._SKIN);
+		l_int = new Label(ResPack.INT, uiSkin);
 		charStats.add(l_int);
-		t_int = new Label(String.valueOf(selectedChar.getC_int()), ResPack._SKIN);
+		t_int = new Label(String.valueOf(selectedChar.getC_int()), uiSkin);
 		charStats.add(t_int);
-		l_agi = new Label(ResPack.AGI, ResPack._SKIN);
+		l_agi = new Label(ResPack.AGI, uiSkin);
 		charStats.add(l_agi);
-		t_agi = new Label(String.valueOf(selectedChar.getC_agi()), ResPack._SKIN);
+		t_agi = new Label(String.valueOf(selectedChar.getC_agi()), uiSkin);
 		charStats.add(t_agi).row();
 		
 		//define class stats content (1x5)
 		//first (and only) row CLASS class EXP exp
-		l_className = new Label(ResPack.CLASS_NAME, ResPack._SKIN);
+		l_className = new Label(ResPack.CLASS_NAME, uiSkin);
 		classStats.add(l_className);
-		t_className = new Label(String.valueOf(selectedChar.getActiveClass()), ResPack._SKIN);
+		t_className = new Label(String.valueOf(selectedChar.getActiveClass()), uiSkin);
 		classStats.add(t_className).width(WIDTH*2);
-		l_classExp = new Label(ResPack.CLASS_EXP, ResPack._SKIN);
+		l_classExp = new Label(ResPack.CLASS_EXP, uiSkin);
 		classStats.add(l_classExp);
-		t_classExp = new Label(String.valueOf(selectedChar.getExp()), ResPack._SKIN);
+		t_classExp = new Label(String.valueOf(selectedChar.getExp()), uiSkin);
 		classStats.add(t_classExp).row();
 		
 		//define equipment content (3*5)
 		//first row EQUIPMENT
-		l_equipment = new Label(ResPack.EQUIPMENT, ResPack._SKIN);
-		classStats.add(l_equipment).colspan(4);
+		l_equipment = new Label(ResPack.EQUIPMENT, uiSkin);
+		classStats.add(l_equipment).colspan(4).align(Align.left);
 		//second row  ARM1 NULL NULL ARM2
 		//labels
-		l_arm1 = new Label(ResPack.ARM1, ResPack._SKIN);
+		
+		l_arm1 = new Label(ResPack.ARM1, uiSkinReduced);
 		equipment.add(l_arm1).width(WIDTH*2).height((int)(HEIGHT*3/10));
 		equipment.add().height((int)(HEIGHT*3/10));
-		l_body = new Label(ResPack.BODY, ResPack._SKIN);
+		l_body = new Label(ResPack.BODY, uiSkinReduced);
 		equipment.add(l_body).width(WIDTH*2).height((int)(HEIGHT*3/10)).row();
 		//fields
-		t_arm1 = new Label(String.valueOf(selectedChar.getArm1()), ResPack._SKIN);
+		t_arm1 = new Label(String.valueOf(selectedChar.getArm1()), uiSkin);
 		equipment.add(t_arm1).width(WIDTH*2).height((int)(HEIGHT*7/10));
 		equipment.add().height((int)(HEIGHT*7/10));
-		t_body = new Label(String.valueOf(selectedChar.getBody()), ResPack._SKIN);
+		t_body = new Label(String.valueOf(selectedChar.getBody()), uiSkin);
 		equipment.add(t_body).width(WIDTH*2).height((int)(HEIGHT*7/10)).row();	
 		//third row  ARM1 NULL NULL ARM2
 		//labels
-		l_arm2 = new Label(ResPack.ARM2, ResPack._SKIN);
+		l_arm2 = new Label(ResPack.ARM2, uiSkinReduced);
 		equipment.add(l_arm2).width(WIDTH*2).height((int)(HEIGHT*3/10));
 		equipment.add().height((int)(HEIGHT*3/10));
-		l_accessory = new Label(ResPack.ACCESSORY, ResPack._SKIN);
+		l_accessory = new Label(ResPack.ACCESSORY, uiSkinReduced);
 		equipment.add(l_accessory).width(WIDTH*2).height((int)(HEIGHT*3/10)).row();
 		//fields
-		t_arm2 = new Label(String.valueOf(selectedChar.getArm2()), ResPack._SKIN);
+		t_arm2 = new Label(String.valueOf(selectedChar.getArm2()), uiSkin);
 		equipment.add(t_arm2).width(WIDTH*2).height((int)(HEIGHT*7/10));
 		equipment.add().height((int)(HEIGHT*7/10));
-		t_accessory = new Label(String.valueOf(selectedChar.getAccessory()), ResPack._SKIN);
+		t_accessory = new Label(String.valueOf(selectedChar.getAccessory()), uiSkin);
 		equipment.add(t_accessory).width(WIDTH*2).height((int)(HEIGHT*7/10)).row();	
 		
 		
@@ -306,5 +315,22 @@ public class StatusMenuView implements Screen{
 		return partyArray;
 	}
 
+	private void skinBigFont() {
+		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("skin/soldier.ttf"));
+		FreeTypeFontParameter parameter = new FreeTypeFontParameter();
+		parameter.size = 36;
+		BitmapFont font20 = generator.generateFont(parameter); // font size 12 pixels
+		parameter.size = 12;
+		BitmapFont font10 = generator.generateFont(parameter);
+		generator.dispose(); // don't forget to dispose to avoid memory leaks!
+		uiSkin = new Skin();
+		uiSkin.add("myFont20",font20);
+		uiSkin.addRegions(new TextureAtlas(Gdx.files.internal("skin/uiskin.atlas")));
+		uiSkin.load(Gdx.files.internal("skin/uiskin20.json"));
+		uiSkinReduced = new Skin();
+		uiSkinReduced.add("myFont20",font10);
+		uiSkinReduced.addRegions(new TextureAtlas(Gdx.files.internal("skin/uiskin.atlas")));
+		uiSkinReduced.load(Gdx.files.internal("skin/uiskin20.json"));
+	}
 	
 }
