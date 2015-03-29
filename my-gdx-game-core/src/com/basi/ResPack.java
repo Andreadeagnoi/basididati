@@ -21,7 +21,7 @@ public class ResPack {
 	//UI
 	public static final Skin _SKIN = new Skin(Gdx.files.internal("skin/uiskin.json"));
 	
-	//Strings
+	//Strings (in Italian)
 	public static final String EDIT = "Modifica";
 	public static final String MENU = "Menu";
 	public static final String STATUS = "Status";
@@ -30,6 +30,21 @@ public class ResPack {
 	public static final String INVENTORY = "Inventario";
 	public static final String PARTY = "Party";
 	public static final String NAME = "Nome";
+	public static final String LEVEL = "Lv";
+	public static final String HP = "Pv";
+	public static final String MP = "Pm";
+	public static final String ATK = "Att";
+	public static final String DEF = "Dif";
+	public static final String INT = "Int";
+	public static final String AGI = "Agi";
+	public static final String CLASS_NAME = "Classe";
+	public static final String CLASS_EXP = "Esp";
+	public static final String EQUIPMENT = "Equipaggiamento";
+	public static final String ARM1 = "Arma primaria";
+	public static final String ARM2 = "Arma secondaria";
+	public static final String BODY = "Corpo";
+	public static final String ACCESSORY = "Accessorio";
+	
 	
 	//Graphic Resources
 
@@ -312,6 +327,10 @@ public class ResPack {
 			");\r\n";
 	
 	public static final String DBCREATE = q_SALVATAGGIO ;
+
+
+
+	
 
 	
 }	

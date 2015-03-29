@@ -23,6 +23,11 @@ public class CharacterData {
 	private int c_def;
 	private int c_agi;
 	private int c_int;
+	//equipment, temporary in strings
+	private String arm1;
+	private String arm2;
+	private String body;
+	private String accessory;
 
 	public CharacterData(CharacterBuilder builder) {
 		this.id_salvataggio = builder.id_salvataggio;
@@ -38,6 +43,10 @@ public class CharacterData {
 		this.c_def = builder.c_def;
 		this.c_agi = builder.c_agi;
 		this.c_int = builder.c_int;
+		this.arm1 = builder.arm1;
+		this.arm2 = builder.arm2;
+		this.body = builder.body;
+		this.accessory = builder.accessory;
 	}
 	
 	public String getName() {
@@ -127,6 +136,38 @@ public class CharacterData {
 		this.id_personaggio = id_personaggio;
 	}
 
+	public String getArm1() {
+		return arm1;
+	}
+
+	public void setArm1(String arm1) {
+		this.arm1 = arm1;
+	}
+
+	public String getArm2() {
+		return arm2;
+	}
+
+	public void setArm2(String arm2) {
+		this.arm2 = arm2;
+	}
+
+	public String getBody() {
+		return body;
+	}
+
+	public void setBody(String body) {
+		this.body = body;
+	}
+
+	public String getAccessory() {
+		return accessory;
+	}
+
+	public void setAccessory(String accessory) {
+		this.accessory = accessory;
+	}
+	
 	public static class CharacterBuilder {
 		
 		private String id_salvataggio;
@@ -145,6 +186,10 @@ public class CharacterData {
 		private int c_def;
 		private int c_agi;
 		private int c_int;
+		private String arm1;
+		private String arm2;
+		private String body;
+		private String accessory;
 
 		    public CharacterBuilder(String id_salvataggio, int id_personaggio) {
 		      this.id_salvataggio = id_salvataggio;
@@ -186,10 +231,19 @@ public class CharacterData {
 		    	return this;
 		    }
 
+		    public CharacterBuilder equip(String arm1, String arm2, String body, String accessory) {
+		    	this.arm1 = arm1;
+		    	this.arm2 = arm2;
+		    	this.body = body;
+		    	this.accessory = accessory;
+		    	return this;
+		    }
 		    public CharacterData build() {
 		      return new CharacterData(this);
 		    }
 	 }
+
+	
 	
 	
 	
