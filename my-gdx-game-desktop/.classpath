@@ -17,6 +17,7 @@
 	<classpathentry exported="true" kind="lib" path="libs/com.badlogicgames.gdx/gdx-platform/1.5.3/ca6446f72f86f99ae181da5d327094aa758f2023/gdx-platform-1.5.3-natives-desktop.jar"/>
 	<classpathentry exported="true" kind="lib" path="libs/com.badlogicgames.gdx/gdx-platform/1.5.3/692d7da06f9912797e759b8588564d83ae1644a6/gdx-platform-1.5.3-natives-x86.jar"/>
 	<classpathentry exported="true" kind="lib" path="libs/com.badlogicgames.gdx/gdx-platform/1.5.3/cbb1abd2bb354a93679fdb1c512244d53c3f16a4/gdx-platform-1.5.3-natives-ios.jar"/>
+	<classpathentry kind="lib" path="libs/com.badlogicgames.gdx/gdx-freetype-platform/1.5.3/7f1207c7f94912d317ae5e81d5ebc9d9262aabc0/gdx-freetype-platform-1.5.3-natives-desktop.jar"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
