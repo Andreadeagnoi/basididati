@@ -1,13 +1,15 @@
 package com.basi;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.HashMap;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.sql.Database;
 import com.badlogic.gdx.sql.DatabaseCursor;
 import com.badlogic.gdx.sql.DatabaseFactory;
 import com.badlogic.gdx.sql.SQLiteGdxException;
+import com.basi.Item.ConsumableItemData;
+import com.basi.Item.ItemData;
 
 /**
  * Note to self: be aware to when you save something on the db. Game data life
@@ -177,5 +179,15 @@ public class DBManager {
 
 
 		return charList;
+	}
+	
+	public void loadSavedData(){
+		ResPack.skills = new HashMap<String, Skill>();
+		ResPack.skills.put("1",new Skill.SkillBuilder(1).build());
+		ResPack.inventory = new HashMap<String, ItemData>();
+		ConsumableItemData tempItem = ResPack.itemType.new ConsumableItemData(1,"pozione","cura tot hp");
+		tempItem.setItemSkill(ResPack.skills.get("1"));
+		ResPack.inventory.put("1",(ItemData) tempItem );
+		Gdx.app.log("prova item",ResPack.inventory.get("1").toString());
 	}
 }

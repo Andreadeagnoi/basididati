@@ -1,12 +1,13 @@
 package com.basi;
 
 import java.util.Date;
+import java.util.HashMap;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Pixmap.Format;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -14,11 +15,15 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.basi.Item.ItemData;
 
 /** Class to load all assets for the game */
 public class ResPack {
 	//GameState
 	public static Date currentSave;
+	public static HashMap<String, Skill> skills;
+	public static HashMap<String, ItemData> inventory;
+	public static Item itemType = new Item();
 
 	
 	
@@ -83,6 +88,8 @@ public class ResPack {
 		return uiSkin;
 	}
 	//Database	
+	public static final DBManager db = new DBManager();
+	
 	//Tables
 	//I could make tables with a map maybe for future optimization
 	public static final String t_PERSONAGGIO = "PERSONAGGIO";

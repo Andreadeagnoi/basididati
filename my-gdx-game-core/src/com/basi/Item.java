@@ -69,6 +69,14 @@ public class Item{
 			itemSkill.use(objective);
 			setQuantity(getQuantity()-1);
 		}
+
+		@Override
+		public String toString() {
+			return "ConsumableItemData [itemSkill=" + itemSkill + ", quantity="
+					+ quantity + ", getId()=" + getId() + ", getName()="
+					+ getName() + ", getDescription()=" + getDescription()
+					+ "]";
+		}
 	}
 }
 

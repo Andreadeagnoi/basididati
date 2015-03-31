@@ -121,4 +121,11 @@ public class Skill {
 			return new Skill(this);
 		}
 	}
+
+
+	@Override
+	public String toString() {
+		return "Skill [id=" + id + ", name=" + name + ", description="
+				+ description + ", cost=" + cost + ", damage=" + damage + "]";
+	}
 }

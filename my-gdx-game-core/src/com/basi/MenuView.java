@@ -43,6 +43,9 @@ public class MenuView implements Screen{
 				stage = new Stage();
 				Gdx.input.setInputProcessor(stage);
 				
+				//Load save data from db
+				ResPack.db.loadSavedData();
+				
 				//Setting up the table containing the buttons
 				buttons = new Table(ResPack._SKIN);	
 				buttons.setFillParent(true);

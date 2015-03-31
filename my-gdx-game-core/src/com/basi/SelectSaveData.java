@@ -44,12 +44,12 @@ public class SelectSaveData implements Screen {
 	private TextField[] lastSaveTime;
 	private ScrollPane scroll;
 
-	private DBManager db;
+	
 
 
 	public SelectSaveData(final SadogashimaEditor editor) {
 		this.editor = editor;
-		db = new DBManager();
+		
 	}
 
 	@Override
@@ -67,7 +67,7 @@ public class SelectSaveData implements Screen {
 		scroll.setFillParent(true);
 
 		// initialize the saves data
-		ArrayList<SaveData> saveData = db.getSaves();
+		ArrayList<SaveData> saveData = ResPack.db.getSaves();
 		
 		//initialize textfields for the layout of the table
 		name = new TextField[saveData.size()];
@@ -100,7 +100,7 @@ public class SelectSaveData implements Screen {
 			public void clicked(InputEvent event, float x, float y){
 				final String saveName = genSaveName.getText();
 				if(!saveName.equals("")){
-					SaveData genSave = db.insertSave(saveName);
+					SaveData genSave = ResPack.db.insertSave(saveName);
 					table.add(new TextField(String.valueOf(genSave.getCreationTime()), ResPack._SKIN));
 					table.add(new TextField(genSave.getSaveName(), ResPack._SKIN));
 					table.add(new TextField(String.valueOf(genSave.getTotalPlayTime()), ResPack._SKIN)).width(150);
@@ -183,7 +183,7 @@ public class SelectSaveData implements Screen {
 		Date date = new Date();
 		String[][] tempSaveData = new String[nSaves][fieldsSave];
 		for (int row = 0; row < nSaves; row++) {
-			db.insertSaveTemp();
+			ResPack.db.insertSaveTemp();
 			tempSaveData[row][0] = "Salvataggio " + row;
 			tempSaveData[row][1] = "" + new Date(rng.nextLong());
 			tempSaveData[row][2] = "" + new Date(rng.nextLong());

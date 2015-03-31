@@ -99,6 +99,8 @@ public class StatusMenuView implements Screen{
 		Gdx.input.setInputProcessor(stage);	
 		uiSkin = ResPack.skinMenuFont(ResPack.MENU_FONT, 36);
 		uiSkinReduced = ResPack.skinMenuFont(ResPack.MENU_FONT, 12);
+
+		
 		//setup main table
 		//it will have a 9x7 base grid
 		statusMenuTable = new Table(uiSkin);
@@ -112,8 +114,8 @@ public class StatusMenuView implements Screen{
 		//setup party table
 		//it will occupy a space of 8x2 cells, with the head of 2x2 cells
 		party = new Table(uiSkin);
-		party.defaults().width(WIDTH*2);
-		
+		party.defaults().width(WIDTH*2);			
+		//partyTitle = new Label(ResPack.inventory.get("1").toString(), uiSkin); //test for loadSavedData()
 		partyTitle = new Label(ResPack.PARTY, uiSkin);
 		party.add(partyTitle).height(HEIGHT*2).row();
 		//creating a list of character's data
