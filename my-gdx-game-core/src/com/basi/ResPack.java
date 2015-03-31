@@ -7,7 +7,11 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Pixmap.Format;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
@@ -62,7 +66,22 @@ public class ResPack {
 		return drawable;
 		
 	}
-	
+	public static final String MENU_FONT = "skin/soldier.ttf";
+	public static Skin skinMenuFont(String fontPath, int fontSize) {
+		Skin uiSkin;
+		Skin uiSkinReduced;
+		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal(fontPath));
+		FreeTypeFontParameter parameter = new FreeTypeFontParameter();
+		parameter.size = fontSize;
+		BitmapFont myFont = generator.generateFont(parameter); // font size 12 pixels
+		parameter.size = 12;
+		generator.dispose(); // don't forget to dispose to avoid memory leaks!
+		uiSkin = new Skin();
+		uiSkin.add("myFont",myFont);
+		uiSkin.addRegions(new TextureAtlas(Gdx.files.internal("skin/uiskin.atlas")));
+		uiSkin.load(Gdx.files.internal("skin/uiskinMenu.json"));
+		return uiSkin;
+	}
 	//Database	
 	//Tables
 	//I could make tables with a map maybe for future optimization
@@ -327,6 +346,8 @@ public class ResPack {
 			");\r\n";
 	
 	public static final String DBCREATE = q_SALVATAGGIO ;
+	
+	
 
 
 

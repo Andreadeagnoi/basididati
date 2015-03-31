@@ -18,8 +18,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 public class SadogashimaEditor extends Game{
 	
-SpriteBatch batch;
-BitmapFont font;	
+public SpriteBatch batch;
+public BitmapFont font;	
 
 
 

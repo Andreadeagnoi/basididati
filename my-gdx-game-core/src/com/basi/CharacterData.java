@@ -1,7 +1,18 @@
 package com.basi;
 
 import java.util.Date;
-
+/**
+ * This class will be used to hold the data of the character in use.
+ * hp and mp are note directly saved in the db, they are only stored
+ * on memory because they are recovered when you save the game on the 
+ * save point.
+ * 
+ * MAXHP and MAXMP is calculated with class.hp,mp and character.hp,mp.
+ * For example MAXHP = PERSONAGGIO.HP * INUSO.LIVELLOCLASSE * 2 + CLASSE.HP * INUSO.LIVELLOCLASSE * 5 + TOTALE BONUS EQUIP
+ * And so on for atk,def,int,agi. H
+ * @author Andrea
+ *
+ */
 public class CharacterData {
 
 	// non me ne frega un cazzo della data, la tratto come stringa per
@@ -17,6 +28,8 @@ public class CharacterData {
 	private int classLevel;
 	private int exp;
 	// It would be better to have a Stats class
+	private int c_MaxHp;
+	private int c_MaxMp;
 	private int c_hp;
 	private int c_mp;
 	private int c_atk;
@@ -29,6 +42,7 @@ public class CharacterData {
 	private String body;
 	private String accessory;
 
+	
 	public CharacterData(CharacterBuilder builder) {
 		this.id_salvataggio = builder.id_salvataggio;
 		this.id_personaggio = builder.id_personaggio;
@@ -37,6 +51,8 @@ public class CharacterData {
 		this.activeClass = builder.activeClass;
 		this.classLevel = builder.classLevel;
 		this.exp = builder.exp;
+		this.setC_MaxHp(builder.c_MaxHp);
+		this.setC_MaxMp(builder.c_MaxMp);
 		this.c_hp = builder.c_hp;
 		this.c_mp = builder.c_mp;
 		this.c_atk = builder.c_atk;
@@ -168,6 +184,22 @@ public class CharacterData {
 		this.accessory = accessory;
 	}
 	
+	public int getC_MaxHp() {
+		return c_MaxHp;
+	}
+
+	public void setC_MaxHp(int c_MaxHp) {
+		this.c_MaxHp = c_MaxHp;
+	}
+
+	public int getC_MaxMp() {
+		return c_MaxMp;
+	}
+
+	public void setC_MaxMp(int c_MaxMp) {
+		this.c_MaxMp = c_MaxMp;
+	}
+
 	public static class CharacterBuilder {
 		
 		private String id_salvataggio;
@@ -180,6 +212,8 @@ public class CharacterData {
 		private int classLevel;
 		private int exp;
 		// It would be better to have a Stats class
+		private int c_MaxHp;
+		private int c_MaxMp;
 		private int c_hp;
 		private int c_mp;
 		private int c_atk;
@@ -218,6 +252,12 @@ public class CharacterData {
 		      this.c_mp = c_mp;
 		      return this;
 		    }
+		    
+		    public CharacterBuilder hpmpmax(int c_MaxHp, int c_MaxMp) {
+			      this.c_MaxHp = c_MaxHp;
+			      this.c_MaxMp = c_MaxMp;
+			      return this;
+			    }
 
 		    public CharacterBuilder atkdef(int c_atk, int c_def) {
 		      this.c_atk = c_atk;

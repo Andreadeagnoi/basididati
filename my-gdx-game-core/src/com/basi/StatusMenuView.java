@@ -6,12 +6,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.List;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -30,6 +28,7 @@ public class StatusMenuView implements Screen{
 	private Table statusMenuTable;
 	private Table party;
 	private Table status;
+	private Table charInfo;
 	private Table charStats;
 	private Table classStats;
 	private Table equipment;
@@ -63,6 +62,7 @@ public class StatusMenuView implements Screen{
 	private Label t_agi;	
 	//sprite table
 	private Label t_sprite;
+	private Image sprite;
 	//class stats table
 	private Label l_className;
 	private Label l_classExp;
@@ -97,7 +97,8 @@ public class StatusMenuView implements Screen{
 	public void show() {
 		stage = new Stage();
 		Gdx.input.setInputProcessor(stage);	
-		skinBigFont();
+		uiSkin = ResPack.skinMenuFont(ResPack.MENU_FONT, 36);
+		uiSkinReduced = ResPack.skinMenuFont(ResPack.MENU_FONT, 12);
 		//setup main table
 		//it will have a 9x7 base grid
 		statusMenuTable = new Table(uiSkin);
@@ -129,6 +130,7 @@ public class StatusMenuView implements Screen{
 			public void clicked(InputEvent event, float x, float y){
 				selectedChar = partyList.getSelected();
 				t_charName.setText(selectedChar.getName());
+				
 			}
 		});
 		
@@ -138,10 +140,11 @@ public class StatusMenuView implements Screen{
 		//specific character status table
 		//status tables setup
 		status = new Table(uiSkin);
+		charInfo = new Table(uiSkin);
 		charStats = new Table(uiSkin);
 		charStats.defaults().width(WIDTH).height(HEIGHT);
 		spriteTable = new Table(uiSkin);
-		spriteTable.defaults().width(WIDTH).height(HEIGHT*4);
+		spriteTable.defaults().width(WIDTH).height(HEIGHT*2);
 		classStats = new Table(uiSkin);
 		classStats.defaults().width(WIDTH).height(HEIGHT);
 		equipment = new Table(uiSkin);
@@ -183,6 +186,13 @@ public class StatusMenuView implements Screen{
 		charStats.add(l_agi);
 		t_agi = new Label(String.valueOf(selectedChar.getC_agi()), uiSkin);
 		charStats.add(t_agi).row();
+		
+		//define sprite content
+		Texture  texture = new Texture(Gdx.files.internal("data/inaho.png"));
+		sprite = new Image(texture);
+		sprite.setWidth(WIDTH);
+		sprite.setHeight(HEIGHT*2);
+		spriteTable.add(sprite);
 		
 		//define class stats content (1x5)
 		//first (and only) row CLASS class EXP exp
@@ -229,8 +239,10 @@ public class StatusMenuView implements Screen{
 		
 		
 		//build the status table
-		status.add(charStats);
-		status.add(spriteTable);
+		
+		charInfo.add(charStats);
+		charInfo.add(spriteTable);
+		status.add(charInfo);
 		status.row();
 		status.add(classStats);
 		status.row();
@@ -248,6 +260,7 @@ public class StatusMenuView implements Screen{
 		charStats.debug();
 		classStats.debug();
 		equipment.debug();
+		spriteTable.debug();
 		stage.addActor(statusMenuTable);
 		
 	}
@@ -315,22 +328,6 @@ public class StatusMenuView implements Screen{
 		return partyArray;
 	}
 
-	private void skinBigFont() {
-		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("skin/soldier.ttf"));
-		FreeTypeFontParameter parameter = new FreeTypeFontParameter();
-		parameter.size = 36;
-		BitmapFont font20 = generator.generateFont(parameter); // font size 12 pixels
-		parameter.size = 12;
-		BitmapFont font10 = generator.generateFont(parameter);
-		generator.dispose(); // don't forget to dispose to avoid memory leaks!
-		uiSkin = new Skin();
-		uiSkin.add("myFont20",font20);
-		uiSkin.addRegions(new TextureAtlas(Gdx.files.internal("skin/uiskin.atlas")));
-		uiSkin.load(Gdx.files.internal("skin/uiskin20.json"));
-		uiSkinReduced = new Skin();
-		uiSkinReduced.add("myFont20",font10);
-		uiSkinReduced.addRegions(new TextureAtlas(Gdx.files.internal("skin/uiskin.atlas")));
-		uiSkinReduced.load(Gdx.files.internal("skin/uiskin20.json"));
-	}
+	
 	
 }

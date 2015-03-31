@@ -9,6 +9,24 @@ import com.badlogic.gdx.sql.DatabaseCursor;
 import com.badlogic.gdx.sql.DatabaseFactory;
 import com.badlogic.gdx.sql.SQLiteGdxException;
 
+/**
+ * Note to self: be aware to when you save something on the db. Game data life
+ * cycle: 
+ * 1) When the game starts and a save is selected, all the pertaining
+ * information are loaded on memory. 
+ * 2) When some information are needed they
+ * will use the db, for example to check the equippable items. 
+ * 3) When you save first the information about the save are loaded in temporary structures, then
+ * the game will check if the save is different from the game data, and after
+ * that it will update the update.
+ * 
+ * OR
+ * 
+ * 
+ * 
+ * @author Andrea
+ *
+ */
 public class DBManager {
 	Database dbHandler;	
 
