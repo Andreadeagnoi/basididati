@@ -1,0 +1,6 @@
+1	guerriero	50	50	0	25	10	3	8
+2	mago_nero	40	30	50	0	5	30	15
+3	mago_bianco	40	35	50	0	3	25	20
+4	apprendista	20	20	30	0	1	10	5
+5	spadacino	50	50	10	30	5	5	15
+6	cacciatore	45	30	20	15	8	10	10

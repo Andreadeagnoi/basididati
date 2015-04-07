@@ -1,0 +1,4 @@
+stampanteEpson	goblin	un goblin a forma di stampante	sprite_stampanteEpson	10	0	1	1	0	1
+schermoLg	goblin	un goblin a froma di schermo	sprite_schermoLg	10	0	2	1	0	1
+tastieraTrust	goblin	un goblin a forma di tastiera	sprite_tastieraTrust	10	0	3	1	0	1
+mouseLogitech	goblin	un gobiln a forma di mouse	sprite_mouseLogitech	10	0	4	1	0	1

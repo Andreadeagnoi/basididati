@@ -1,0 +1,5 @@
+1	attaco_normale	attacco base di ogni persona	0	10
+2	fuoco_base	lancia una palla di fuoco	5	20
+3	acqua_base	lancia una palla di acqua	5	20
+4	terra_base	lancia una palla di terra	5	20
+5	fuoco_medio	piu potente di fuoco base	10	40
