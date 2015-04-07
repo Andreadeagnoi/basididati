@@ -310,22 +310,22 @@ public class StatusMenuView implements Screen{
 	private ArrayList<CharacterData> genTempCharacters() {
 		ArrayList<CharacterData> partyArray = new ArrayList<CharacterData>();
 		partyArray.add( new CharacterData
-				.CharacterBuilder("a", 0)
+				.CharacterBuilder(0)
 				.name("personaggio 1").build());
 		partyArray.add( new CharacterData
-				.CharacterBuilder("a", 0)
+				.CharacterBuilder(0)
 				.name("personaggio 2").build());
 		partyArray.add( new CharacterData
-				.CharacterBuilder("a", 0)
+				.CharacterBuilder(0)
 				.name("personaggio 3").build());
 		partyArray.add( new CharacterData
-				.CharacterBuilder("a", 0)
+				.CharacterBuilder(0)
 				.name("personaggio 4").build());
 		partyArray.add( new CharacterData
-				.CharacterBuilder("a", 0)
+				.CharacterBuilder(0)
 				.name("personaggio 5").build());
 		partyArray.add( new CharacterData
-				.CharacterBuilder("a", 0)
+				.CharacterBuilder(0)
 				.name("personaggio 6").build());
 		return partyArray;
 	}

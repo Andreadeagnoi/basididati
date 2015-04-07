@@ -18,8 +18,7 @@ public class CharacterData {
 	// non me ne frega un cazzo della data, la tratto come stringa per
 	// semplicità e fanculo sql e java
 	//private Date dataCreazione;
-	private String id_salvataggio;
-	private int id_personaggio;
+	private int id;
 
 	private String name;
 	private String sprite;
@@ -44,8 +43,8 @@ public class CharacterData {
 
 	
 	public CharacterData(CharacterBuilder builder) {
-		this.id_salvataggio = builder.id_salvataggio;
-		this.id_personaggio = builder.id_personaggio;
+		
+		this.id = builder.id_personaggio;
 		this.name = builder.name;
 		this.sprite = builder.sprite;
 		this.activeClass = builder.activeClass;
@@ -136,20 +135,12 @@ public class CharacterData {
 		return this.getName();
 	}
 	
-	 public String getId_salvataggio() {
-		return id_salvataggio;
+	public int getId() {
+		return id;
 	}
 
-	public void setId_salvataggio(String id_salvataggio) {
-		this.id_salvataggio = id_salvataggio;
-	}
-
-	public int getId_personaggio() {
-		return id_personaggio;
-	}
-
-	public void setId_personaggio(int id_personaggio) {
-		this.id_personaggio = id_personaggio;
+	public void setId(int id_personaggio) {
+		this.id = id_personaggio;
 	}
 
 	public String getArm1() {
@@ -202,7 +193,7 @@ public class CharacterData {
 
 	public static class CharacterBuilder {
 		
-		private String id_salvataggio;
+		
 		private int id_personaggio;
 
 		private String name;
@@ -225,8 +216,8 @@ public class CharacterData {
 		private String body;
 		private String accessory;
 
-		    public CharacterBuilder(String id_salvataggio, int id_personaggio) {
-		      this.id_salvataggio = id_salvataggio;
+		    public CharacterBuilder( int id_personaggio) {
+		      
 		      this.id_personaggio = id_personaggio;
 		    }
 		    

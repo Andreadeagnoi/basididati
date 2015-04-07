@@ -9,7 +9,9 @@ import com.badlogic.gdx.sql.DatabaseCursor;
 import com.badlogic.gdx.sql.DatabaseFactory;
 import com.badlogic.gdx.sql.SQLiteGdxException;
 import com.basi.Item.ConsumableItemData;
+import com.basi.Item.EquippableItemData;
 import com.basi.Item.ItemData;
+import com.basi.Item.KeyItemData;
 
 /**
  * Note to self: be aware to when you save something on the db. Game data life
@@ -147,6 +149,10 @@ public class DBManager {
 		return saveList;
 	}
 
+	/**
+	 * 
+	 * @return an ArrayList containing the characters data pertaining the current save
+	 */
 	public ArrayList<CharacterData> getParty() {
 		ArrayList<CharacterData> charList = new ArrayList<CharacterData>();
 		DatabaseCursor cursor = null;
@@ -157,14 +163,15 @@ public class DBManager {
 					+ "IP_HP, IP_MP ,IP_ATK, IP_DEF, IP_INT, IP_AGI, "
 					+ "ID_Classe, NomeClasse,"
 					+ "InUso, LivelloClasse, EXP "
-					+ "FROM ISTANZA_PERSONAGGIO NATURAL JOIN Appartiene NATURAL JOIN CLASSE");
+					+ "FROM ISTANZA_PERSONAGGIO NATURAL JOIN Appartiene NATURAL JOIN CLASSE"
+					+ "WHERE DataCreazione = " + ResPack.currentSave.toString()); //redefine toString or something to work with database
 		} catch (SQLiteGdxException e) {
 			e.printStackTrace();
 		}
 
 		while (cursor.next()) {
 			tempChar = new CharacterData
-					.CharacterBuilder(cursor.getString(0), cursor.getInt(1))
+					.CharacterBuilder(cursor.getInt(1))
 					.name(cursor.getString(2))
 					.sprite(cursor.getString(3))
 					.hpmp(cursor.getInt(4), cursor.getInt(5))
@@ -180,14 +187,89 @@ public class DBManager {
 
 		return charList;
 	}
+
+	/**
+	 * 
+	 * @return an ArrayList containing the items data pertaining the current save
+	 */
+	public ArrayList<ItemData> getInventory() {
+		ArrayList<ItemData> inventory = new ArrayList<ItemData>();
+		DatabaseCursor cursor = null;
+		ConsumableItemData tempConsumable;
+		EquippableItemData tempEquip;
+		KeyItemData tempKey;
+
+		try {
+			cursor = dbHandler.rawQuery("SELECT TipoOggetto, TipoEquip, DataCreazione, Id_Oggetto, "
+					+ "Nome, Sprite, Descrizione, Quantita"
+					+ "HP, MP ,ATK, DEF, INT, AGI, "
+					+ "FROM OGGETTO NATURAL JOIN Possiede"
+					+ "WHERE DataCreazione = " + ResPack.currentSave.toString()); //redefine toString or something to work with database
+		} catch (SQLiteGdxException e) {
+			e.printStackTrace();
+		}
+		
+		while (cursor.next()) {
+			if(cursor.getString(0).equals("Consumabile")){
+				tempConsumable = ResPack.itemType.new ConsumableItemData(cursor.getInt(3),cursor.getString(4),cursor.getString(6));
+				tempConsumable.setQuantity(cursor.getInt(7));
+				inventory.add(tempConsumable);
+			}
+			else if (cursor.getString(0).equals("Equipaggiabile")){
+				tempEquip = ResPack.itemType.new EquippableItemData(cursor.getInt(3),cursor.getString(4),cursor.getString(6));
+				tempEquip.setQuantity(cursor.getInt(7));
+				tempEquip.setI_hp(cursor.getInt(8));
+				tempEquip.setI_mp(cursor.getInt(8));
+				tempEquip.setI_atk(cursor.getInt(10));
+				tempEquip.setI_def(cursor.getInt(11));
+				tempEquip.setI_int(cursor.getInt(12));
+				tempEquip.setI_agi(cursor.getInt(13));
+				inventory.add(tempEquip);
+			}
+			else if (cursor.getString(0).equals("Chiave")){
+				
+			}
 	
+			Gdx.app.log("DatabaseTest",inventory.get(0).toString());
+			Gdx.app.log("DatabaseTest", String.valueOf(cursor.getInt(1)));
+		}
+		return inventory;
+	}
+	
+	/**
+	 * 
+	 * @return an ArrayList containing the skills data pertaining the current save
+	 */
+	public ArrayList<Skill> getSkills() {
+		ArrayList<Skill> skills = new ArrayList<Skill>();
+		
+		return skills;
+	}
+	
+	/**Fill the data structure containing save information, such as characters,items owned and item's owned skills.
+	 * 
+	 */
 	public void loadSavedData(){
+		
 		ResPack.skills = new HashMap<String, Skill>();
+		ArrayList<Skill> skills = getSkills();
+		for (Skill skill : skills) {
+			ResPack.skills.put(String.valueOf(skill.getId()), skill);
+		}
 		ResPack.skills.put("1",new Skill.SkillBuilder(1).build());
-		ResPack.inventory = new HashMap<String, ItemData>();
+		ArrayList<ItemData> inventory = getInventory();
+		for (ItemData item : inventory) {
+			ResPack.inventory.put(item);
+		}
+		//Load owned character's data
+		ResPack.party = new HashMap<String, CharacterData>();
+		ArrayList<CharacterData> party = getParty();
+		for (CharacterData character : party) {
+			ResPack.party.put(String.valueOf(character.getId()), character);
+		}
 		ConsumableItemData tempItem = ResPack.itemType.new ConsumableItemData(1,"pozione","cura tot hp");
 		tempItem.setItemSkill(ResPack.skills.get("1"));
-		ResPack.inventory.put("1",(ItemData) tempItem );
+		ResPack.inventory.put(tempItem );
 		Gdx.app.log("prova item",ResPack.inventory.get("1").toString());
 	}
 }

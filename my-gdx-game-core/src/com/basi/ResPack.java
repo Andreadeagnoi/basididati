@@ -15,14 +15,14 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.basi.Item.ItemData;
 
 /** Class to load all assets for the game */
 public class ResPack {
 	//GameState
 	public static Date currentSave;
 	public static HashMap<String, Skill> skills;
-	public static HashMap<String, ItemData> inventory;
+	public static Inventory inventory;
+	public static HashMap<String, CharacterData> party;
 	public static Item itemType = new Item();
 
 	
