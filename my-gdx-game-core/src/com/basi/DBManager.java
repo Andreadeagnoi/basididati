@@ -12,6 +12,7 @@ import com.basi.Item.ConsumableItemData;
 import com.basi.Item.EquippableItemData;
 import com.basi.Item.ItemData;
 import com.basi.Item.KeyItemData;
+import com.libgdx.tools.generateString;
 
 /**
  * Note to self: be aware to when you save something on the db. Game data life
@@ -100,6 +101,7 @@ public class DBManager {
 			dbHandler.execSQL(ResPack.q_OGGETTO);
 			dbHandler.execSQL(ResPack.q_STATO);
 			dbHandler.execSQL(ResPack.q_TECNICA);
+			dbHandler.execSQL(ResPack.q_NEMICO);
 			dbHandler.execSQL(ResPack.q_APPARTIENE);
 			dbHandler.execSQL(ResPack.q_CEDE);
 			dbHandler.execSQL(ResPack.q_EQUIPAGGIA);
@@ -272,4 +274,668 @@ public class DBManager {
 		ResPack.inventory.put(tempItem );
 		Gdx.app.log("prova item",ResPack.inventory.get("1").toString());
 	}
+	/**
+	 * given the tables data in txt format, i fill the db with that data.
+	 */
+	public void fillDB(){
+		String data ;
+		int i,j,p,col;
+		String[] rowData = new String[20];
+		//Insert characters
+		data = generateString.txtToString("tables/personaggio.txt");
+		i = 0;
+		j = 0;
+		p = 0;
+		col = 9;
+		while(i<data.length()){
+
+			while(p<col){
+				j = data.indexOf(9,i);
+				if(p == col-1){
+					j = data.indexOf(10, i);
+				}
+				rowData[p++] = data.substring(i, j);
+				i = j + 1;	
+			}
+			p = 0;
+
+			try {
+				dbHandler.execSQL("DELETE FROM PERSONAGGIO WHERE id_personaggio = " + rowData[0] );
+				//				dbHandler.execSQL("INSERT INTO PERSONAGGIO "
+				//						+ " VALUES (" 
+				//						+ rowData[0] + ",'"
+				//						+ rowData[1] + "','"
+				//						+ rowData[2] + "',"
+				//						+ rowData[3] + ","
+				//						+ rowData[4] + ","
+				//						+ rowData[5] + ","
+				//						+ rowData[6] + ","
+				//						+ rowData[7] + ","
+				//						+ rowData[8] + ")");
+			} catch (SQLiteGdxException e) {
+				e.printStackTrace();
+				return;
+			}
+
+		}
+
+		//Insert saves
+		data = generateString.txtToString("tables/salvataggio_giocatore.txt");
+		i = 0;
+		j = 0;
+		p = 0;
+		col = 4;
+		while(i<data.length()){
+
+			while(p<col){
+				j = data.indexOf(9,i);
+				if(p == col-1){
+					j = data.indexOf(10, i);
+				}
+				rowData[p++] = data.substring(i, j);
+				i = j + 1;	
+			}
+			p = 0;
+
+			try {
+				//dbHandler.execSQL("DELETE FROM SALVATAGGIO_GIOCATORE WHERE data_creazione = '" + rowData[0] +"'");
+				dbHandler.execSQL("INSERT INTO SALVATAGGIO_GIOCATORE "
+						+ " VALUES ('" 
+						+ rowData[0] + "','"
+						+ rowData[1] + "',"
+						+ rowData[2] + ",'"
+						+ rowData[3] +  "')");
+			} catch (SQLiteGdxException e) {
+				e.printStackTrace();
+				return;
+			}
+
+		}
+		
+		//Insert char_instance
+		data = generateString.txtToString("tables/istanza_personaggio.txt");
+		i = 0;
+		j = 0;
+		p = 0;
+		col = 10;
+		while(i<data.length()){
+
+			while(p<col){
+				j = data.indexOf(9,i);
+				if(p == col-1){
+					j = data.indexOf(10, i);
+				}
+				rowData[p++] = data.substring(i, j);
+				i = j + 1;	
+			}
+			p = 0;
+
+			try {
+				dbHandler.execSQL("INSERT INTO ISTANZA_PERSONAGGIO "
+						+ " VALUES (" 
+						+ rowData[0] + ",'"
+						+ rowData[1] + "','"
+						+ rowData[2] + "','"
+						+ rowData[3] + "',"
+						+ rowData[4] + ","
+						+ rowData[5] + ","
+						+ rowData[6] + ","
+						+ rowData[7] + ","
+						+ rowData[8] + ","
+						+ rowData[9] + ")");
+			} catch (SQLiteGdxException e) {
+				e.printStackTrace();
+				return;
+			}
+
+		}
+		
+		//Insert classes
+		data = generateString.txtToString("tables/classe.txt");
+		i = 0;
+		j = 0;
+		p = 0;
+		col = 9;
+		while(i<data.length()){
+
+			while(p<col){
+				j = data.indexOf(9,i);
+				if(p == col-1){
+					j = data.indexOf(10, i);
+				}
+				rowData[p++] = data.substring(i, j);
+				i = j + 1;	
+			}
+			p = 0;
+
+			try {
+				//dbHandler.execSQL("DELETE FROM CLASSE WHERE id_classe = " + rowData[0] );
+				dbHandler.execSQL("INSERT INTO CLASSE "
+						+ " VALUES (" 
+						+ rowData[0] + ",'"
+						+ rowData[1] + "',"
+						+ rowData[2] + ","
+						+ rowData[3] + ","
+						+ rowData[4] + ","
+						+ rowData[5] + ","
+						+ rowData[6] + ","
+						+ rowData[7] + ","
+						+ rowData[8] + ")");
+			} catch (SQLiteGdxException e) {
+				e.printStackTrace();
+				return;
+			}
+
+		}
+		
+		//Insert class_membership
+		data = generateString.txtToString("tables/appartiene.txt");
+		i = 0;
+		j = 0;
+		p = 0;
+		col = 6;
+		while(i<data.length()){
+
+			while(p<col){
+				j = data.indexOf(9,i);
+				if(p == col-1){
+					j = data.indexOf(10, i);
+				}
+				rowData[p++] = data.substring(i, j);
+				i = j + 1;	
+			}
+			p = 0;
+
+			try {
+				dbHandler.execSQL("INSERT INTO appartiene "
+						+ " VALUES (" 
+						+ rowData[0] + ",'"
+						+ rowData[1] + "',"
+						+ rowData[2] + ","
+						+ rowData[3] + ","
+						+ rowData[4] + ","
+						+ rowData[5] + ")");
+			} catch (SQLiteGdxException e) {
+				e.printStackTrace();
+				return;
+			}
+
+		}
+		
+		//Insert class promotion
+		data = generateString.txtToString("tables/promuove.txt");
+		i = 0;
+		j = 0;
+		p = 0;
+		col = 3;
+		while(i<data.length()){
+
+			while(p<col){
+				j = data.indexOf(9,i);
+				if(p == col-1){
+					j = data.indexOf(10, i);
+				}
+				rowData[p++] = data.substring(i, j);
+				i = j + 1;	
+			}
+			p = 0;
+
+			try {
+				dbHandler.execSQL("INSERT INTO promuove "
+						+ " VALUES (" 
+						+ rowData[0] + ","
+						+ rowData[1] + ","
+						+ rowData[2] + ")");
+			} catch (SQLiteGdxException e) {
+				e.printStackTrace();
+				return;
+			}
+		}
+
+		//Insert skills
+		data = generateString.txtToString("tables/tecnica.txt");
+		i = 0;
+		j = 0;
+		p = 0;
+		col = 5;
+		while(i<data.length()){
+
+			while(p<col){
+				j = data.indexOf(9,i);
+				if(p == col-1){
+					j = data.indexOf(10, i);
+				}
+				rowData[p++] = data.substring(i, j);
+				i = j + 1;	
+			}
+			p = 0;
+
+			try {
+				//dbHandler.execSQL("DELETE FROM tecnica WHERE id_tecnica = " + rowData[0] );
+				dbHandler.execSQL("INSERT INTO tecnica "
+						+ " VALUES (" 
+						+ rowData[0] + ",'"
+						+ rowData[1] + "','"
+						+ rowData[2] + "',"
+						+ rowData[3] + ","
+						+ rowData[4] + ")");
+			} catch (SQLiteGdxException e) {
+				e.printStackTrace();
+				return;
+			}
+
+		}
+		
+		//Insert skills teachings
+		data = generateString.txtToString("tables/impara.txt");
+		i = 0;
+		j = 0;
+		p = 0;
+		col = 3;
+		while(i<data.length()){
+
+			while(p<col){
+				j = data.indexOf(9,i);
+				if(p == col-1){
+					j = data.indexOf(10, i);
+				}
+				rowData[p++] = data.substring(i, j);
+				i = j + 1;	
+			}
+			p = 0;
+
+			try {
+				
+				dbHandler.execSQL("INSERT INTO impara "
+						+ " VALUES (" 
+						+ rowData[0] + ","
+						+ rowData[1] + ","
+						+ rowData[2] + ")");
+			} catch (SQLiteGdxException e) {
+				e.printStackTrace();
+				return;
+			}
+
+		}
+		
+		//Insert items
+		data = generateString.txtToString("tables/oggetto.txt");
+		i = 0;
+		j = 0;
+		p = 0;
+		col = 12;
+		while(i<data.length()){
+
+			while(p<col){
+				j = data.indexOf(9,i);
+				if(p == col-1){
+					j = data.indexOf(10, i);
+				}
+				rowData[p++] = data.substring(i, j);
+				i = j + 1;	
+			}
+			p = 0;
+
+			try {
+				//dbHandler.execSQL("DELETE FROM OGGETTO WHERE id_oggetto = " + rowData[0] );
+				//if equip_type is null i must delete the '' on NULL in the query
+				if(rowData[5].equals("NULL")) {
+				dbHandler.execSQL("INSERT INTO oggetto "
+						+ " VALUES (" 
+						+ rowData[0] + ",'"
+						+ rowData[1] + "','"
+						+ rowData[2] + "','"
+						+ rowData[3] + "','"
+						+ rowData[4] + "',"
+						+ rowData[5] + ","
+						+ rowData[6] + ","
+						+ rowData[7] + ","
+						+ rowData[8] + ","
+						+ rowData[9] + ","
+						+ rowData[10] + ","
+						+ rowData[11] + ")");
+				}
+				else {
+					dbHandler.execSQL("INSERT INTO oggetto "
+							+ " VALUES (" 
+							+ rowData[0] + ",'"
+							+ rowData[1] + "','"
+							+ rowData[2] + "','"
+							+ rowData[3] + "','"
+							+ rowData[4] + "','"
+							+ rowData[5] + "',"
+							+ rowData[6] + ","
+							+ rowData[7] + ","
+							+ rowData[8] + ","
+							+ rowData[9] + ","
+							+ rowData[10] + ","
+							+ rowData[11] + ")");
+				}
+			} catch (SQLiteGdxException e) {
+				e.printStackTrace();
+				return;
+			}
+
+		}
+
+		//Insert able to equip
+		data = generateString.txtToString("tables/equipaggiabile.txt");
+		i = 0;
+		j = 0;
+		p = 0;
+		col = 2;
+		while(i<data.length()){
+			while(p<col){
+				j = data.indexOf(9,i);
+				if(p == col-1){
+					j = data.indexOf(10, i);
+				}
+				rowData[p++] = data.substring(i, j);
+				i = j + 1;	
+			}
+			p = 0;
+
+			try {
+				dbHandler.execSQL("INSERT INTO equipaggiabile "
+						+ " VALUES (" 
+						+ rowData[0] + ","
+						+ rowData[1] + ")");
+
+			} catch (SQLiteGdxException e) {
+				e.printStackTrace();
+				return;
+			}
+
+		}
+		
+		//Insert  equips
+		data = generateString.txtToString("tables/equipaggia.txt");
+		i = 0;
+		j = 0;
+		p = 0;
+		col = 3;
+		while(i<data.length()){
+			while(p<col){
+				j = data.indexOf(9,i);
+				if(p == col-1){
+					j = data.indexOf(10, i);
+				}
+				rowData[p++] = data.substring(i, j);
+				i = j + 1;	
+			}
+			p = 0;
+
+			try {
+				dbHandler.execSQL("INSERT INTO equipaggia "
+						+ " VALUES (" 
+						+ rowData[0] + ",'"
+						+ rowData[1] + "',"
+						+ rowData[2] + ")");
+
+			} catch (SQLiteGdxException e) {
+				e.printStackTrace();
+				return;
+			}
+
+		}
+		
+		//Insert  owns
+		data = generateString.txtToString("tables/possiede.txt");
+		i = 0;
+		j = 0;
+		p = 0;
+		col = 3;
+		while(i<data.length()){
+			while(p<col){
+				j = data.indexOf(9,i);
+				if(p == col-1){
+					j = data.indexOf(10, i);
+				}
+				rowData[p++] = data.substring(i, j);
+				i = j + 1;	
+			}
+			p = 0;
+
+			try {
+				dbHandler.execSQL("INSERT INTO possiede "
+						+ " VALUES ('" 
+						+ rowData[0] + "',"
+						+ rowData[1] + ","
+						+ rowData[2] + ")");
+
+			} catch (SQLiteGdxException e) {
+				e.printStackTrace();
+				return;
+			}
+
+		}
+		
+		//Insert  requires
+		data = generateString.txtToString("tables/richiede.txt");
+		i = 0;
+		j = 0;
+		p = 0;
+		col = 3;
+		while(i<data.length()){
+			while(p<col){
+				j = data.indexOf(9,i);
+				if(p == col-1){
+					j = data.indexOf(10, i);
+				}
+				rowData[p++] = data.substring(i, j);
+				i = j + 1;	
+			}
+			p = 0;
+
+			try {
+				dbHandler.execSQL("INSERT INTO richiede "
+						+ " VALUES (" 
+						+ rowData[0] + ","
+						+ rowData[1] + ","
+						+ rowData[2] + ")");
+
+			} catch (SQLiteGdxException e) {
+				e.printStackTrace();
+				return;
+			}
+
+		}
+		
+		//Insert  status
+		data = generateString.txtToString("tables/stato.txt");
+		i = 0;
+		j = 0;
+		p = 0;
+		col = 3;
+		while(i<data.length()){
+			while(p<col){
+				j = data.indexOf(9,i);
+				if(p == col-1){
+					j = data.indexOf(10, i);
+				}
+				rowData[p++] = data.substring(i, j);
+				i = j + 1;	
+			}
+			p = 0;
+
+			try {
+				dbHandler.execSQL("INSERT INTO stato "
+						+ " VALUES ('" 
+						+ rowData[0] + "','"
+						+ rowData[1] + "','"
+						+ rowData[2] + "')");
+
+			} catch (SQLiteGdxException e) {
+				e.printStackTrace();
+				return;
+			}
+
+		}
+		
+		//Insert  modifies_t
+		data = generateString.txtToString("tables/modifica_t.txt");
+		i = 0;
+		j = 0;
+		p = 0;
+		col = 3;
+		while(i<data.length()){
+			while(p<col){
+				j = data.indexOf(9,i);
+				if(p == col-1){
+					j = data.indexOf(10, i);
+				}
+				rowData[p++] = data.substring(i, j);
+				i = j + 1;	
+			}
+			p = 0;
+
+			try {
+				dbHandler.execSQL("INSERT INTO modifica_t "
+						+ " VALUES (" 
+						+ rowData[0] + ",'"
+						+ rowData[1] + "',"
+						+ rowData[2] + ")");
+
+			} catch (SQLiteGdxException e) {
+				e.printStackTrace();
+				return;
+			}
+
+		}
+		
+		//Insert  enemy
+		data = generateString.txtToString("tables/nemico.txt");
+		i = 0;
+		j = 0;
+		p = 0;
+		col =10;
+		while(i<data.length()){
+			while(p<col){
+				j = data.indexOf(9,i);
+				if(p == col-1){
+					j = data.indexOf(10, i);
+				}
+				rowData[p++] = data.substring(i, j);
+				i = j + 1;	
+			}
+			p = 0;
+
+			try {
+				dbHandler.execSQL("INSERT INTO nemico "
+						+ " VALUES ('" 
+						+ rowData[0] + "','"
+						+ rowData[1] + "','"
+						+ rowData[2] + "','"
+						+ rowData[3] + "',"
+						+ rowData[4] + ","
+						+ rowData[5] + ","
+						+ rowData[6] + ","
+						+ rowData[7] + ","
+						+ rowData[8] + ","
+						+ rowData[9] + ")");
+
+			} catch (SQLiteGdxException e) {
+				e.printStackTrace();
+				return;
+			}
+
+		}
+
+		//Insert  uses
+		data = generateString.txtToString("tables/utilizza.txt");
+		i = 0;
+		j = 0;
+		p = 0;
+		col = 2;
+		while(i<data.length()){
+			while(p<col){
+				j = data.indexOf(9,i);
+				if(p == col-1){
+					j = data.indexOf(10, i);
+				}
+				rowData[p++] = data.substring(i, j);
+				i = j + 1;	
+			}
+			p = 0;
+
+			try {
+				dbHandler.execSQL("INSERT INTO utilizza "
+						+ " VALUES ('" 
+						+ rowData[0] + "',"
+						+ rowData[1] +  ")");
+
+			} catch (SQLiteGdxException e) {
+				e.printStackTrace();
+				return;
+			}
+
+		}
+		
+		//Insert  modifies_o
+		data = generateString.txtToString("tables/modifica_o.txt");
+		i = 0;
+		j = 0;
+		p = 0;
+		col = 3;
+		while(i<data.length()){
+			while(p<col){
+				j = data.indexOf(9,i);
+				if(p == col-1){
+					j = data.indexOf(10, i);
+				}
+				rowData[p++] = data.substring(i, j);
+				i = j + 1;	
+			}
+			p = 0;
+
+			try {
+				dbHandler.execSQL("INSERT INTO modifica_o "
+						+ " VALUES (" 
+						+ rowData[0] + ",'"
+						+ rowData[1] + "',"
+						+ rowData[2] + ")");
+
+			} catch (SQLiteGdxException e) {
+				e.printStackTrace();
+				return;
+			}
+
+		}
+		
+		//Insert  leaves
+		data = generateString.txtToString("tables/cede.txt");
+		i = 0;
+		j = 0;
+		p = 0;
+		col = 3;
+		while(i<data.length()){
+			while(p<col){
+				j = data.indexOf(9,i);
+				if(p == col-1){
+					j = data.indexOf(10, i);
+				}
+				rowData[p++] = data.substring(i, j);
+				i = j + 1;	
+			}
+			p = 0;
+
+			try {
+				dbHandler.execSQL("INSERT INTO cede "
+						+ " VALUES ('" 
+						+ rowData[0] + "',"
+						+ rowData[1] + ","
+						+ rowData[2] + ")");
+
+			} catch (SQLiteGdxException e) {
+				e.printStackTrace();
+				return;
+			}
+
+		}
+
+
+
+	}
+
+
 }

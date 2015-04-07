@@ -1,0 +1,7 @@
+1	pozione	sprite_pozione	cura 20 di vita	consumabile	NULL	NULL	NULL	NULL	NULL	NULL	NULL
+2	spada_legno	sprite_spada_l	spada di legno	equip	arma	0	0	10	0	0	0
+3	elmo_legno	sprite_elmo_l	elmo di legno	equip	testa	10	0	0	2	0	1
+4	armatura_legno	sprite_armatura_l	armatura di legno	equip	corpo	10	0	0	2	0	1
+5	chiave_porta	sprite_chiave_p	chiave della camera	chiave	NULL	NULL	NULL	NULL	NULL	NULL	NULL
+6	veleno	sprite_veleno	avvelena il nemico	consumabile	NULL	NULL	NULL	NULL	NULL	NULL	NULL
+7	paralizzante	sprite_paralizzante	paralizza il nemico	consumabile	NULL	NULL	NULL	NULL	NULL	NULL	NULL

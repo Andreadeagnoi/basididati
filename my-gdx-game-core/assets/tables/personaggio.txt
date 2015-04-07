@@ -1,0 +1,11 @@
+1	Eclipse	sprite_eclipse	50	20	20	25	9	10
+2	Luna	sprite_luna	30	50	8	10	20	15
+3	Indigo	sprite_indigo	35	35	10	10	15	15
+4	andrea	sprite_andrea	30	0	5	5	5	5
+5	Spero	sprite_spero	30	0	5	5	5	5
+6	Jiajie	sprite_jiajie	50	50	10	10	10	10
+7	PsVita	sprite_psvita	10	20	0	2	15	0
+8	Giorgio	sprite_giorgio	30	30	30	30	30	30
+9	Pippo	sprite_pippo	20	10	0	2	3	4
+10	Tizio	sprite_tizio	100	0	0	0	1	1
+11	Caio	sprite_caio	1	10	20	30	40	2

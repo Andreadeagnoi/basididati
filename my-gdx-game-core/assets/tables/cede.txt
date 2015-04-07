@@ -1,0 +1,5 @@
+stampanteEpson	1	1
+schermoLg	2	1
+tastieraTrust	3	1
+mouseLogitech	4	2
+mouseLogitech	5	1
