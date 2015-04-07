@@ -53,6 +53,9 @@ public class ResPack {
 	public static final String ARM2 = "Arma secondaria";
 	public static final String BODY = "Corpo";
 	public static final String ACCESSORY = "Accessorio";
+	public static final String CONSUMABLE = "Consumabile";
+	public static final String KEY = "Chiave";
+	
 	
 	
 	//Graphic Resources
@@ -353,7 +356,7 @@ public class ResPack {
 			");\r\n";
 	
 	public static final String DBCREATE = q_SALVATAGGIO ;
-	
+
 	
 
 

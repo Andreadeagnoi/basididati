@@ -5,6 +5,7 @@ public class Item{
 		private String name;
 		private String description;	
 		private int quantity;
+		private String Sprite;
 
 
 		public ItemData(int id, String name, String description) {
@@ -44,6 +45,14 @@ public class Item{
 
 		public void setQuantity(int quantity) {
 			this.quantity = quantity;
+		}
+
+		public String getSprite() {
+			return Sprite;
+		}
+
+		public void setSprite(String sprite) {
+			Sprite = sprite;
 		}
 
 

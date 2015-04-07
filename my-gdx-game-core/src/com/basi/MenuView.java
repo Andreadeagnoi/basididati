@@ -44,7 +44,7 @@ public class MenuView implements Screen{
 				Gdx.input.setInputProcessor(stage);
 				
 				//Load save data from db
-				ResPack.db.loadSavedData();
+				//ResPack.db.loadSavedData();
 				
 				//Setting up the table containing the buttons
 				buttons = new Table(ResPack._SKIN);	
@@ -102,6 +102,7 @@ public class MenuView implements Screen{
 				inventory.addListener(new ClickListener(){
 					@Override 
 					public void clicked(InputEvent event, float x, float y){
+						editor.setScreen(new InventoryMenuView(editor));
 						
 					}
 				});

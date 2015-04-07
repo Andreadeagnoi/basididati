@@ -202,7 +202,7 @@ public class DBManager {
 		try {
 			cursor = dbHandler.rawQuery("SELECT TipoOggetto, TipoEquip, DataCreazione, Id_Oggetto, "
 					+ "Nome, Sprite, Descrizione, Quantita"
-					+ "HP, MP ,ATK, DEF, INT, AGI, "
+					+ "HP, MP ,ATK, DEF, INT, AGI "
 					+ "FROM OGGETTO NATURAL JOIN Possiede"
 					+ "WHERE DataCreazione = " + ResPack.currentSave.toString()); //redefine toString or something to work with database
 		} catch (SQLiteGdxException e) {
