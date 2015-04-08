@@ -1,13 +1,13 @@
 package com.basi;
 
-public class Skill {
+public class SkillData {
 	int id;
 	String name;
 	String description;
 	int cost;
 	int damage;
 	
-	public Skill(SkillBuilder builder) {
+	public SkillData(SkillBuilder builder) {
 		this.id = builder.id;
 		this.name = builder.name;
 		this.description = builder.description;
@@ -117,8 +117,8 @@ public class Skill {
 			return this;
 		}
 		
-		public Skill build() {
-			return new Skill(this);
+		public SkillData build() {
+			return new SkillData(this);
 		}
 	}
 

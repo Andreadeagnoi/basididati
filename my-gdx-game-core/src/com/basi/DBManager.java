@@ -240,11 +240,29 @@ public class DBManager {
 	
 	/**
 	 * 
-	 * @return an ArrayList containing the skills data pertaining the current save
+	 * @return an ArrayList containing the skills data 
 	 */
-	public ArrayList<Skill> getSkills() {
-		ArrayList<Skill> skills = new ArrayList<Skill>();
-		
+	public ArrayList<SkillData> getSkills() {
+		ArrayList<SkillData> skills = new ArrayList<SkillData>();
+		SkillData tempSkill;
+		DatabaseCursor cursor = null ;
+		try {
+			cursor = dbHandler.rawQuery("SELECT *"
+					+ "FROM tecnica"); //redefine toString or something to work with database
+		} catch (SQLiteGdxException e) {
+			e.printStackTrace();
+		}
+		while (cursor.next()) {
+			
+				tempSkill = new SkillData
+							.SkillBuilder(cursor.getInt(0))
+							.name(cursor.getString(1))
+							.description(cursor.getString(2))
+							.cost(cursor.getInt(3))
+							.damage(cursor.getInt(4))
+							.build();
+				skills.add(tempSkill);
+		}
 		return skills;
 	}
 	
@@ -253,27 +271,23 @@ public class DBManager {
 	 */
 	public void loadSavedData(){
 		
-		ResPack.skills = new HashMap<String, Skill>();
-		ArrayList<Skill> skills = getSkills();
-		for (Skill skill : skills) {
+		ResPack.skills = new HashMap<String, SkillData>();
+		ArrayList<SkillData> skills = getSkills();
+		for (SkillData skill : skills) {
 			ResPack.skills.put(String.valueOf(skill.getId()), skill);
 		}
-		ResPack.skills.put("1",new Skill.SkillBuilder(1).build());
 		ArrayList<ItemData> inventory = getInventory();
 		for (ItemData item : inventory) {
 			ResPack.inventory.put(item);
 		}
-		//Load owned character's data
 		ResPack.party = new HashMap<String, CharacterData>();
 		ArrayList<CharacterData> party = getParty();
 		for (CharacterData character : party) {
 			ResPack.party.put(String.valueOf(character.getId()), character);
 		}
-		ConsumableItemData tempItem = ResPack.itemType.new ConsumableItemData(1,"pozione","cura tot hp");
-		tempItem.setItemSkill(ResPack.skills.get("1"));
-		ResPack.inventory.put(tempItem );
 		Gdx.app.log("prova item",ResPack.inventory.get("1").toString());
 	}
+	
 	/**
 	 * given the tables data in txt format, i fill the db with that data.
 	 */
@@ -300,18 +314,18 @@ public class DBManager {
 			p = 0;
 
 			try {
-				dbHandler.execSQL("DELETE FROM PERSONAGGIO WHERE id_personaggio = " + rowData[0] );
-				//				dbHandler.execSQL("INSERT INTO PERSONAGGIO "
-				//						+ " VALUES (" 
-				//						+ rowData[0] + ",'"
-				//						+ rowData[1] + "','"
-				//						+ rowData[2] + "',"
-				//						+ rowData[3] + ","
-				//						+ rowData[4] + ","
-				//						+ rowData[5] + ","
-				//						+ rowData[6] + ","
-				//						+ rowData[7] + ","
-				//						+ rowData[8] + ")");
+				//dbHandler.execSQL("DELETE FROM PERSONAGGIO WHERE id_personaggio = " + rowData[0] );
+								dbHandler.execSQL("INSERT INTO PERSONAGGIO "
+										+ " VALUES (" 
+										+ rowData[0] + ",'"
+										+ rowData[1] + "','"
+										+ rowData[2] + "',"
+										+ rowData[3] + ","
+										+ rowData[4] + ","
+										+ rowData[5] + ","
+										+ rowData[6] + ","
+										+ rowData[7] + ","
+										+ rowData[8] + ")");
 			} catch (SQLiteGdxException e) {
 				e.printStackTrace();
 				return;

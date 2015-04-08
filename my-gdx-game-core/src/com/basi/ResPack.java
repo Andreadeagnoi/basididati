@@ -19,8 +19,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 /** Class to load all assets for the game */
 public class ResPack {
 	//GameState
-	public static Date currentSave;
-	public static HashMap<String, Skill> skills;
+	public static String currentSave;
+	public static HashMap<String, SkillData> skills;
 	public static Inventory inventory;
 	public static HashMap<String, CharacterData> party;
 	public static Item itemType = new Item();

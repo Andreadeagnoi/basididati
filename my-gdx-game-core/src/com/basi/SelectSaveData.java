@@ -177,21 +177,21 @@ public class SelectSaveData implements Screen {
 
 	}
 
-	//method to test the link with the dbmanager
-	private String[][] genSaveData(int nSaves) {
-		Random rng = new Random();
-		Date date = new Date();
-		String[][] tempSaveData = new String[nSaves][fieldsSave];
-		for (int row = 0; row < nSaves; row++) {
-			ResPack.db.insertSaveTemp();
-			tempSaveData[row][0] = "Salvataggio " + row;
-			tempSaveData[row][1] = "" + new Date(rng.nextLong());
-			tempSaveData[row][2] = "" + new Date(rng.nextLong());
-			tempSaveData[row][3] = "" + rng.nextInt();
-		}
-		return tempSaveData;
-	}
-	
+//	//method to test the link with the dbmanager
+//	private String[][] genSaveData(int nSaves) {
+//		Random rng = new Random();
+//		Date date = new Date();
+//		String[][] tempSaveData = new String[nSaves][fieldsSave];
+//		for (int row = 0; row < nSaves; row++) {
+//			ResPack.db.insertSaveTemp();
+//			tempSaveData[row][0] = "Salvataggio " + row;
+//			tempSaveData[row][1] = "" + new Date(rng.nextLong());
+//			tempSaveData[row][2] = "" + new Date(rng.nextLong());
+//			tempSaveData[row][3] = "" + rng.nextInt();
+//		}
+//		return tempSaveData;
+//	}
+//	
 	
 	//method to randomly generate saves (not used anymore)
 //	private String[][] genRandomSaveData(int nSaves) {
@@ -214,10 +214,10 @@ public class SelectSaveData implements Screen {
 	 * @param row
 	 * @return
 	 */
-	private TextButton buttonRow(Date save_id, String mode) {
+	private TextButton buttonRow(String save_id, String mode) {
 		TextButton button = new TextButton(mode,ResPack._SKIN);
 		final String modeListener = mode;
-		final Date currentSaveId = save_id;
+		final String currentSaveId = save_id;
 	
 		button.addListener(new ClickListener(){
 			@Override 

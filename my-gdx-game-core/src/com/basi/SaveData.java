@@ -8,8 +8,8 @@ import java.util.Locale;
 
 public class SaveData {
 	
-	private Date creationTime;
-	private Date lastSaveTime;
+	private String creationTime;
+	private String lastSaveTime;
 	private int totalPlayTime;
 	private String saveName;
 	
@@ -20,19 +20,19 @@ public class SaveData {
 	 * @param saveName
 	 */
 	public SaveData(String creationTime, String lastSaveTime, int totalPlayTime,String saveName) {
-		this.creationTime = toDate(creationTime);
-		this.lastSaveTime = toDate(lastSaveTime);
+		this.creationTime = creationTime;
+		this.lastSaveTime = lastSaveTime;
 		this.totalPlayTime = totalPlayTime;
 		this.saveName = saveName;
 	}
 
-	public Date getCreationTime() {
+	public String getCreationTime() {
 		return creationTime;
 	}
-	public Date getLastSaveTime() {
+	public String getLastSaveTime() {
 		return lastSaveTime;
 	}
-	public void setLastSaveTime(Date lastSaveTime) {
+	public void setLastSaveTime(String lastSaveTime) {
 		this.lastSaveTime = lastSaveTime;
 	}
 	public int getTotalPlayTime() {
@@ -55,10 +55,10 @@ public class SaveData {
 				+ ", saveName=" + saveName + "]";
 	}
 	
-	private Date toDate(String stringDate) {
-		//Sql format 2015-03-21 11:28:35
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
-		LocalDateTime date = LocalDateTime.parse(stringDate, formatter);
-		return Date.from(date.atZone(ZoneId.systemDefault()).toInstant());
-		}
+//	private Date toDate(String stringDate) {
+//		//Sql format 2015-03-21 11:28:35
+//		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
+//		LocalDateTime date = LocalDateTime.parse(stringDate, formatter);
+//		return Date.from(date.atZone(ZoneId.systemDefault()).toInstant());
+//		}
 }

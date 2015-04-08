@@ -60,7 +60,7 @@ public class Item{
 
 	public class ConsumableItemData extends ItemData{
 
-		private Skill itemSkill;
+		private SkillData itemSkill;
 		
 
 		public ConsumableItemData(int id, String name, String description) {
@@ -68,11 +68,11 @@ public class Item{
 
 		}
 
-		public void setItemSkill(Skill skill){
+		public void setItemSkill(SkillData skill){
 			this.itemSkill = skill;
 		}
 
-		public Skill getItemSkill(){
+		public SkillData getItemSkill(){
 			return itemSkill;
 		}
 		
