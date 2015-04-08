@@ -122,7 +122,7 @@ public class StatusMenuView implements Screen{
 		partyList = new  List<CharacterData>(uiSkin);
 		partyList.setHeight(HEIGHT*6);
 		//set up the list of characters and the data of the first character of the list
-		partyArray = genTempCharacters();
+		partyArray = new ArrayList<CharacterData>(ResPack.party.values());
 		selectedChar = partyArray.get(0);
 		
 		partyList.setItems(partyArray.toArray(new CharacterData[partyArray.size()]));
@@ -132,7 +132,19 @@ public class StatusMenuView implements Screen{
 			public void clicked(InputEvent event, float x, float y){
 				selectedChar = partyList.getSelected();
 				t_charName.setText(selectedChar.getName());
-				
+				t_classLevel.setText(""+selectedChar.getClassLevel());
+				t_hp.setText(""+selectedChar.getC_hp());
+				t_mp.setText(""+selectedChar.getC_mp());
+				t_atk.setText(""+selectedChar.getC_atk());
+				t_def.setText(""+selectedChar.getC_def());
+				t_agi.setText(""+selectedChar.getC_agi());
+				t_int.setText(""+selectedChar.getC_int());
+				t_className.setText(selectedChar.getAccessory());
+				t_classExp.setText(""+selectedChar.getExp());
+				t_arm1.setText(selectedChar.getArm1());
+				t_arm2.setText(""+selectedChar.getArm2());
+				t_body.setText(""+selectedChar.getBody());
+				t_accessory.setText(""+selectedChar.getAccessory());
 			}
 		});
 		
@@ -307,28 +319,30 @@ public class StatusMenuView implements Screen{
 		
 	}
 	
-	private ArrayList<CharacterData> genTempCharacters() {
-		ArrayList<CharacterData> partyArray = new ArrayList<CharacterData>();
-		partyArray.add( new CharacterData
-				.CharacterBuilder(0)
-				.name("personaggio 1").build());
-		partyArray.add( new CharacterData
-				.CharacterBuilder(0)
-				.name("personaggio 2").build());
-		partyArray.add( new CharacterData
-				.CharacterBuilder(0)
-				.name("personaggio 3").build());
-		partyArray.add( new CharacterData
-				.CharacterBuilder(0)
-				.name("personaggio 4").build());
-		partyArray.add( new CharacterData
-				.CharacterBuilder(0)
-				.name("personaggio 5").build());
-		partyArray.add( new CharacterData
-				.CharacterBuilder(0)
-				.name("personaggio 6").build());
-		return partyArray;
-	}
+//	private ArrayList<CharacterData> genTempCharacters() {
+//		ArrayList<CharacterData> partyArray = new ArrayList<CharacterData>();
+//		partyArray.add( new CharacterData
+//				.CharacterBuilder(0)
+//				.name("personaggio 1").build());
+//		partyArray.add( new CharacterData
+//				.CharacterBuilder(0)
+//				.name("personaggio 2").build());
+//		partyArray.add( new CharacterData
+//				.CharacterBuilder(0)
+//				.name("personaggio 3").build());
+//		partyArray.add( new CharacterData
+//				.CharacterBuilder(0)
+//				.name("personaggio 4").build());
+//		partyArray.add( new CharacterData
+//				.CharacterBuilder(0)
+//				.name("personaggio 5").build());
+//		partyArray.add( new CharacterData
+//				.CharacterBuilder(0)
+//				.name("personaggio 6").build());
+//		return partyArray;
+//	}
+	
+
 
 	
 	

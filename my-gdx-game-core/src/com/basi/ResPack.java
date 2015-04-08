@@ -21,7 +21,7 @@ public class ResPack {
 	//GameState
 	public static String currentSave;
 	public static HashMap<String, SkillData> skills;
-	public static Inventory inventory;
+	public static Inventory inventory = new Inventory();
 	public static HashMap<String, CharacterData> party;
 	public static Item itemType = new Item();
 

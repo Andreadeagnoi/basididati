@@ -157,35 +157,81 @@ public class DBManager {
 	 */
 	public ArrayList<CharacterData> getParty() {
 		ArrayList<CharacterData> charList = new ArrayList<CharacterData>();
-		DatabaseCursor cursor = null;
-		CharacterData tempChar;
+		DatabaseCursor cursorCharacter = null;
+		DatabaseCursor cursorEquipment = null;
+		CharacterData tempChar = null;
 		
 		try {
-			cursor = dbHandler.rawQuery("SELECT DataCreazione, Id_personaggio, Nome, Sprite"
+			cursorCharacter = dbHandler.rawQuery("SELECT DataCreazione, Id_personaggio, Nome, Sprite,"
 					+ "IP_HP, IP_MP ,IP_ATK, IP_DEF, IP_INT, IP_AGI, "
 					+ "ID_Classe, NomeClasse,"
 					+ "InUso, LivelloClasse, EXP "
-					+ "FROM ISTANZA_PERSONAGGIO NATURAL JOIN Appartiene NATURAL JOIN CLASSE"
-					+ "WHERE DataCreazione = " + ResPack.currentSave.toString()); //redefine toString or something to work with database
+					+ "FROM ISTANZA_PERSONAGGIO NATURAL JOIN Appartiene NATURAL JOIN CLASSE "
+					+ "WHERE DataCreazione = '" + ResPack.currentSave + "'");
 		} catch (SQLiteGdxException e) {
 			e.printStackTrace();
 		}
-
-		while (cursor.next()) {
+		//build  the characters
+		while (cursorCharacter.next()) {
 			tempChar = new CharacterData
-					.CharacterBuilder(cursor.getInt(1))
-					.name(cursor.getString(2))
-					.sprite(cursor.getString(3))
-					.hpmp(cursor.getInt(4), cursor.getInt(5))
-					.atkdef(cursor.getInt(6), cursor.getInt(7))
-					.intagi(cursor.getInt(8), cursor.getInt(9))
-					.activeClass(cursor.getString(11), cursor.getInt(13), cursor.getInt(14))
-					.build();
-			charList.add(tempChar);
-			Gdx.app.log("DatabaseTest",charList.get(0).toString());
-			Gdx.app.log("DatabaseTest", String.valueOf(cursor.getInt(1)));
-		}
+					.CharacterBuilder(cursorCharacter.getInt(1))
+			.name(cursorCharacter.getString(2))
+			.sprite(cursorCharacter.getString(3))
+			.hpmp(cursorCharacter.getInt(4), cursorCharacter.getInt(5))
+			.atkdef(cursorCharacter.getInt(6), cursorCharacter.getInt(7))
+			.intagi(cursorCharacter.getInt(8), cursorCharacter.getInt(9))
+			.activeClass(cursorCharacter.getString(11), cursorCharacter.getInt(13), cursorCharacter.getInt(14))
+			.build();
+			//build the equipment
 
+			charList.add(tempChar);
+		}
+		cursorCharacter.close();
+		for (int i = 0; i < charList.size(); i++){
+			tempChar = charList.remove(i);
+			//get all the character's equipment
+			try {
+				cursorEquipment = dbHandler.rawQuery("SELECT oggetto.nome, tipoequip "
+						+ "FROM ISTANZA_PERSONAGGIO LEFT JOIN equipaggia ON ISTANZA_PERSONAGGIO.ID_PERSONAGGIO = EQUIPAGGIA.ID_PERSONAGGIO"
+						+ " LEFT JOIN oggetto ON EQUIPAGGIA.ID_OGGETTO = OGGETTO.ID_OGGETTO "
+						+ "WHERE equipaggia.DataCreazione = '" + ResPack.currentSave + "' "
+						+ "AND EQUIPAGGIA.id_personaggio = " + tempChar.getId());
+			} catch (SQLiteGdxException e) {
+				e.printStackTrace();
+			}
+			while (cursorEquipment.next()) {
+				if(cursorEquipment.getString(1).equals("arma")){
+					if(tempChar.getArm1() == null){
+						tempChar.setArm1(cursorEquipment.getString(0));
+					}
+					else {
+						tempChar.setArm2(cursorEquipment.getString(0));
+					}
+				}
+				else if (cursorEquipment.getString(1).equals("corpo")){
+					tempChar.setBody(cursorEquipment.getString(0));
+				}
+				else {
+					tempChar.setAccessory(cursorEquipment.getString(0));
+				}
+			}
+			if(tempChar.getAccessory()==null){
+				tempChar.setAccessory("");
+			}
+			if(tempChar.getArm1()==null){
+				tempChar.setArm1("");
+			}
+			if(tempChar.getArm2()==null){
+				tempChar.setArm2("");
+			}
+			if(tempChar.getBody()==null){
+				tempChar.setBody("");
+			}
+			cursorEquipment.close();
+			charList.add(i, tempChar);
+			
+		}
+		
 
 		return charList;
 	}
@@ -203,21 +249,21 @@ public class DBManager {
 
 		try {
 			cursor = dbHandler.rawQuery("SELECT TipoOggetto, TipoEquip, DataCreazione, Id_Oggetto, "
-					+ "Nome, Sprite, Descrizione, Quantita"
+					+ "Nome, Sprite, Descrizione, Quantita,"
 					+ "HP, MP ,ATK, DEF, INT, AGI "
-					+ "FROM OGGETTO NATURAL JOIN Possiede"
-					+ "WHERE DataCreazione = " + ResPack.currentSave.toString()); //redefine toString or something to work with database
+					+ "FROM OGGETTO NATURAL JOIN Possiede "
+					+ "WHERE DataCreazione = '" + ResPack.currentSave + "'");
 		} catch (SQLiteGdxException e) {
 			e.printStackTrace();
 		}
 		
 		while (cursor.next()) {
-			if(cursor.getString(0).equals("Consumabile")){
+			if(cursor.getString(0).equals("consumabile")){
 				tempConsumable = ResPack.itemType.new ConsumableItemData(cursor.getInt(3),cursor.getString(4),cursor.getString(6));
 				tempConsumable.setQuantity(cursor.getInt(7));
 				inventory.add(tempConsumable);
 			}
-			else if (cursor.getString(0).equals("Equipaggiabile")){
+			else if (cursor.getString(0).equals("equip")){
 				tempEquip = ResPack.itemType.new EquippableItemData(cursor.getInt(3),cursor.getString(4),cursor.getString(6));
 				tempEquip.setQuantity(cursor.getInt(7));
 				tempEquip.setI_hp(cursor.getInt(8));
@@ -228,7 +274,7 @@ public class DBManager {
 				tempEquip.setI_agi(cursor.getInt(13));
 				inventory.add(tempEquip);
 			}
-			else if (cursor.getString(0).equals("Chiave")){
+			else if (cursor.getString(0).equals("chiave")){
 				
 			}
 	
@@ -247,7 +293,7 @@ public class DBManager {
 		SkillData tempSkill;
 		DatabaseCursor cursor = null ;
 		try {
-			cursor = dbHandler.rawQuery("SELECT *"
+			cursor = dbHandler.rawQuery("SELECT * "
 					+ "FROM tecnica"); //redefine toString or something to work with database
 		} catch (SQLiteGdxException e) {
 			e.printStackTrace();
