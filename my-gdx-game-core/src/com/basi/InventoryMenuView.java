@@ -1,5 +1,7 @@
 package com.basi;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
@@ -15,17 +17,21 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.basi.Item.ItemData;
 
 public class InventoryMenuView implements Screen{
 
 	private SadogashimaEditor editor;
 	private Stage stage;
 	private Skin uiSkin;
+	private Skin uiSkinReduced;
+	private String currentTab;
 	//CONSTANTS FOR TABLES
 	private static final int WIDTH = 160;
 	private static final int HEIGHT = 80;
 	//TABLES
 	private Table inventoryTable;
+	private Table titleRow;
 	private Table tabTable;
 	private Table itemListTable;
 	private Table itemInfoTable;
@@ -33,14 +39,22 @@ public class InventoryMenuView implements Screen{
 	private Table charInfo;
 
 	//InventoryTable
+	//title table
+	
 	private Label l_inventory;
+	private Texture backTexture;
+	private ImageButton backToMenu;
+	//tab table
 	private Label consumableTag;
 	private Label equipTag;
 	private Label keyTag;
-	private Skin uiSkinReduced;
-	private Table titleRow;
-	private Texture backTexture;
-	private ImageButton backToMenu;
+	private boolean changedTab;
+	//items table
+	
+	//data structures
+	private ArrayList<ItemData> currentItems;
+	
+	
 
 
 	public InventoryMenuView(final SadogashimaEditor editor) {
@@ -81,8 +95,9 @@ public class InventoryMenuView implements Screen{
 		
 		//setup tabs and list table
 		//it will occupy 6x5 cells
-		tabTable = new Table(uiSkin);
-		
+		//setup tabs table
+		//it will occupy 1x5 cells
+		tabTable = new Table(uiSkin);		
 		tabTable.defaults().width(WIDTH).height(HEIGHT);
 		
 		consumableTag = new Label(ResPack.CONSUMABLE, uiSkinReduced);
@@ -93,6 +108,14 @@ public class InventoryMenuView implements Screen{
 		tabTable.add(equipTag);
 		tabTable.add(keyTag); 
 		tabTable.row();
+		
+		//setup item list table
+		//it will occupy 5x5 cells
+		itemListTable = new Table(uiSkin);
+		itemListTable.defaults().width(WIDTH).height(HEIGHT);
+		currentTab = "consumable";
+		
+		tabTable.add(itemListTable).height(HEIGHT*5);
 		
 		inventoryTable.debug();
 		tabTable.debug();
@@ -107,6 +130,9 @@ public class InventoryMenuView implements Screen{
 		Gdx.gl.glClearColor(0, 0, 0.2f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+		if(changedTab){
+			fillItemList();
+		}
 		stage.act();
 		stage.draw();
 	}
@@ -139,6 +165,12 @@ public class InventoryMenuView implements Screen{
 	public void dispose() {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	private void fillItemList(){
+		if(currentTab.equals("consumables")){
+			currentItems = ResPack.inventory.
+		}
 	}
 
 }

@@ -1,5 +1,7 @@
 package com.basi;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 
 import com.basi.Item.ConsumableItemData;
@@ -85,6 +87,29 @@ public class Inventory {
 		return null;
 		
 	}
+	
+	/**
+	 * 
+	 * @param itemType the desired items type array
+	 * @return an arrayList of ItemData containing all the items of the specified itemType
+	 */
+	public ArrayList<ItemData> toArrayList(String itemType){
+		ArrayList<ItemData> itemList = null;
+		if(itemType.equals("consumable")){
+			Collection<ConsumableItemData> consumables = this.consumables.values();
+			for(ItemData item : consumables){
+				itemList.add(item);
+			}
+			return itemList;
+			
+		} 
+		if(itemType.equals("equip")){
+			return itemList;
+		}
+		if(itemType.equals("key")){
+			return itemList;
+		}
+		
 	
 	
 }
