@@ -4,18 +4,21 @@ import java.util.ArrayList;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.Texture.TextureFilter;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.List;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 public class StatusMenuView implements Screen{
 
@@ -26,6 +29,7 @@ public class StatusMenuView implements Screen{
 	private Skin uiSkinReduced;
 	//TABLES
 	private Table statusMenuTable;
+	private Table titleRow;
 	private Table party;
 	private Table status;
 	private Table charInfo;
@@ -39,6 +43,7 @@ public class StatusMenuView implements Screen{
 	//FIELDS
 	//StatusMenuTable
 	private Label statusMenuTitle;
+	private ImageButton backToMenu;
 	//party table
 	private Label partyTitle;
 	private List<CharacterData> partyList;
@@ -86,6 +91,7 @@ public class StatusMenuView implements Screen{
 	private ArrayList<CharacterData> partyArray;
 	private ArrayList<String> nameList; //list of the party's names
 	private CharacterData selectedChar;
+	private Texture backTexture;
 	
 	
 	public StatusMenuView(final SadogashimaEditor editor) {
@@ -101,15 +107,31 @@ public class StatusMenuView implements Screen{
 		uiSkinReduced = ResPack.skinMenuFont(ResPack.MENU_FONT, 12);
 
 		
-		//setup main table
+		//setup main table	
 		//it will have a 9x7 base grid
 		statusMenuTable = new Table(uiSkin);
 		statusMenuTable.setFillParent(true);
-				
+			
+		titleRow = new Table(uiSkin);
+		
+		backTexture = new Texture(Gdx.files.internal("data/back_button.png")); 
+		backTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		backToMenu = new ImageButton( new TextureRegionDrawable(new TextureRegion(backTexture)));
+		backToMenu.addListener(new ClickListener(){
+			@Override
+			public void clicked(InputEvent event, float x, float y){
+				editor.setScreen(new MenuView(editor));
+			}
+		});
+		titleRow.add(backToMenu).width(WIDTH).height(HEIGHT);
+		
 		statusMenuTitle = new Label(ResPack.STATUS, uiSkin);
-		statusMenuTable.add(statusMenuTitle).height(HEIGHT).colspan(2);
+		titleRow.add(statusMenuTitle).height(HEIGHT);
+		
+		statusMenuTable.add(titleRow);
 		statusMenuTable.row();
-		statusMenuTable.setBackground(ResPack.createMonocromeDrawable(Color.GRAY));
+		statusMenuTable.setBackground( new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("data/background.png")))));
+		// new Texture(Gdx.files.internal("background.png"));
 		
 		//setup party table
 		//it will occupy a space of 8x2 cells, with the head of 2x2 cells
@@ -269,12 +291,13 @@ public class StatusMenuView implements Screen{
 		
 		
 		//drawing debug lines
-		statusMenuTable.debug();
-		party.debug();
-		charStats.debug();
-		classStats.debug();
-		equipment.debug();
-		spriteTable.debug();
+//		statusMenuTable.debug();
+//		party.debug();
+//		charStats.debug();
+//		classStats.debug();
+//		equipment.debug();
+//		spriteTable.debug();
+		
 		stage.addActor(statusMenuTable);
 		
 	}
