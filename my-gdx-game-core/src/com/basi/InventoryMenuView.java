@@ -4,10 +4,17 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.Texture.TextureFilter;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 public class InventoryMenuView implements Screen{
 
@@ -31,6 +38,9 @@ public class InventoryMenuView implements Screen{
 	private Label equipTag;
 	private Label keyTag;
 	private Skin uiSkinReduced;
+	private Table titleRow;
+	private Texture backTexture;
+	private ImageButton backToMenu;
 
 
 	public InventoryMenuView(final SadogashimaEditor editor) {
@@ -49,9 +59,23 @@ public class InventoryMenuView implements Screen{
 		//it will have a 9x7 base grid
 		inventoryTable = new Table(uiSkin);
 		inventoryTable.setFillParent(true);
-
+		titleRow = new Table(uiSkin);
+		//add back button
+		backTexture = new Texture(Gdx.files.internal("data/back_button.png")); 
+		backTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		backToMenu = new ImageButton( new TextureRegionDrawable(new TextureRegion(backTexture)));
+		backToMenu.addListener(new ClickListener(){
+			@Override
+			public void clicked(InputEvent event, float x, float y){
+				editor.setScreen(new MenuView(editor));
+			}
+		});
+		titleRow.add(backToMenu).width(WIDTH).height(HEIGHT);
+		//add title
 		l_inventory = new Label(ResPack.INVENTORY, uiSkin);
-		inventoryTable.add(l_inventory).height(HEIGHT).colspan(2);
+		titleRow.add(l_inventory);
+		
+		inventoryTable.add(titleRow).height(HEIGHT);
 		inventoryTable.row();
 		inventoryTable.setBackground(ResPack.createMonocromeDrawable(Color.GRAY));
 		
