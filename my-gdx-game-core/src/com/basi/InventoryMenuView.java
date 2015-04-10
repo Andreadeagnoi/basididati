@@ -15,9 +15,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.basi.Item.ConsumableItemData;
 import com.basi.Item.ItemData;
 
 public class InventoryMenuView implements Screen{
@@ -102,8 +102,37 @@ public class InventoryMenuView implements Screen{
 		tabTable.defaults().width(WIDTH).height(HEIGHT);
 		
 		consumableTag = new Label(ResPack.CONSUMABLE, uiSkinReduced);
+		consumableTag.addListener(new ClickListener(){
+			@Override
+			public void clicked(InputEvent event, float x, float y){
+				if(!currentTab.equals("consumables")){
+					currentTab = "consumables";
+					fillItemList();
+				}		
+			}
+		});
+		
 		equipTag = new Label(ResPack.EQUIP,uiSkinReduced);
+		equipTag.addListener(new ClickListener(){
+			@Override
+			public void clicked(InputEvent event, float x, float y){
+				if(!currentTab.equals("equips")){
+					currentTab = "equips";
+					fillItemList();
+				}		
+			}
+		});
+		
 		keyTag = new Label(ResPack.KEY, uiSkinReduced);
+		keyTag.addListener(new ClickListener(){
+			@Override
+			public void clicked(InputEvent event, float x, float y){
+				if(!currentTab.equals("keys")){
+					currentTab = "keys";
+					fillItemList();
+				}		
+			}
+		});
 		
 		tabTable.add(consumableTag);
 		tabTable.add(equipTag);
@@ -113,6 +142,7 @@ public class InventoryMenuView implements Screen{
 		//setup item list table
 		//it will occupy 5x5 cells
 		itemListTable = new Table(uiSkin);
+		itemListTable.top();
 		itemListTable.defaults().width(WIDTH).height(HEIGHT);
 		currentTab = "consumables";
 		fillItemList();
@@ -121,6 +151,7 @@ public class InventoryMenuView implements Screen{
 		
 		inventoryTable.debug();
 		tabTable.debug();
+		itemListTable.debug();
 		//Add actors to stage
 		inventoryTable.add(tabTable);
 		stage.addActor(inventoryTable);
@@ -170,14 +201,25 @@ public class InventoryMenuView implements Screen{
 	}
 	
 	private void fillItemList(){
-		
-		if(currentTab.equals("consumables")){
-			currentItems = ResPack.inventory.toArrayList("consumables");
-		}
-		
+		itemListTable.clear();
+		currentItems = ResPack.inventory.toArrayList(currentTab);
+		boolean colonnaDestra = false;
 		for(ItemData item : currentItems){
-			itemListTable.add(new Label(item.getName(),uiSkin));
+			itemListTable.add(new Label(item.getName(),uiSkin)).width(WIDTH*2);
+			
+			if (!colonnaDestra){
+				itemListTable.add().width(WIDTH);
+			}
+			else {
+				itemListTable.row();
+			}
+			
+			colonnaDestra = !colonnaDestra;
 		}
+		if(colonnaDestra){
+			itemListTable.add().width(WIDTH*2);
+		}
+		
 	}
 
 }

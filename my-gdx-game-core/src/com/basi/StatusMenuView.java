@@ -161,7 +161,7 @@ public class StatusMenuView implements Screen{
 				t_def.setText(""+selectedChar.getC_def());
 				t_agi.setText(""+selectedChar.getC_agi());
 				t_int.setText(""+selectedChar.getC_int());
-				t_className.setText(selectedChar.getAccessory());
+				t_className.setText(selectedChar.getActiveClass());
 				t_classExp.setText(""+selectedChar.getExp());
 				t_arm1.setText(selectedChar.getArm1());
 				t_arm2.setText(""+selectedChar.getArm2());
