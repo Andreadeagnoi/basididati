@@ -17,6 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.basi.Item.ConsumableItemData;
 import com.basi.Item.ItemData;
 
 public class InventoryMenuView implements Screen{
@@ -113,9 +114,10 @@ public class InventoryMenuView implements Screen{
 		//it will occupy 5x5 cells
 		itemListTable = new Table(uiSkin);
 		itemListTable.defaults().width(WIDTH).height(HEIGHT);
-		currentTab = "consumable";
+		currentTab = "consumables";
+		fillItemList();
 		
-		tabTable.add(itemListTable).height(HEIGHT*5);
+		tabTable.add(itemListTable).height(HEIGHT*5).width(WIDTH*5);
 		
 		inventoryTable.debug();
 		tabTable.debug();
@@ -168,8 +170,13 @@ public class InventoryMenuView implements Screen{
 	}
 	
 	private void fillItemList(){
+		
 		if(currentTab.equals("consumables")){
-			currentItems = ResPack.inventory.
+			currentItems = ResPack.inventory.toArrayList("consumables");
+		}
+		
+		for(ItemData item : currentItems){
+			itemListTable.add(new Label(item.getName(),uiSkin));
 		}
 	}
 

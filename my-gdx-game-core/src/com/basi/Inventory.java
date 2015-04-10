@@ -94,22 +94,49 @@ public class Inventory {
 	 * @return an arrayList of ItemData containing all the items of the specified itemType
 	 */
 	public ArrayList<ItemData> toArrayList(String itemType){
-		ArrayList<ItemData> itemList = null;
-		if(itemType.equals("consumable")){
-			Collection<ConsumableItemData> consumables = this.consumables.values();
+		ArrayList<ItemData> itemList = new ArrayList<ItemData>();
+		Collection<ConsumableItemData> consumables;
+		Collection<EquippableItemData> equips; 
+		Collection<KeyItemData> keys; 
+		
+		if(itemType.equals("consumables")){
+			consumables = this.consumables.values();
 			for(ItemData item : consumables){
 				itemList.add(item);
 			}
 			return itemList;
 			
 		} 
-		if(itemType.equals("equip")){
+		if(itemType.equals("equips")){
+			equips = this.equips.values();
+			for(ItemData item : equips){
+				itemList.add(item);
+			}
 			return itemList;
 		}
-		if(itemType.equals("key")){
+		if(itemType.equals("keys")){
+			keys = this.keys.values();
+			for(ItemData item : keys){
+				itemList.add(item);
+			}
 			return itemList;
+		}
+		consumables = this.consumables.values();
+		for(ItemData item : consumables){
+			itemList.add(item);
 		}
 		
-	
+		equips = this.equips.values();
+		for(ItemData item : equips){
+			itemList.add(item);
+		}
+		
+		keys = this.keys.values();
+		for(ItemData item : keys){
+			itemList.add(item);
+		}
+
+		return itemList;
+	}
 	
 }
