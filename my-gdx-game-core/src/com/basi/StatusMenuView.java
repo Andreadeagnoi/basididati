@@ -126,11 +126,12 @@ public class StatusMenuView implements Screen{
 		titleRow.add(backToMenu).width(WIDTH).height(HEIGHT);
 		
 		statusMenuTitle = new Label(ResPack.STATUS, uiSkin);
-		titleRow.add(statusMenuTitle).height(HEIGHT);
+		statusMenuTitle.setAlignment(Align.center);
+		titleRow.add(statusMenuTitle).width(WIDTH*6).height(HEIGHT);
 		
-		statusMenuTable.add(titleRow);
+		statusMenuTable.add(titleRow).colspan(2);
 		statusMenuTable.row();
-		statusMenuTable.setBackground( new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("data/background.png")))));
+		statusMenuTable.setBackground( new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("data/background2.png")))));
 		// new Texture(Gdx.files.internal("background.png"));
 		
 		//setup party table
@@ -291,6 +292,7 @@ public class StatusMenuView implements Screen{
 		
 		
 		//drawing debug lines
+//		titleRow.debug();
 //		statusMenuTable.debug();
 //		party.debug();
 //		charStats.debug();
