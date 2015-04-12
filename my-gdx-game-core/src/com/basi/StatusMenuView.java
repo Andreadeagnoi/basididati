@@ -131,7 +131,7 @@ public class StatusMenuView implements Screen{
 		
 		statusMenuTable.add(titleRow).colspan(2);
 		statusMenuTable.row();
-		statusMenuTable.setBackground( new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("data/background2.png")))));
+		statusMenuTable.setBackground( new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("data/background3.png")))));
 		// new Texture(Gdx.files.internal("background.png"));
 		
 		//setup party table
