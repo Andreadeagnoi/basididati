@@ -331,7 +331,7 @@ public class DBManager {
 		for (CharacterData character : party) {
 			ResPack.party.put(String.valueOf(character.getId()), character);
 		}
-		Gdx.app.log("prova item",ResPack.inventory.get("1").toString());
+		
 	}
 	
 	/**

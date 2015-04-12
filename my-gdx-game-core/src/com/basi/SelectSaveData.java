@@ -229,6 +229,9 @@ public class SelectSaveData implements Screen {
 				}
 				else {
 					ResPack.currentSave = currentSaveId;
+					//Load save data from db
+					ResPack.db.loadSavedData();
+					//set menu view
 					editor.setScreen(new MenuView(editor));				
 				}
 				dispose();

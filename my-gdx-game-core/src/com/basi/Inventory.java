@@ -40,6 +40,25 @@ public class Inventory {
 	}
 	
 	/**
+	 * Generic put method for Inventory with quantity.
+	 * @param item
+	 */
+	public void put(ItemData item, int quantity){
+		if (item instanceof ConsumableItemData){
+			put((ConsumableItemData)item);
+			return;
+		}
+		if(item instanceof EquippableItemData){
+			put((EquippableItemData)item);
+			return;
+		}
+		if(item instanceof KeyItemData){
+			put((KeyItemData)item);
+			return;
+		}
+	}
+	
+	/**
 	 * Specific put method for Inventory
 	 * @param consumable 
 	 */
@@ -74,6 +93,40 @@ public class Inventory {
 		ItemData foundItem;
 		if (consumables.containsKey(id)) {
 			foundItem = consumables.get(id);
+			return foundItem;
+		}
+		if (equips.containsKey(id)) {
+			foundItem = equips.get(id);
+			return foundItem;
+		}
+		if (keys.containsKey(id)) {
+			foundItem = keys.get(id);
+			return foundItem;
+		}
+		return null;
+		
+	}
+	
+	/**
+	 * get method for Inventory. If the item is present in the Inventory, it
+	 * will return the item. If it isn't present, you'll get a null.
+	 * 
+	 * @param id
+	 * @return an ItemData item.
+	 */
+	public ItemData remove(String id, int quantity){
+		
+		ItemData foundItem;
+		if (consumables.containsKey(id)) {
+			foundItem = consumables.get(id);
+
+			consumables.remove(id);
+			if (foundItem.getQuantity()>quantity){
+				foundItem.setQuantity(foundItem.getQuantity()-quantity);
+				put(foundItem);
+				return foundItem;
+			}
+			foundItem.setQuantity(foundItem.getQuantity()-quantity);
 			return foundItem;
 		}
 		if (equips.containsKey(id)) {

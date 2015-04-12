@@ -11,8 +11,11 @@ import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
@@ -52,8 +55,22 @@ public class InventoryMenuView implements Screen{
 	private boolean changedTab;
 	//items table
 	
+	//iteminfo table
+	private Label infoTag;
+	private Label t_itemName;
+	private Label l_description;
+	private ScrollPane scroll_description;
+	private Label t_description;
+	private Label l_quantity;
+	private Label t_quantity;
+	private Button deleteButton;
+	private Label l_delete;
+	private Dialog throwDialog;
+	
 	//data structures
-	private ArrayList<ItemData> currentItems;
+	private ArrayList<ItemData> currentItemList;
+	private ItemData currentItem;
+	
 	
 	
 
@@ -75,6 +92,7 @@ public class InventoryMenuView implements Screen{
 		inventoryTable = new Table(uiSkin);
 		inventoryTable.setFillParent(true);
 		titleRow = new Table(uiSkin);
+		
 		//add back button
 		backTexture = new Texture(Gdx.files.internal("data/back_button.png")); 
 		backTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
@@ -86,6 +104,7 @@ public class InventoryMenuView implements Screen{
 			}
 		});
 		titleRow.add(backToMenu).width(WIDTH).height(HEIGHT);
+		
 		//add title
 		l_inventory = new Label(ResPack.INVENTORY, uiSkin);
 		titleRow.add(l_inventory);
@@ -143,18 +162,72 @@ public class InventoryMenuView implements Screen{
 		//it will occupy 5x5 cells
 		itemListTable = new Table(uiSkin);
 		itemListTable.top();
-		itemListTable.defaults().width(WIDTH).height(HEIGHT);
+		itemListTable.defaults().width(WIDTH*2).height(HEIGHT);
 		currentTab = "consumables";
 		fillItemList();
+		tabTable.add(itemListTable).height(HEIGHT*5).width(WIDTH*5).colspan(3);
+
+		//setup item's info table
+		//it will occupy 6x2 cells
+		itemInfoTable = new Table(uiSkin);
+		itemInfoTable.defaults().width(WIDTH*2).height(HEIGHT);
+		infoTag = new Label(ResPack.INFO, uiSkin);
+		itemInfoTable.add(infoTag).colspan(2).row();
+		t_itemName = new Label("",uiSkin);
+		itemInfoTable.add(t_itemName).colspan(2).row();
+		l_description = new Label(ResPack.DESCRIPTION, uiSkinReduced);
+		itemInfoTable.add(l_description).height((int)(HEIGHT*0.2)).colspan(2).row();
+		t_description = new Label("Seleziona un oggetto", uiSkin);
+		t_description.setWrap(true); // to have newline on bounds
+		scroll_description = new ScrollPane(t_description,uiSkin);
+		itemInfoTable.add(scroll_description).height((int)(HEIGHT*1.8)).colspan(2).row();
+		l_quantity = new Label(ResPack.QUANTITY+":  ", uiSkin);
+		l_quantity.setAlignment(Align.center);
+		itemInfoTable.add(l_quantity).width(WIDTH);
+		t_quantity = new Label("", uiSkin);
+		itemInfoTable.add(t_quantity).width(WIDTH).row();
+		l_delete = new Label(ResPack.THROW, uiSkin);
+		deleteButton = new Button(l_delete, uiSkin);
+		deleteButton.addListener(new ClickListener(){
+			@Override
+			public void clicked(InputEvent event, float x, float y){
+				throwDialog = new Dialog(ResPack.THROW,uiSkin);
+				throwDialog.text("Sei pazzo? Dirai addio a tutta la scorta di " + currentItem.getName() );
+				throwDialog.button("OK").addListener(new ClickListener(){
+					@Override 
+					public void clicked(InputEvent event, float x, float y){
+						ResPack.inventory.remove(String.valueOf(currentItem.getId()), currentItem.getQuantity());
+						fillItemList();
+						throwDialog.hide();
+					}
+				});
+				throwDialog.button("Annulla").addListener(new ClickListener(){
+					@Override 
+					public void clicked(InputEvent event, float x, float y){
+						throwDialog.hide();
+					}
+				});
+				throwDialog.show(stage);
+			}
+		});
+		itemInfoTable.add(deleteButton).colspan(2);
 		
-		tabTable.add(itemListTable).height(HEIGHT*5).width(WIDTH*5);
 		
+		
+		
+
+		//debug lines
 		inventoryTable.debug();
 		tabTable.debug();
 		itemListTable.debug();
+		itemInfoTable.debug();
 		//Add actors to stage
 		inventoryTable.add(tabTable);
+		inventoryTable.add(itemInfoTable);
 		stage.addActor(inventoryTable);
+		
+
+		
 		
 	}
 
@@ -202,10 +275,21 @@ public class InventoryMenuView implements Screen{
 	
 	private void fillItemList(){
 		itemListTable.clear();
-		currentItems = ResPack.inventory.toArrayList(currentTab);
+		currentItemList = ResPack.inventory.toArrayList(currentTab);
 		boolean colonnaDestra = false;
-		for(ItemData item : currentItems){
-			itemListTable.add(new Label(item.getName(),uiSkin)).width(WIDTH*2);
+		Label itemLabel = null;
+		for(final ItemData item : currentItemList){
+			itemLabel = new Label(item.getName(),uiSkin);
+			itemLabel.addListener(new ClickListener(){
+				@Override
+				public void clicked(InputEvent event, float x, float y){
+					currentItem = ResPack.inventory.get(String.valueOf(item.getId()));
+					t_itemName.setText(currentItem.getName());
+					t_description.setText(currentItem.getDescription());
+					t_quantity.setText(String.valueOf(currentItem.getQuantity()));
+				}
+			});
+			itemListTable.add(itemLabel).width(WIDTH*2);
 			
 			if (!colonnaDestra){
 				itemListTable.add().width(WIDTH);

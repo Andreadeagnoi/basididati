@@ -55,6 +55,10 @@ public class ResPack {
 	public static final String ACCESSORY = "Accessorio";
 	public static final String CONSUMABLE = "Consumabile";
 	public static final String KEY = "Chiave";
+	public static final String INFO = "Info";
+	public static final String DESCRIPTION = "Descrizione";
+	public static final String QUANTITY = "Q.tà";
+	public static final String THROW = "butta";
 	
 	
 	
@@ -356,6 +360,9 @@ public class ResPack {
 			");\r\n";
 	
 	public static final String DBCREATE = q_SALVATAGGIO ;
+	
+
+	
 	
 
 	
