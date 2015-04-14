@@ -131,10 +131,24 @@ public class Inventory {
 		}
 		if (equips.containsKey(id)) {
 			foundItem = equips.get(id);
+			equips.remove(id);
+			if (foundItem.getQuantity()>quantity){
+				foundItem.setQuantity(foundItem.getQuantity()-quantity);
+				put(foundItem);
+				return foundItem;
+			}
+			foundItem.setQuantity(foundItem.getQuantity()-quantity);
 			return foundItem;
 		}
 		if (keys.containsKey(id)) {
 			foundItem = keys.get(id);
+			keys.remove(id);
+			if (foundItem.getQuantity()>quantity){
+				foundItem.setQuantity(foundItem.getQuantity()-quantity);
+				put(foundItem);
+				return foundItem;
+			}
+			foundItem.setQuantity(foundItem.getQuantity()-quantity);
 			return foundItem;
 		}
 		return null;

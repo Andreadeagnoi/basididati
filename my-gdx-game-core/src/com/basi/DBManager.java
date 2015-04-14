@@ -177,7 +177,9 @@ public class DBManager {
 					.CharacterBuilder(cursorCharacter.getInt(1))
 			.name(cursorCharacter.getString(2))
 			.sprite(cursorCharacter.getString(3))
+			//hp and maxhp are set to the hp of the db. Hp are restored when the game is saved! Same for mp and maxmp
 			.hpmp(cursorCharacter.getInt(4), cursorCharacter.getInt(5))
+			.hpmpmax(cursorCharacter.getInt(4), cursorCharacter.getInt(5))
 			.atkdef(cursorCharacter.getInt(6), cursorCharacter.getInt(7))
 			.intagi(cursorCharacter.getInt(8), cursorCharacter.getInt(9))
 			.activeClass(cursorCharacter.getString(11), cursorCharacter.getInt(13), cursorCharacter.getInt(14))
@@ -248,8 +250,8 @@ public class DBManager {
 		KeyItemData tempKey;
 
 		try {
-			cursor = dbHandler.rawQuery("SELECT TipoOggetto, TipoEquip, DataCreazione, Id_Oggetto, "
-					+ "Nome, Sprite, Descrizione, Quantita,"
+			cursor = dbHandler.rawQuery("SELECT TipoOggetto, TipoEquip, DataCreazione, OGGETTO.Id_Oggetto, "
+					+ "Nome, Sprite, Descrizione, POSSIEDE.Quantita,"
 					+ "HP, MP ,ATK, DEF, INT, AGI "
 					+ "FROM OGGETTO NATURAL JOIN Possiede "
 					+ "WHERE DataCreazione = '" + ResPack.currentSave + "'");

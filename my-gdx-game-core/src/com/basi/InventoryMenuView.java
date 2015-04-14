@@ -1,6 +1,7 @@
 package com.basi;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -18,9 +19,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.basi.Item.ConsumableItemData;
 import com.basi.Item.ItemData;
 
 public class InventoryMenuView implements Screen{
@@ -39,8 +42,7 @@ public class InventoryMenuView implements Screen{
 	private Table tabTable;
 	private Table itemListTable;
 	private Table itemInfoTable;
-	private Table party;
-	private Table charInfo;
+	private Table partyTable;
 
 	//InventoryTable
 	//title table
@@ -70,10 +72,13 @@ public class InventoryMenuView implements Screen{
 	//data structures
 	private ArrayList<ItemData> currentItemList;
 	private ItemData currentItem;
-	
-	
-	
-
+	private CharacterData currentChar;
+	private Table charInfo;
+	private Label characterHP;
+	private Label characterMP;
+	private Label characterName;
+	private ScrollPane scrollParty;
+	private Label characterLevel;
 
 	public InventoryMenuView(final SadogashimaEditor editor) {
 		this.editor = editor;
@@ -109,7 +114,7 @@ public class InventoryMenuView implements Screen{
 		l_inventory = new Label(ResPack.INVENTORY, uiSkin);
 		titleRow.add(l_inventory);
 		
-		inventoryTable.add(titleRow).height(HEIGHT);
+		inventoryTable.add(titleRow).height(HEIGHT).colspan(2);
 		inventoryTable.row();
 		inventoryTable.setBackground(ResPack.createMonocromeDrawable(Color.GRAY));
 		
@@ -177,7 +182,7 @@ public class InventoryMenuView implements Screen{
 		itemInfoTable.add(t_itemName).colspan(2).row();
 		l_description = new Label(ResPack.DESCRIPTION, uiSkinReduced);
 		itemInfoTable.add(l_description).height((int)(HEIGHT*0.2)).colspan(2).row();
-		t_description = new Label("Seleziona un oggetto", uiSkin);
+		t_description = new Label(ResPack.SELECTITEM, uiSkin);
 		t_description.setWrap(true); // to have newline on bounds
 		scroll_description = new ScrollPane(t_description,uiSkin);
 		itemInfoTable.add(scroll_description).height((int)(HEIGHT*1.8)).colspan(2).row();
@@ -188,42 +193,66 @@ public class InventoryMenuView implements Screen{
 		itemInfoTable.add(t_quantity).width(WIDTH).row();
 		l_delete = new Label(ResPack.THROW, uiSkin);
 		deleteButton = new Button(l_delete, uiSkin);
+		//listener on delete button that opens a dialog
 		deleteButton.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y){
-				throwDialog = new Dialog(ResPack.THROW,uiSkin);
+				if(currentItem == null){
+					return;
+				}
+				throwDialog = new Dialog(ResPack.THROW,uiSkinReduced);
 				throwDialog.text("Sei pazzo? Dirai addio a tutta la scorta di " + currentItem.getName() );
-				throwDialog.button("OK").addListener(new ClickListener(){
+				TextButton dialogOk = new TextButton("OK", uiSkin);				
+				dialogOk.addListener(new ClickListener(){
 					@Override 
 					public void clicked(InputEvent event, float x, float y){
 						ResPack.inventory.remove(String.valueOf(currentItem.getId()), currentItem.getQuantity());
+						currentItem = null;
+						t_itemName.setText(""); 
+						t_description.setText(ResPack.SELECTITEM);
+						t_quantity.setText("");
 						fillItemList();
 						throwDialog.hide();
 					}
 				});
-				throwDialog.button("Annulla").addListener(new ClickListener(){
+				throwDialog.getButtonTable().add(dialogOk);
+				TextButton dialogCancel = new TextButton("Annulla", uiSkin);
+				dialogCancel.addListener(new ClickListener(){
 					@Override 
 					public void clicked(InputEvent event, float x, float y){
+						
 						throwDialog.hide();
 					}
 				});
+				throwDialog.getButtonTable().add(dialogCancel);
 				throwDialog.show(stage);
 			}
 		});
 		itemInfoTable.add(deleteButton).colspan(2);
 		
+		//party list table
+		
+		partyTable = new Table(uiSkin);
+		scrollParty = new ScrollPane(partyTable, uiSkin);
+		scrollParty.setScrollingDisabled(false, true);
+		partyTable.left();
+		Collection<CharacterData> party =  ResPack.party.values();
+		for(CharacterData currentChar : party){
+			genCharTable(currentChar);
+		}
 		
 		
-		
-
 		//debug lines
 		inventoryTable.debug();
 		tabTable.debug();
 		itemListTable.debug();
 		itemInfoTable.debug();
+		partyTable.debug();
 		//Add actors to stage
 		inventoryTable.add(tabTable);
 		inventoryTable.add(itemInfoTable);
+		inventoryTable.row();
+		inventoryTable.add(scrollParty).left().height(HEIGHT*2).width(WIDTH*7).colspan(2);
 		stage.addActor(inventoryTable);
 		
 
@@ -303,6 +332,34 @@ public class InventoryMenuView implements Screen{
 		if(colonnaDestra){
 			itemListTable.add().width(WIDTH*2);
 		}
+		
+	}
+	
+	private void genCharTable(CharacterData currentChar){
+		
+			charInfo = new Table(uiSkin);
+			characterName = new Label(currentChar.getName(),uiSkin);
+			characterLevel = new Label("Lv. " + currentChar.getClassLevel(), uiSkin);
+			characterHP = new Label(ResPack.HP + " " + currentChar.getC_hp() + "/" + currentChar.getC_MaxHp(), uiSkin);
+			characterMP = new Label(ResPack.MP + " " + currentChar.getC_mp() + "/" + currentChar.getC_MaxMp(), uiSkin);
+			charInfo.add(characterName).height(HEIGHT/2).row();
+			charInfo.add(characterLevel).height(HEIGHT/2).row();
+			charInfo.add(characterHP).height(HEIGHT/2).row();
+			charInfo.add(characterMP).height(HEIGHT/2);
+			final String idChar = String.valueOf(currentChar.getId());
+			charInfo.addListener(new ClickListener(){
+					@Override 
+					public void clicked(InputEvent event, float x, float y){
+						if (currentItem instanceof ConsumableItemData){
+							ConsumableItemData consumeItem = (ConsumableItemData) currentItem;
+							consumeItem.useOn(ResPack.party.get(idChar));
+							return;
+						}
+							
+					}
+				});
+			partyTable.add(charInfo).width(WIDTH*2).align(Align.left);
+		
 		
 	}
 

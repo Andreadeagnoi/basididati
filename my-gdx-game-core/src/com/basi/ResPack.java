@@ -59,6 +59,9 @@ public class ResPack {
 	public static final String DESCRIPTION = "Descrizione";
 	public static final String QUANTITY = "Q.tà";
 	public static final String THROW = "butta";
+	public static final String SELECTITEM = "Seleziona un oggetto";
+	public static final String OK = "OK";
+	public static final String CANCEL = "Annulla";
 	
 	
 	
@@ -360,6 +363,7 @@ public class ResPack {
 			");\r\n";
 	
 	public static final String DBCREATE = q_SALVATAGGIO ;
+	
 	
 
 	
