@@ -62,6 +62,7 @@ public class ResPack {
 	public static final String SELECTITEM = "Seleziona un oggetto";
 	public static final String OK = "OK";
 	public static final String CANCEL = "Annulla";
+	public static final String SELECTSKILL = "Seleziona una tecnica";
 	
 	
 	

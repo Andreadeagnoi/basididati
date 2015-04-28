@@ -23,7 +23,7 @@ public class MenuView implements Screen{
 	private Stage stage;
 	private Table buttons;
 	private Table titleRow;
-	
+
 	//buttons
 	private TextButton status;
 	private TextButton equip;
@@ -37,77 +37,69 @@ public class MenuView implements Screen{
 
 	@Override
 	public void show() {
-				
+
+
+		//set up the stage and connect an input processor to it
+		stage = new Stage();
+		Gdx.input.setInputProcessor(stage);
 		
-				//set up the stage and connect an input processor to it
-				stage = new Stage();
-				Gdx.input.setInputProcessor(stage);
-				
-				
-				
-				//Setting up the table containing the buttons
-				buttons = new Table(ResPack._SKIN);	
-				buttons.setFillParent(true);
-				buttons.center();
-				buttons.defaults().width(300);
+		//Setting up the table containing the buttons
+		buttons = new Table(ResPack._SKIN);	
+		buttons.setFillParent(true);
+		buttons.center();
+		buttons.defaults().width(300);
 
-				//Adding head label of the buttons table
-				titleRow = new Table(ResPack._SKIN);
-				title = new Label("MENU DI GIOCO", ResPack._SKIN);		
-				title.setAlignment(Align.center);
-				titleRow.add(title);
-				
-				
-				titleRow.setBackground(ResPack.createMonocromeDrawable(Color.GRAY));
-				buttons.add(titleRow).colspan(2).width(600);
-				
-				buttons.row();
-				
-				//Adding the status menu button
-				status = new TextButton(ResPack.STATUS, ResPack._SKIN);	
-				status.addListener(new ClickListener(){
-					@Override 
-					public void clicked(InputEvent event, float x, float y){
-						editor.setScreen(new StatusMenuView(editor));
-					}
-				});
-				buttons.add(status);
+		//Adding head label of the buttons table
+		titleRow = new Table(ResPack._SKIN);
+		title = new Label("MENU DI GIOCO", ResPack._SKIN);		
+		title.setAlignment(Align.center);
+		titleRow.add(title);
+		titleRow.setBackground(ResPack.createMonocromeDrawable(Color.GRAY));
+		buttons.add(titleRow).colspan(2).width(600);
+		buttons.row();
 
+		//Adding the status menu button
+		status = new TextButton(ResPack.STATUS, ResPack._SKIN);	
+		status.addListener(new ClickListener(){
+			@Override 
+			public void clicked(InputEvent event, float x, float y){
+				editor.setScreen(new StatusMenuView(editor));
+			}
+		});
+		buttons.add(status);
 
-				//Adding the equip menu button
-				equip = new TextButton(ResPack.EQUIP, ResPack._SKIN);
-				equip.addListener(new ClickListener(){
-					@Override 
-					public void clicked(InputEvent event, float x, float y){
+		//Adding the equip menu button
+		equip = new TextButton(ResPack.EQUIP, ResPack._SKIN);
+		equip.addListener(new ClickListener(){
+			@Override 
+			public void clicked(InputEvent event, float x, float y){
+			}
+		});
+		buttons.add(equip);
+		buttons.row();
 
-					}
-				});
-				buttons.add(equip);
-				buttons.row();
+		//Adding the skills menu button
+		skills = new TextButton(ResPack.SKILLS, ResPack._SKIN);
+		skills.addListener(new ClickListener(){
+			@Override 
+			public void clicked(InputEvent event, float x, float y){
+				editor.setScreen(new SkillMenuView(editor));
+			}
+		});
+		buttons.add(skills);
 
-				//Adding the skills menu button
-				skills = new TextButton(ResPack.SKILLS, ResPack._SKIN);
-				skills.addListener(new ClickListener(){
-					@Override 
-					public void clicked(InputEvent event, float x, float y){
-						
-						
-					}
-				});
-				buttons.add(skills);
-				
-				//Adding the inventory menu button
-				inventory = new TextButton(ResPack.INVENTORY, ResPack._SKIN);
-				inventory.addListener(new ClickListener(){
-					@Override 
-					public void clicked(InputEvent event, float x, float y){
-						editor.setScreen(new InventoryMenuView(editor));
-						
-					}
-				});
-				buttons.add(inventory);
+		//Adding the inventory menu button
+		inventory = new TextButton(ResPack.INVENTORY, ResPack._SKIN);
+		inventory.addListener(new ClickListener(){
+			@Override 
+			public void clicked(InputEvent event, float x, float y){
+				editor.setScreen(new InventoryMenuView(editor));
 
-				stage.addActor(buttons);
+			}
+		});
+		buttons.add(inventory);
+
+		stage.addActor(buttons);
 
 
 	}
@@ -123,7 +115,7 @@ public class MenuView implements Screen{
 	@Override
 	public void resize(int width, int height) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override

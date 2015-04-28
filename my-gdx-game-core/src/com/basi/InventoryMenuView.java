@@ -106,6 +106,7 @@ public class InventoryMenuView implements Screen{
 			@Override
 			public void clicked(InputEvent event, float x, float y){
 				editor.setScreen(new MenuView(editor));
+				
 			}
 		});
 		titleRow.add(backToMenu).width(WIDTH).height(HEIGHT);

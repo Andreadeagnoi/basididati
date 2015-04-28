@@ -287,7 +287,7 @@ public class DBManager {
 	}
 	
 	/**
-	 * 
+	 * use this method to read all the skills from the db. 
 	 * @return an ArrayList containing the skills data 
 	 */
 	public ArrayList<SkillData> getSkills() {
@@ -313,6 +313,30 @@ public class DBManager {
 		}
 		return skills;
 	}
+	/**
+	 * use this method to get all the skill the given character can use.
+	 * @param charId
+	 * @return a list with the ids of the skills
+	 */
+	public ArrayList<String> getCharSkills(String charId){
+		ArrayList<String> charSkills = new ArrayList<String>();
+		DatabaseCursor cursor = null ;
+		try {
+			cursor = dbHandler.rawQuery("SELECT * "
+					+ "FROM tecnica NATURAL JOIN impara NATURAL JOIN appartiene "
+					+ "WHERE appartiene.id_Personaggio = " + charId + " AND "
+					+ " appartiene.DataCreazione = '" + ResPack.currentSave + "' AND "
+					+ " appartiene.LivelloClasse > impara.LivelloRichiesto");
+		} catch (SQLiteGdxException e) {
+			e.printStackTrace();
+		}
+		while (cursor.next()) {
+				charSkills.add(String.valueOf(cursor.getInt(0)));
+				Gdx.app.log("DatabaseTest",charSkills.get(charSkills.size()-1).toString());
+				Gdx.app.log("DatabaseTest", String.valueOf(cursor.getInt(0)));
+		}
+		return charSkills;
+	}
 	
 	/**Fill the data structure containing save information, such as characters,items owned and item's owned skills.
 	 * 
@@ -337,7 +361,7 @@ public class DBManager {
 	}
 	
 	/**
-	 * given the tables data in txt format, i fill the db with that data.
+	 * given the tables data in txt format, I fill the db with that data.
 	 */
 	public void fillDB(){
 		String data ;
