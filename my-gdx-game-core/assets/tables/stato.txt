@@ -2,3 +2,4 @@ avv	avvelenato	ogni turno perde 2% di vita
 par	paralizzato	non puo attaccare
 mor	morto	non puo fare niente
 ral	rallentato	perde 50% agilita
+bru	bruciato	perde 1% di vita

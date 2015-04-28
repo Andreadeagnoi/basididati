@@ -79,6 +79,8 @@ public class InventoryMenuView implements Screen{
 	private Label characterName;
 	private ScrollPane scrollParty;
 	private Label characterLevel;
+	private ArrayList<Table> charCells = new ArrayList<Table>();
+	int i = 0;
 
 	public InventoryMenuView(final SadogashimaEditor editor) {
 		this.editor = editor;
@@ -342,18 +344,23 @@ public class InventoryMenuView implements Screen{
 			characterName = new Label(currentChar.getName(),uiSkin);
 			characterLevel = new Label("Lv. " + currentChar.getClassLevel(), uiSkin);
 			characterHP = new Label(ResPack.HP + " " + currentChar.getC_hp() + "/" + currentChar.getC_MaxHp(), uiSkin);
+			characterHP.setName("HP");
 			characterMP = new Label(ResPack.MP + " " + currentChar.getC_mp() + "/" + currentChar.getC_MaxMp(), uiSkin);
 			charInfo.add(characterName).height(HEIGHT/2).row();
 			charInfo.add(characterLevel).height(HEIGHT/2).row();
 			charInfo.add(characterHP).height(HEIGHT/2).row();
 			charInfo.add(characterMP).height(HEIGHT/2);
+			charCells.add(charInfo);
 			final String idChar = String.valueOf(currentChar.getId());
+			final int partyIndex = i++;
 			charInfo.addListener(new ClickListener(){
 					@Override 
 					public void clicked(InputEvent event, float x, float y){
 						if (currentItem instanceof ConsumableItemData){
 							ConsumableItemData consumeItem = (ConsumableItemData) currentItem;
 							consumeItem.useOn(ResPack.party.get(idChar));
+							Label label = charCells.get(Integer.valueOf(partyIndex)).findActor("HP");
+							label.setText(ResPack.HP + " " + ResPack.party.get(idChar).getC_hp()+"/"+ResPack.party.get(idChar).getC_MaxHp());
 							return;
 						}
 							

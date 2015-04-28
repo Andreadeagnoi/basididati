@@ -3,3 +3,13 @@
 3	acqua_base	lancia una palla di acqua	5	20
 4	terra_base	lancia una palla di terra	5	20
 5	fuoco_medio	piu potente di fuoco base	10	40
+6	scudo	attiva scudo per difenredere la squadra	15	0
+7	carica	attaca con il 120% del danno arma	7	12
+8	cura	cura un obiettivo di 20 punti vita	3	-20
+9	curaplus	cura un obiettivo di 100 punti vita	5	-100
+10	furia	attaca con il 200% di danno, ma perde 50 punti vita	30	200
+11	antidoto	cura stato avvelenato	0	0
+12	resuscita	riveve una persona	10	-10
+13	veleno	avvelena il nemico	15	30
+14	fulmine_base	colpisce il nemico con un fulmine	15	40
+15	mal di pancia	perdi 10 punti vita	0	30

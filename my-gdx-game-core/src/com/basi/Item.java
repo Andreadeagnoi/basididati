@@ -76,10 +76,18 @@ public class Item{
 			return itemSkill;
 		}
 		
-		
-		public void useOn(CharacterData objective){
+		/**
+		 * Use a skill on a objective
+		 * @param objective
+		 * @return 0 if the item doesn't have associated skills, 1 otherwise
+		 */
+		public int useOn(CharacterData objective){
+			if (itemSkill == null){
+				return 0;
+			}
 			itemSkill.use(objective);
 			setQuantity(getQuantity()-1);
+			return 1;
 		}
 
 		@Override

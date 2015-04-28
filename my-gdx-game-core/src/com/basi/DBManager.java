@@ -107,7 +107,6 @@ public class DBManager {
 			dbHandler.execSQL(ResPack.q_EQUIPAGGIA);
 			dbHandler.execSQL(ResPack.q_EQUIPAGGIABILE);
 			dbHandler.execSQL(ResPack.q_IMPARA);
-			dbHandler.execSQL(ResPack.q_MODIFICAO);
 			dbHandler.execSQL(ResPack.q_MODIFICAT);
 			dbHandler.execSQL(ResPack.q_POSSIEDE);
 			dbHandler.execSQL(ResPack.q_PROMUOVE);
@@ -252,7 +251,7 @@ public class DBManager {
 		try {
 			cursor = dbHandler.rawQuery("SELECT TipoOggetto, TipoEquip, DataCreazione, OGGETTO.Id_Oggetto, "
 					+ "Nome, Sprite, Descrizione, POSSIEDE.Quantita,"
-					+ "HP, MP ,ATK, DEF, INT, AGI "
+					+ "HP, MP ,ATK, DEF, INT, AGI, TECNICA "
 					+ "FROM OGGETTO NATURAL JOIN Possiede "
 					+ "WHERE DataCreazione = '" + ResPack.currentSave + "'");
 		} catch (SQLiteGdxException e) {
@@ -263,6 +262,11 @@ public class DBManager {
 			if(cursor.getString(0).equals("consumabile")){
 				tempConsumable = ResPack.itemType.new ConsumableItemData(cursor.getInt(3),cursor.getString(4),cursor.getString(6));
 				tempConsumable.setQuantity(cursor.getInt(7));
+				
+				if (!String.valueOf(cursor.getInt(14)).equals("NULL")){
+					tempConsumable.setItemSkill(ResPack.skills.get(String.valueOf(cursor.getInt(14))));
+				}
+				
 				inventory.add(tempConsumable);
 			}
 			else if (cursor.getString(0).equals("equip")){
@@ -277,7 +281,7 @@ public class DBManager {
 				inventory.add(tempEquip);
 			}
 			else if (cursor.getString(0).equals("chiave")){
-				
+				tempKey = ResPack.itemType.new KeyItemData(cursor.getInt(3),cursor.getString(4),cursor.getString(6));
 			}
 	
 			Gdx.app.log("DatabaseTest",inventory.get(0).toString());
@@ -649,7 +653,7 @@ public class DBManager {
 		i = 0;
 		j = 0;
 		p = 0;
-		col = 12;
+		col = 13;
 		while(i<data.length()){
 
 			while(p<col){
@@ -679,7 +683,8 @@ public class DBManager {
 						+ rowData[8] + ","
 						+ rowData[9] + ","
 						+ rowData[10] + ","
-						+ rowData[11] + ")");
+						+ rowData[11] + ","
+						+ rowData[12] + ")");
 				}
 				else {
 					dbHandler.execSQL("INSERT INTO oggetto "
@@ -695,7 +700,8 @@ public class DBManager {
 							+ rowData[8] + ","
 							+ rowData[9] + ","
 							+ rowData[10] + ","
-							+ rowData[11] + ")");
+							+ rowData[11] + ","
+							+ rowData[12] + ")");
 				}
 			} catch (SQLiteGdxException e) {
 				e.printStackTrace();
@@ -957,36 +963,7 @@ public class DBManager {
 
 		}
 		
-		//Insert  modifies_o
-		data = generateString.txtToString("tables/modifica_o.txt");
-		i = 0;
-		j = 0;
-		p = 0;
-		col = 3;
-		while(i<data.length()){
-			while(p<col){
-				j = data.indexOf(9,i);
-				if(p == col-1){
-					j = data.indexOf(10, i);
-				}
-				rowData[p++] = data.substring(i, j);
-				i = j + 1;	
-			}
-			p = 0;
-
-			try {
-				dbHandler.execSQL("INSERT INTO modifica_o "
-						+ " VALUES (" 
-						+ rowData[0] + ",'"
-						+ rowData[1] + "',"
-						+ rowData[2] + ")");
-
-			} catch (SQLiteGdxException e) {
-				e.printStackTrace();
-				return;
-			}
-
-		}
+		
 		
 		//Insert  leaves
 		data = generateString.txtToString("tables/cede.txt");

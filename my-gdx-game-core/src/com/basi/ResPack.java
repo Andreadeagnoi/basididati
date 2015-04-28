@@ -225,22 +225,27 @@ public class ResPack {
 			"FOREIGN KEY(ID_Tecnica) REFERENCES TECNICA(ID_Tecnica)\r\n" + 
 			"	ON UPDATE CASCADE ON DELETE SET NULL\r\n" + 
 			");\r\n";
+
 	public static final String t_OGGETTO = "OGGETTO";
-	public static final String q_OGGETTO = "CREATE TABLE  if not exists OGGETTO(\r\n" + 
-			"ID_Oggetto INTEGER PRIMARY KEY NOT NULL,\r\n" + 
-			"Nome VARCHAR(20) NOT NULL,\r\n" + 
-			"Sprite VARCHAR NOT NULL,\r\n" + 
-			"Descrizione VARCHAR(50),\r\n" + 
-			"TipoOggetto VARCHAR(20) NOT NULL,\r\n" + 
-			"TipoEquip VARCHAR(20),\r\n" + 
-			"HP INTEGER,\r\n" + 
-			"MP INTEGER,\r\n" + 
-			"ATK INTEGER,\r\n" + 
-			"DEF INTEGER,\r\n" + 
-			"AGI INTEGER,\r\n" + 
-			"INT INTEGER,\r\n" + 
-			"CHECK(ID_Oggetto >= 0)\r\n" + 
-			");\r\n" ;
+	public static final String q_OGGETTO = "CREATE TABLE OGGETTO(\r\n" + 
+			"			ID_Oggetto INTEGER PRIMARY KEY NOT NULL,\r\n" + 
+			"			Nome VARCHAR(20) NOT NULL,\r\n" + 
+			"			Sprite VARCHAR NOT NULL,\r\n" + 
+			"			Descrizione VARCHAR(50),\r\n" + 
+			"			TipoOggetto VARCHAR(20) NOT NULL,\r\n" + 
+			"			TipoEquip VARCHAR(20),\r\n" + 
+			"			Tecnica INTEGER,\r\n" + 
+			"			HP INTEGER,\r\n" + 
+			"			MP INTEGER,\r\n" + 
+			"			ATK INTEGER,\r\n" + 
+			"			DEF INTEGER,\r\n" + 
+			"			AGI INTEGER,\r\n" + 
+			"			INT INTEGER,\r\n" + 
+			"			CHECK(ID_Oggetto >= 0),\r\n" + 
+			"			FOREIGN KEY(Tecnica) REFERENCES TECNICA(ID_Tecnica)\r\n" + 
+			"				ON UPDATE CASCADE ON DELETE SET NULL\r\n" + 
+			"			);\r\n";
+	
 	public static final String t_EQUIPAGGIABILE = "Equipaggiabile";
 	public static final String q_EQUIPAGGIABILE = "CREATE TABLE  if not exists Equipaggiabile(\r\n" + 
 			"ID_Classe INTEGER NOT NULL,\r\n" + 
@@ -338,18 +343,7 @@ public class ResPack {
 			"FOREIGN KEY(ID_Tecnica) REFERENCES TECNICA(ID_Tecnica)\r\n" + 
 			"				ON UPDATE CASCADE ON DELETE SET NULL\r\n" + 
 			");\r\n";
-	public static final String t_MODIFICAO = "Modifica_O";
-	public static final String q_MODIFICAO = "CREATE TABLE  if not exists Modifica_O(\r\n" + 
-			"ID_Oggetto INTEGER NOT NULL,\r\n" + 
-			"Sigla CHAR(3) NOT NULL,\r\n" + 
-			"PercentualeSuccesso NUMERIC(5,2),\r\n" + 
-			"PRIMARY KEY(ID_Oggetto, Sigla),\r\n" + 
-			"FOREIGN KEY(ID_Oggetto) REFERENCES OGGETTO(ID_Oggetto)\r\n" + 
-			"				ON UPDATE CASCADE ON DELETE SET NULL,\r\n" + 
-			"\r\n" + 
-			"FOREIGN KEY(Sigla) REFERENCES STATO(Sigla)\r\n" + 
-			"				ON UPDATE CASCADE ON DELETE SET NULL\r\n" + 
-			");\r\n";
+	
 	public static final String t_CEDE = "Cede";
 	public static final String q_CEDE = "CREATE TABLE  if not exists Cede(\r\n" + 
 			"Nome VARCHAR(30) NOT NULL,\r\n" + 

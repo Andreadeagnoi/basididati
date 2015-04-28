@@ -2,3 +2,8 @@ stampanteEpson	goblin	un goblin a forma di stampante	sprite_stampanteEpson	10	0	
 schermoLg	goblin	un goblin a froma di schermo	sprite_schermoLg	10	0	2	1	0	1
 tastieraTrust	goblin	un goblin a forma di tastiera	sprite_tastieraTrust	10	0	3	1	0	1
 mouseLogitech	goblin	un gobiln a forma di mouse	sprite_mouseLogitech	10	0	4	1	0	1
+Fimi	elfo	elfo in grado di lanciare palle di fuoco	sprite_fimi	958	340	220	42	502	40
+Wamia	elfo	elfo che usa i poteri della natura per curare	sprite_wamia	1594	500	340	51	675	30
+Minothring	bestia	le corna di questa bestia sono molto preziose	sprite_minothring	1219	0	195	68	357	60
+Spookloak	spiriti	uno spirito notturno che aiuta le persone 	sprite_spookloak	2355	507	389	60	48	88
+Ponee	bestia	un cucciolo di bestia unicorno	sprite_ponee	973	389	331	46	329	321
