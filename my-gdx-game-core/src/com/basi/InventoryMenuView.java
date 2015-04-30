@@ -115,7 +115,8 @@ public class InventoryMenuView implements Screen{
 		
 		//add title
 		l_inventory = new Label(ResPack.INVENTORY, uiSkin);
-		titleRow.add(l_inventory);
+		l_inventory.setAlignment(Align.center);
+		titleRow.add(l_inventory).width(WIDTH*6);
 		
 		inventoryTable.add(titleRow).height(HEIGHT).colspan(2);
 		inventoryTable.row();
@@ -128,7 +129,7 @@ public class InventoryMenuView implements Screen{
 		tabTable = new Table(uiSkin);		
 		tabTable.defaults().width(WIDTH).height(HEIGHT);
 		
-		consumableTag = new Label(ResPack.CONSUMABLE, uiSkinReduced);
+		consumableTag = new Label(ResPack.CONSUMABLE, uiSkin);
 		consumableTag.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y){
@@ -139,7 +140,7 @@ public class InventoryMenuView implements Screen{
 			}
 		});
 		
-		equipTag = new Label(ResPack.EQUIP,uiSkinReduced);
+		equipTag = new Label(ResPack.EQUIP,uiSkin);
 		equipTag.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y){
@@ -150,7 +151,7 @@ public class InventoryMenuView implements Screen{
 			}
 		});
 		
-		keyTag = new Label(ResPack.KEY, uiSkinReduced);
+		keyTag = new Label(ResPack.KEY, uiSkin);
 		keyTag.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y){
@@ -188,12 +189,13 @@ public class InventoryMenuView implements Screen{
 		t_description = new Label(ResPack.SELECTITEM, uiSkin);
 		t_description.setWrap(true); // to have newline on bounds
 		scroll_description = new ScrollPane(t_description,uiSkin);
-		itemInfoTable.add(scroll_description).height((int)(HEIGHT*1.8)).colspan(2).row();
+		scroll_description.getStyle();
+		itemInfoTable.add(scroll_description).height((int)(HEIGHT*1.8)).colspan(2).pad(10).row();
 		l_quantity = new Label(ResPack.QUANTITY+":  ", uiSkin);
 		l_quantity.setAlignment(Align.center);
-		itemInfoTable.add(l_quantity).width(WIDTH);
+		itemInfoTable.add(l_quantity).width(WIDTH).height(HEIGHT-10);
 		t_quantity = new Label("", uiSkin);
-		itemInfoTable.add(t_quantity).width(WIDTH).row();
+		itemInfoTable.add(t_quantity).width(WIDTH).height(HEIGHT-10).row();
 		l_delete = new Label(ResPack.THROW, uiSkin);
 		deleteButton = new Button(l_delete, uiSkin);
 		//listener on delete button that opens a dialog
@@ -311,6 +313,9 @@ public class InventoryMenuView implements Screen{
 		boolean colonnaDestra = false;
 		Label itemLabel = null;
 		for(final ItemData item : currentItemList){
+			if(item.getQuantity() == 0){
+				continue;
+			}
 			itemLabel = new Label(item.getName(),uiSkin);
 			itemLabel.addListener(new ClickListener(){
 				@Override
@@ -321,10 +326,10 @@ public class InventoryMenuView implements Screen{
 					t_quantity.setText(String.valueOf(currentItem.getQuantity()));
 				}
 			});
-			itemListTable.add(itemLabel).width(WIDTH*2);
+			itemListTable.add(itemLabel).width(WIDTH*2).padLeft(10);
 			
 			if (!colonnaDestra){
-				itemListTable.add().width(WIDTH);
+				itemListTable.add().width(WIDTH-20);
 			}
 			else {
 				itemListTable.row();
@@ -333,7 +338,7 @@ public class InventoryMenuView implements Screen{
 			colonnaDestra = !colonnaDestra;
 		}
 		if(colonnaDestra){
-			itemListTable.add().width(WIDTH*2);
+			itemListTable.add().width(WIDTH*2).padLeft(10);
 		}
 		
 	}
@@ -361,6 +366,16 @@ public class InventoryMenuView implements Screen{
 							consumeItem.useOn(ResPack.party.get(idChar));
 							Label label = charCells.get(Integer.valueOf(partyIndex)).findActor("HP");
 							label.setText(ResPack.HP + " " + ResPack.party.get(idChar).getC_hp()+"/"+ResPack.party.get(idChar).getC_MaxHp());
+							if(currentItem.getQuantity() == 0){
+								fillItemList();
+								currentItem = null;
+								t_itemName.setText("");
+								t_description.setText(ResPack.SELECTITEM);
+								t_quantity.setText("");
+							}
+							else{
+								t_quantity.setText(String.valueOf(currentItem.getQuantity()));
+							}
 							return;
 						}
 							

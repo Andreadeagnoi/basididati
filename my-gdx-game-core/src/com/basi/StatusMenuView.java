@@ -140,7 +140,7 @@ public class StatusMenuView implements Screen{
 		party.defaults().width(WIDTH*2);			
 		//partyTitle = new Label(ResPack.inventory.get("1").toString(), uiSkin); //test for loadSavedData()
 		partyTitle = new Label(ResPack.PARTY, uiSkin);
-		party.add(partyTitle).height(HEIGHT*2).row();
+		party.add(partyTitle).height(HEIGHT*2).padLeft(10).row();
 		//creating a list of character's data
 		partyList = new  List<CharacterData>(uiSkin);
 		partyList.setHeight(HEIGHT*6);
@@ -171,7 +171,7 @@ public class StatusMenuView implements Screen{
 			}
 		});
 		
-		party.add(partyList).height(80*6);
+		party.add(partyList).height(80*6).width(WIDTH*2-10).padLeft(10);
 		
 		
 		//specific character status table
@@ -227,9 +227,9 @@ public class StatusMenuView implements Screen{
 		//define sprite content
 		Texture  texture = new Texture(Gdx.files.internal("data/inaho.png"));
 		sprite = new Image(texture);
-		sprite.setWidth(WIDTH);
-		sprite.setHeight(HEIGHT*2);
-		spriteTable.add(sprite);
+		sprite.setWidth(WIDTH-20);
+		sprite.setHeight(HEIGHT*2-20);
+		spriteTable.add(sprite).width(WIDTH-10).padRight(10);
 		
 		//define class stats content (1x5)
 		//first (and only) row CLASS class EXP exp
@@ -278,7 +278,7 @@ public class StatusMenuView implements Screen{
 		//build the status table
 		
 		charInfo.add(charStats);
-		charInfo.add(spriteTable);
+		charInfo.add(spriteTable).width(WIDTH);
 		status.add(charInfo);
 		status.row();
 		status.add(classStats);
@@ -291,7 +291,7 @@ public class StatusMenuView implements Screen{
 		statusMenuTable.add(status);
 		
 		
-		//drawing debug lines
+//		//drawing debug lines
 //		titleRow.debug();
 //		statusMenuTable.debug();
 //		party.debug();

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.sql.Database;
 import com.badlogic.gdx.sql.DatabaseCursor;
 import com.badlogic.gdx.sql.DatabaseFactory;
@@ -282,6 +283,8 @@ public class DBManager {
 			}
 			else if (cursor.getString(0).equals("chiave")){
 				tempKey = ResPack.itemType.new KeyItemData(cursor.getInt(3),cursor.getString(4),cursor.getString(6));
+				tempKey.setQuantity(cursor.getInt(7));
+				inventory.add(tempKey);
 			}
 	
 			Gdx.app.log("DatabaseTest",inventory.get(0).toString());

@@ -167,10 +167,10 @@ public class SkillMenuView implements Screen{
 					t_description.setText(currentSkill.getDescription());
 				}
 			});
-			skillList.add(skillLabel).width(WIDTH*2);
+			skillList.add(skillLabel).width(WIDTH*2).padLeft(10);
 
 			if (!colonnaDestra){
-				skillList.add().width(WIDTH);
+				skillList.add().width(WIDTH-20);
 			}
 			else {
 				skillList.row();
@@ -179,7 +179,7 @@ public class SkillMenuView implements Screen{
 			colonnaDestra = !colonnaDestra;
 		}
 		if(colonnaDestra){
-			skillList.add().width(WIDTH*2);
+			skillList.add().width(WIDTH*2).padLeft(10);
 		}
 
 	}

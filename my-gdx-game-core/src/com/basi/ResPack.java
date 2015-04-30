@@ -82,7 +82,8 @@ public class ResPack {
 		return drawable;
 		
 	}
-	public static final String MENU_FONT = "skin/soldier.ttf";
+	public static final String MENU_FONT = "skin/jupiterc.ttf";
+	
 	public static Skin skinMenuFont(String fontPath, int fontSize) {
 		Skin uiSkin;
 		Skin uiSkinReduced;
