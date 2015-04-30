@@ -34,7 +34,7 @@ public BitmapFont font;
 		font = new BitmapFont();
 		this.setScreen(new FirstScreen(this));
 		//uncomment this to fill with data a newly created db
-		//ResPack.db.fillDB();
+		ResPack.db.fillDB();
 		
 	}
 

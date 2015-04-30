@@ -191,7 +191,7 @@ public class DBManager {
 		cursorCharacter.close();
 		for (int i = 0; i < charList.size(); i++){
 			tempChar = charList.remove(i);
-			//get all the character's equipment
+			//get all the character's equipment, this is lazy i should get the id and then put the item in the character data
 			try {
 				cursorEquipment = dbHandler.rawQuery("SELECT oggetto.nome, tipoequip "
 						+ "FROM ISTANZA_PERSONAGGIO LEFT JOIN equipaggia ON ISTANZA_PERSONAGGIO.ID_PERSONAGGIO = EQUIPAGGIA.ID_PERSONAGGIO"
@@ -412,9 +412,32 @@ public void storeSavedData(){
 		HashMap<String, CharacterData> oldParty = new HashMap<String, CharacterData>();
 		ArrayList<CharacterData> party = getParty();
 		for (CharacterData character : party) {
-//			oldParty.put(String.valueOf(character.getId()), character);
+			oldParty.put(String.valueOf(character.getId()), character);
 		}
-		loadSavedData();
+		//id_personaggio	datacreazione	nome	sprite	ip_hp	ip_mp	ip_atk	ip_def	ip_int	ip_agi
+		CharacterData currentChar = null;
+		for (String charId : ResPack.party.keySet()){
+			currentChar = ResPack.party.get(charId);
+			try{ 
+				dbHandler.execSQL("UPDATE istanza_personaggio "
+						+ " SET nome = '" + currentChar.getName() + "',"
+						+ "  sprite = '" + currentChar.getSprite() + "',"
+						+ "  ip_hp = " + currentChar.getC_MaxHp() + ","
+						+ "  ip_mp = " + currentChar.getC_MaxMp() + ","
+						+ "  ip_atk = " + currentChar.getC_atk() + ","
+						+ "  ip_def = " + currentChar.getC_def() + ","
+						+ "  ip_int = " + currentChar.getC_int() + ","
+						+ "  ip_agi = " + currentChar.getC_agi() 
+						+ " WHERE id_personaggio = " + charId
+						+ " AND datacreazione ='" + ResPack.currentSave + "'"
+						);
+				
+			} catch (SQLiteGdxException e) {
+				e.printStackTrace();
+				return;
+			}
+		}
+		//loadSavedData();
 		
 		
 	}
