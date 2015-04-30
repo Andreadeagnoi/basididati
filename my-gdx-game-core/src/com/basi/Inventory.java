@@ -108,10 +108,12 @@ public class Inventory {
 	}
 	
 	/**
-	 * get method for Inventory. If the item is present in the Inventory, it
-	 * will return the item. If it isn't present, you'll get a null.
+	 * remove method for Inventory. If the item is present in the Inventory, it
+	 * will remove that quantity of that item from the inventory. 
+	 * If it isn't present, you'll get a null.
 	 * 
 	 * @param id
+	 * @param quantity the quantity you want to remove from inventory
 	 * @return an ItemData item.
 	 */
 	public ItemData remove(String id, int quantity){
@@ -120,35 +122,35 @@ public class Inventory {
 		if (consumables.containsKey(id)) {
 			foundItem = consumables.get(id);
 
-			consumables.remove(id);
+			
 			if (foundItem.getQuantity()>quantity){
 				foundItem.setQuantity(foundItem.getQuantity()-quantity);
 				put(foundItem);
 				return foundItem;
 			}
-			foundItem.setQuantity(foundItem.getQuantity()-quantity);
+			foundItem.setQuantity(0);
 			return foundItem;
 		}
 		if (equips.containsKey(id)) {
 			foundItem = equips.get(id);
-			equips.remove(id);
+			
 			if (foundItem.getQuantity()>quantity){
 				foundItem.setQuantity(foundItem.getQuantity()-quantity);
 				put(foundItem);
 				return foundItem;
 			}
-			foundItem.setQuantity(foundItem.getQuantity()-quantity);
+			foundItem.setQuantity(0);
 			return foundItem;
 		}
 		if (keys.containsKey(id)) {
 			foundItem = keys.get(id);
-			keys.remove(id);
+			
 			if (foundItem.getQuantity()>quantity){
 				foundItem.setQuantity(foundItem.getQuantity()-quantity);
 				put(foundItem);
 				return foundItem;
 			}
-			foundItem.setQuantity(foundItem.getQuantity()-quantity);
+			foundItem.setQuantity(0);
 			return foundItem;
 		}
 		return null;
@@ -206,4 +208,29 @@ public class Inventory {
 		return itemList;
 	}
 	
+	public ArrayList<String> getItemIds(){
+		ArrayList<String> itemIds = new ArrayList<String>();
+		itemIds.addAll(consumables.keySet());
+		itemIds.addAll(equips.keySet());
+		itemIds.addAll(keys.keySet());		
+		return itemIds;
+	}
+	
+	public int getQuantity(String id){
+		ItemData foundItem;
+		if (consumables.containsKey(id)) {
+			foundItem = consumables.get(id);
+			return foundItem.getQuantity();
+		}
+		if (equips.containsKey(id)) {
+			foundItem = equips.get(id);
+			return foundItem.getQuantity();
+		}
+		if (keys.containsKey(id)) {
+			foundItem = keys.get(id);
+			return foundItem.getQuantity();
+		}
+		return 0;
+		
+	}
 }

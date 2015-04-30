@@ -367,6 +367,58 @@ public class DBManager {
 		
 	}
 	
+public void storeSavedData(){
+		
+		HashMap<String, ItemData> oldInventory = new HashMap<String, ItemData>();
+		ArrayList<ItemData> inventory = getInventory();
+		for (ItemData item : inventory) {
+			oldInventory.put(String.valueOf(item.getId()), item);
+		}
+		
+		for (String itemId : ResPack.inventory.getItemIds()){
+			if(ResPack.inventory.getQuantity(itemId) != oldInventory.get(itemId).getQuantity()){
+					try {
+						
+						if(ResPack.inventory.getQuantity(itemId) == 0) {
+							//the item will be deleted from the db
+						dbHandler.execSQL("DELETE FROM possiede"
+								+ " WHERE id_oggetto =" + itemId 
+								+ " AND DataCreazione = '" + ResPack.currentSave + "'");
+						}
+						else if (oldInventory.get(itemId).getQuantity() == 0){
+							//the item will be inserted into the possiede table
+							dbHandler.execSQL("INSERT INTO possiede "
+									+ " VALUES ('" 
+									+ ResPack.currentSave + "',"
+									+ ResPack.inventory.get(itemId) + ","
+									+ ResPack.inventory.getQuantity(itemId)
+									+ ")");
+						}
+						else {
+							//the item quantity will be updated
+							dbHandler.execSQL("UPDATE possiede "
+									+ " SET quantita = " + ResPack.inventory.getQuantity(itemId) 
+									+ " WHERE datacreazione = '" + ResPack.currentSave + "'"
+									+ " AND id_oggetto = " + itemId
+									);
+						}
+					} catch (SQLiteGdxException e) {
+						e.printStackTrace();
+						return;
+					}
+			}
+		}
+		
+		HashMap<String, CharacterData> oldParty = new HashMap<String, CharacterData>();
+		ArrayList<CharacterData> party = getParty();
+		for (CharacterData character : party) {
+//			oldParty.put(String.valueOf(character.getId()), character);
+		}
+		loadSavedData();
+		
+		
+	}
+	
 	/**
 	 * given the tables data in txt format, I fill the db with that data.
 	 */

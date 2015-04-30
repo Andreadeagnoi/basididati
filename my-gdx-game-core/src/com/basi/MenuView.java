@@ -29,6 +29,7 @@ public class MenuView implements Screen{
 	private TextButton equip;
 	private TextButton skills;
 	private TextButton inventory;
+	private TextButton saveData;
 	private Label title;
 
 	public MenuView(final SadogashimaEditor editor) {
@@ -98,6 +99,18 @@ public class MenuView implements Screen{
 			}
 		});
 		buttons.add(inventory);
+		
+		//adding save data button
+		saveData = new TextButton("salva", ResPack._SKIN);
+		saveData.addListener(new ClickListener(){
+			@Override 
+			public void clicked(InputEvent event, float x, float y){
+				ResPack.db.storeSavedData();
+
+			}
+		});
+		buttons.add(saveData);
+		
 
 		stage.addActor(buttons);
 

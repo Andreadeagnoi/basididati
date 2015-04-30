@@ -231,8 +231,7 @@ public class SelectSaveData implements Screen {
 					ResPack.currentSave = currentSaveId;
 					//Load save data from db
 					ResPack.db.loadSavedData();
-					//testing get charSkills
-					ResPack.db.getCharSkills("6");
+
 					//set menu view
 					editor.setScreen(new MenuView(editor));				
 				}
