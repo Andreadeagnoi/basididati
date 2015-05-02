@@ -92,7 +92,7 @@ public class SkillMenuView implements Screen{
 
 		skillMenuTable.add(titleRow).colspan(2);
 		skillMenuTable.row();
-		//skillMenuTable.setBackground( new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("data/background3.png")))));
+		skillMenuTable.setBackground( new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("data/background_tecniche.png")))));
 		// new Texture(Gdx.files.internal("background.png"));
 
 		//setup party table
@@ -144,11 +144,11 @@ public class SkillMenuView implements Screen{
 		skillMenuTable.add(party);
 		skillMenuTable.add(charSkills);
 		stage.addActor(skillMenuTable);
-		skillList.debug();
-		skillMenuTable.debug();
-		party.debug();
-		charSkills.debug();
-		skillInfo.debug();
+//		skillList.debug();
+//		skillMenuTable.debug();
+//		party.debug();
+//		charSkills.debug();
+//		skillInfo.debug();
 
 	}
 

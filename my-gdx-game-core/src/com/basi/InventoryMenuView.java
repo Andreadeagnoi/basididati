@@ -121,6 +121,7 @@ public class InventoryMenuView implements Screen{
 		inventoryTable.add(titleRow).height(HEIGHT).colspan(2);
 		inventoryTable.row();
 		inventoryTable.setBackground(ResPack.createMonocromeDrawable(Color.GRAY));
+		inventoryTable.setBackground( new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("data/background_inventory.png")))));
 		
 		//setup tabs and list table
 		//it will occupy 6x5 cells
@@ -248,11 +249,11 @@ public class InventoryMenuView implements Screen{
 		
 		
 		//debug lines
-		inventoryTable.debug();
-		tabTable.debug();
-		itemListTable.debug();
-		itemInfoTable.debug();
-		partyTable.debug();
+//		inventoryTable.debug();
+//		tabTable.debug();
+//		itemListTable.debug();
+//		itemInfoTable.debug();
+//		partyTable.debug();
 		//Add actors to stage
 		inventoryTable.add(tabTable);
 		inventoryTable.add(itemInfoTable);
