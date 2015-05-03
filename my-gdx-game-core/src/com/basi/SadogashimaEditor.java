@@ -32,7 +32,7 @@ public BitmapFont font;
 		batch = new SpriteBatch();
 		// Use LibGDX's default Arial font.
 		font = new BitmapFont();
-		this.setScreen(new FirstScreen(this));
+		this.setScreen(new SelectSaveData(this));
 		//uncomment this to fill with data a newly created db
 		ResPack.db.fillDB();
 		

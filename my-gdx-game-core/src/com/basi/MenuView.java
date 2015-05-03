@@ -69,15 +69,15 @@ public class MenuView implements Screen{
 		});
 		buttons.add(status);
 
-		//Adding the equip menu button
-		equip = new TextButton(ResPack.EQUIP, ResPack._SKIN);
-		equip.addListener(new ClickListener(){
-			@Override 
-			public void clicked(InputEvent event, float x, float y){
-			}
-		});
-		buttons.add(equip);
-		buttons.row();
+//		//Adding the equip menu button
+//		equip = new TextButton(ResPack.EQUIP, ResPack._SKIN);
+//		equip.addListener(new ClickListener(){
+//			@Override 
+//			public void clicked(InputEvent event, float x, float y){
+//			}
+//		});
+//		buttons.add(equip);
+//		buttons.row();
 
 		//Adding the skills menu button
 		skills = new TextButton(ResPack.SKILLS, ResPack._SKIN);
@@ -88,6 +88,7 @@ public class MenuView implements Screen{
 			}
 		});
 		buttons.add(skills);
+		buttons.row();
 
 		//Adding the inventory menu button
 		inventory = new TextButton(ResPack.INVENTORY, ResPack._SKIN);

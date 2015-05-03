@@ -99,8 +99,20 @@ public class SelectSaveData implements Screen {
 			@Override 
 			public void clicked(InputEvent event, float x, float y){
 				final String saveName = genSaveName.getText();
-				if(!saveName.equals("")){
-					SaveData genSave = ResPack.db.insertSave(saveName);
+				String processedSaveName = "";
+				int j = 0;
+				for(int i=0; i<saveName.length();){
+					j = saveName.indexOf("'", i);
+					if(j == -1){
+						processedSaveName = processedSaveName + saveName.substring(i);
+						break;
+					}
+					processedSaveName = processedSaveName + saveName.substring(i, j);
+					processedSaveName = processedSaveName + "''";
+					i = j+1;
+				}
+				if(!processedSaveName.equals("")){
+					SaveData genSave = ResPack.db.insertSave(processedSaveName);
 					table.add(new TextField(String.valueOf(genSave.getCreationTime()), ResPack._SKIN));
 					table.add(new TextField(genSave.getSaveName(), ResPack._SKIN));
 					table.add(new TextField(String.valueOf(genSave.getTotalPlayTime()), ResPack._SKIN)).width(150);
