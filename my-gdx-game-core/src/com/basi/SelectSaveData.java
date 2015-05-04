@@ -43,7 +43,8 @@ public class SelectSaveData implements Screen {
 	private TextField[] creationTime;
 	private TextField[] lastSaveTime;
 	private ScrollPane scroll;
-
+	private Table table;
+	private Table saveTable;
 	
 
 
@@ -58,22 +59,14 @@ public class SelectSaveData implements Screen {
 		Gdx.input.setInputProcessor(savesStage);
 
 		// set up table for the saves
-		final Table table = new Table(ResPack._SKIN);
+		table = new Table(ResPack._SKIN);
+		table.setFillParent(true);
 		table.top();
 		table.defaults().width(250);
-		
 		// set up the scrolling component
-		scroll = new ScrollPane(table, ResPack._SKIN);
-		scroll.setFillParent(true);
-
-		// initialize the saves data
-		ArrayList<SaveData> saveData = ResPack.db.getSaves();
 		
-		//initialize textfields for the layout of the table
-		name = new TextField[saveData.size()];
-		totalPlaytime = new TextField[saveData.size()];
-		creationTime = new TextField[saveData.size()];
-		lastSaveTime = new TextField[saveData.size()];
+		
+		
 
 		// create labels for the columns
 		
@@ -89,8 +82,17 @@ public class SelectSaveData implements Screen {
 		lastSaveTimeLabel = new Label("DATA ULTIMO SALVATAGGIO", ResPack._SKIN);
 		lastSaveTimeLabel.setAlignment(Align.center);
 		table.add(lastSaveTimeLabel);
+		table.add().width(100);
+		table.add().width(100);
 		table.row();
 		
+		saveTable = new Table(ResPack._SKIN);
+		saveTable.debug();
+		saveTable.defaults().width(250);
+		fillSaveList();	
+		table.debug();
+		scroll = new ScrollPane(saveTable, ResPack._SKIN);
+		scroll.setFillParent(true);
 		//let's add a button to generate saves
 		genSave = new TextButton("inserisci salvataggio",ResPack._SKIN);
 		genSaveName = new TextField("",ResPack._SKIN);
@@ -125,28 +127,12 @@ public class SelectSaveData implements Screen {
 				
 			}
 		});
+		table.add(saveTable).colspan(6).row();
 		table.add(genSave);
 		table.add(genSaveName);
 		table.row();
-		
-		SaveData readSave = null;
-		// filling the table with the save data
-		for (int row = 0; row < saveData.size(); row++) {
-			readSave = saveData.get(row);
-			creationTime[row] = new TextField(String.valueOf(readSave.getCreationTime()), ResPack._SKIN);
-			table.add(creationTime[row]);
-			name[row] = new TextField(readSave.getSaveName(), ResPack._SKIN);
-			table.add(name[row]);
-			totalPlaytime[row] = new TextField(String.valueOf(readSave.getTotalPlayTime()), ResPack._SKIN);
-			table.add(totalPlaytime[row]).width(150);		
-			lastSaveTime[row] = new TextField(String.valueOf(readSave.getLastSaveTime()), ResPack._SKIN);
-			table.add(lastSaveTime[row]);
-			table.add(buttonRow(readSave.getCreationTime(),ResPack.EDIT)).width(100);
-			table.add(buttonRow(readSave.getCreationTime(),ResPack.MENU)).width(100);
-			table.row();
-		}
-
-		savesStage.addActor(scroll);
+		scroll.debug();
+		savesStage.addActor(table);
 
 	}
 
@@ -235,9 +221,9 @@ public class SelectSaveData implements Screen {
 			@Override 
 			public void clicked(InputEvent event, float x, float y){
 				if(modeListener.equals(ResPack.EDIT)){
-					ResPack.currentSave = currentSaveId;
-					editor.setScreen(new TableView(editor));
-					
+					ResPack.db.deleteSaveData(currentSaveId);
+					saveTable.clear();
+					fillSaveList();
 				}
 				else {
 					ResPack.currentSave = currentSaveId;
@@ -251,6 +237,34 @@ public class SelectSaveData implements Screen {
 			}
 		});
 		return button;
+	}
+	
+	private void fillSaveList() {
+		// initialize the saves data
+				ArrayList<SaveData> saveData = ResPack.db.getSaves();
+				
+		//initialize textfields for the layout of the table
+				name = new TextField[saveData.size()];
+				totalPlaytime = new TextField[saveData.size()];
+				creationTime = new TextField[saveData.size()];
+				lastSaveTime = new TextField[saveData.size()];
+		
+		SaveData readSave = null;
+		// filling the table with the save data
+		for (int row = 0; row < saveData.size(); row++) {
+			readSave = saveData.get(row);
+			creationTime[row] = new TextField(String.valueOf(readSave.getCreationTime()), ResPack._SKIN);
+			saveTable.add(creationTime[row]);
+			name[row] = new TextField(readSave.getSaveName(), ResPack._SKIN);
+			saveTable.add(name[row]);
+			totalPlaytime[row] = new TextField(String.valueOf(readSave.getTotalPlayTime()), ResPack._SKIN);
+			saveTable.add(totalPlaytime[row]).width(150);		
+			lastSaveTime[row] = new TextField(String.valueOf(readSave.getLastSaveTime()), ResPack._SKIN);
+			saveTable.add(lastSaveTime[row]);
+			saveTable.add(buttonRow(readSave.getCreationTime(),ResPack.EDIT)).width(100);
+			saveTable.add(buttonRow(readSave.getCreationTime(),ResPack.MENU)).width(100);
+			saveTable.row();
+		}
 	}
 
 }

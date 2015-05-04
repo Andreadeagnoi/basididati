@@ -108,7 +108,6 @@ public class SkillMenuView implements Screen{
 		//set up the list of characters and the data of the first character of the list
 		partyArray = new ArrayList<CharacterData>(ResPack.party.values());
 		selectedChar = partyArray.get(0);
-
 		partyList.setItems(partyArray.toArray(new CharacterData[partyArray.size()]));
 		//when I select a character from partyList I change the char status accordingly
 		partyList.addListener(new ClickListener(){
@@ -119,7 +118,7 @@ public class SkillMenuView implements Screen{
 			}
 		});
 
-		party.add(partyList).height(HEIGHT*6);
+		party.add(partyList).height(HEIGHT*6).width(WIDTH*2-20);
 
 
 		//Table containing skills info
@@ -134,14 +133,14 @@ public class SkillMenuView implements Screen{
 		skillInfo = new Table(uiSkin);
 		skillInfo.defaults().width(WIDTH*5).height(HEIGHT);
 		t_SkillName = new Label(ResPack.SELECTSKILL, uiSkin);
-		skillInfo.add(t_SkillName).row();
+		skillInfo.add(t_SkillName).padLeft(10).row();
 		t_description = new Label("", uiSkin);
-		skillInfo.add(t_description).height(HEIGHT*2);
+		skillInfo.add(t_description).height(HEIGHT*2).padLeft(10);
 		charSkills.add(skillList).height(HEIGHT*5).width(WIDTH*5);
 		charSkills.row();
 		charSkills.add(skillInfo);
 
-		skillMenuTable.add(party);
+		skillMenuTable.add(party).padLeft(20);
 		skillMenuTable.add(charSkills);
 		stage.addActor(skillMenuTable);
 //		skillList.debug();
@@ -170,7 +169,7 @@ public class SkillMenuView implements Screen{
 			skillList.add(skillLabel).width(WIDTH*2).padLeft(10);
 
 			if (!colonnaDestra){
-				skillList.add().width(WIDTH-20);
+				skillList.add().width(WIDTH-10);
 			}
 			else {
 				skillList.row();

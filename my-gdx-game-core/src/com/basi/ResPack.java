@@ -31,7 +31,7 @@ public class ResPack {
 	public static final Skin _SKIN = new Skin(Gdx.files.internal("skin/uiskin.json"));
 	
 	//Strings (in Italian)
-	public static final String EDIT = "Modifica";
+	public static final String EDIT = "Cancella";
 	public static final String MENU = "Menu";
 	public static final String STATUS = "Status";
 	public static final String EQUIP = "Equip";

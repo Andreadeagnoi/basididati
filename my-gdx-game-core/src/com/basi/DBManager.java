@@ -64,16 +64,18 @@ public class DBManager {
 
 	//create a save and return the info about the save
 	public SaveData insertSave(String name){
+
+		DatabaseCursor cursor = null;
 		//insert save in the db
 		try {
 			dbHandler.execSQL("INSERT INTO SALVATAGGIO_GIOCATORE (Nome, TempoGiocato)"
 					+ " VALUES ('" + name + "', 0)");
+			
 		} catch (SQLiteGdxException e) {
 			e.printStackTrace();
 			return null;
 		}
 		//retrieve the save
-		DatabaseCursor cursor = null;
 		try {
 			cursor = dbHandler.rawQuery("SELECT Nome,DataCreazione,TempoGiocato,DataUltimoSalvataggio "
 					+ "FROM SALVATAGGIO_GIOCATORE ORDER BY DataCreazione DESC;") ;
@@ -85,7 +87,45 @@ public class DBManager {
 				cursor.getString(3),
 				cursor.getInt(2),
 				cursor.getString(0));
+		//initialize data for new save with character with id 1
+		try {
+			cursor = dbHandler.rawQuery("SELECT * "
+					+ "FROM personaggio WHERE id_personaggio = 1") ;
+		} catch (SQLiteGdxException e) {
+			e.printStackTrace();
+		}
+		try {
+			dbHandler.execSQL("INSERT INTO istanza_personaggio "
+					+ " VALUES (1,'" + genSave.getCreationTime() + 
+						"','" + cursor.getString(1) +
+						"','" + cursor.getString(2) +
+						"'," + cursor.getInt(3) + 
+						"," + cursor.getInt(4) + 
+						"," + cursor.getInt(5) + 
+						"," + cursor.getInt(6) + 
+						"," + cursor.getInt(7) + 
+						"," + cursor.getInt(8) + ")" );
+			dbHandler.execSQL("INSERT INTO appartiene "
+					+ " VALUES (1,'"+ genSave.getCreationTime()+"',1,1,1,0)");
+		} catch (SQLiteGdxException e) {
+			e.printStackTrace();
+		}
 		return genSave;
+	}
+	
+	public void deleteSaveData(String saveDate){
+		try {
+			dbHandler.execSQL("DELETE FROM Possiede WHERE DataCreazione ='" 
+					+ saveDate + "'");
+			dbHandler.execSQL("DELETE FROM Appartiene WHERE DataCreazione ='" 
+					+ saveDate + "'");
+			dbHandler.execSQL("DELETE FROM Istanza_Personaggio WHERE DataCreazione ='" 
+					+ saveDate + "'");
+			dbHandler.execSQL("DELETE FROM SALVATAGGIO_GIOCATORE WHERE DataCreazione ='" 
+								+ saveDate + "'");
+		} catch (SQLiteGdxException e) {
+			e.printStackTrace();
+		}
 	}
 
 
