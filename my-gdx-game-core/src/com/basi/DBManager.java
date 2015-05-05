@@ -373,7 +373,8 @@ public class DBManager {
 					+ "FROM tecnica NATURAL JOIN impara NATURAL JOIN appartiene "
 					+ "WHERE appartiene.id_Personaggio = " + charId + " AND "
 					+ " appartiene.DataCreazione = '" + ResPack.currentSave + "' AND "
-					+ " appartiene.LivelloClasse > impara.LivelloRichiesto");
+					+ " appartiene.LivelloClasse > impara.LivelloRichiesto "
+					+ " AND appartiene.inUso = 1");
 		} catch (SQLiteGdxException e) {
 			e.printStackTrace();
 		}
