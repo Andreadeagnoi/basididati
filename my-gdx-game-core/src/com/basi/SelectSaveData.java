@@ -45,6 +45,7 @@ public class SelectSaveData implements Screen {
 	private ScrollPane scroll;
 	private Table table;
 	private Table saveTable;
+	ArrayList<SaveData> saveData ;
 	
 
 
@@ -57,7 +58,8 @@ public class SelectSaveData implements Screen {
 	public void show() {
 		savesStage = new Stage();
 		Gdx.input.setInputProcessor(savesStage);
-
+		saveData = ResPack.db.getSaves();
+		saveData = ResPack.db.getSaves();
 		// set up table for the saves
 		table = new Table(ResPack._SKIN);
 		table.setFillParent(true);

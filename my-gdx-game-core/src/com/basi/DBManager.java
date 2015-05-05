@@ -150,7 +150,7 @@ public class DBManager {
 			dbHandler.execSQL(ResPack.q_IMPARA);
 			dbHandler.execSQL(ResPack.q_MODIFICAT);
 			dbHandler.execSQL(ResPack.q_POSSIEDE);
-			dbHandler.execSQL(ResPack.q_PROMUOVE);
+//			dbHandler.execSQL(ResPack.q_PROMUOVE);
 			dbHandler.execSQL(ResPack.q_RICHIEDE);
 			dbHandler.execSQL(ResPack.q_UTILIZZA);		
 
@@ -671,34 +671,34 @@ public void storeSavedData(){
 		}
 		
 		//Insert class promotion
-		data = generateString.txtToString("tables/promuove.txt");
-		i = 0;
-		j = 0;
-		p = 0;
-		col = 3;
-		while(i<data.length()){
-
-			while(p<col){
-				j = data.indexOf(9,i);
-				if(p == col-1){
-					j = data.indexOf(10, i);
-				}
-				rowData[p++] = data.substring(i, j);
-				i = j + 1;	
-			}
-			p = 0;
-
-			try {
-				dbHandler.execSQL("INSERT INTO promuove "
-						+ " VALUES (" 
-						+ rowData[0] + ","
-						+ rowData[1] + ","
-						+ rowData[2] + ")");
-			} catch (SQLiteGdxException e) {
-				e.printStackTrace();
-				return;
-			}
-		}
+//		data = generateString.txtToString("tables/promuove.txt");
+//		i = 0;
+//		j = 0;
+//		p = 0;
+//		col = 3;
+//		while(i<data.length()){
+//
+//			while(p<col){
+//				j = data.indexOf(9,i);
+//				if(p == col-1){
+//					j = data.indexOf(10, i);
+//				}
+//				rowData[p++] = data.substring(i, j);
+//				i = j + 1;	
+//			}
+//			p = 0;
+//
+//			try {
+//				dbHandler.execSQL("INSERT INTO promuove "
+//						+ " VALUES (" 
+//						+ rowData[0] + ","
+//						+ rowData[1] + ","
+//						+ rowData[2] + ")");
+//			} catch (SQLiteGdxException e) {
+//				e.printStackTrace();
+//				return;
+//			}
+//		}
 
 		//Insert skills
 		data = generateString.txtToString("tables/tecnica.txt");
@@ -925,7 +925,7 @@ public void storeSavedData(){
 		i = 0;
 		j = 0;
 		p = 0;
-		col = 3;
+		col = 2;
 		while(i<data.length()){
 			while(p<col){
 				j = data.indexOf(9,i);
@@ -941,8 +941,7 @@ public void storeSavedData(){
 				dbHandler.execSQL("INSERT INTO richiede "
 						+ " VALUES (" 
 						+ rowData[0] + ","
-						+ rowData[1] + ","
-						+ rowData[2] + ")");
+						+ rowData[1] + ")");
 
 			} catch (SQLiteGdxException e) {
 				e.printStackTrace();

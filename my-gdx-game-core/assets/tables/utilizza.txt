@@ -1,8 +1,39 @@
-stampanteEpson	1
-stampanteEpson	2
-schermoLg	1
-schermoLg	3
-tastieraTrust	1
-tastieraTrust	4
-mouseLogitech	1
-mouseLogitech	5
+Goblin	1
+Guardia Goblin	1
+Lupo	1
+Cavallo Pazzo	1
+Scheletro	1
+Vedova Nera	1
+Gigaverme	1
+Zombie	1
+Necrospettro	1
+Cobra	1
+Orco	1
+Lucertola	1
+Pirata	1
+Sahagin	1
+Occhione	1
+Scorpione	1
+Ombra	1
+Gargolla	1
+Bruco	1
+Gorilla	1
+Necrospettro	2
+Necrospettro	3
+Necrospettro	4
+Ombra	2
+Ombra	3
+Ombra	4
+Ombra	14
+Necrospettro	14
+Vedova Nera	13
+Bruco	13
+Cobra	13
+Scheletro	27
+Lupo	7
+Gorilla	7
+Orco	7
+Lucertola	16
+Lupo	24
+Scheletro	23
+Pirata	30

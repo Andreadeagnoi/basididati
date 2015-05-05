@@ -1,15 +1,40 @@
-1	attaco_normale	attacco base di ogni persona	0	10
-2	fuoco_base	lancia una palla di fuoco	5	20
-3	acqua_base	lancia una palla di acqua	5	20
-4	terra_base	lancia una palla di terra	5	20
-5	fuoco_medio	piu potente di fuoco base	10	40
-6	scudo	attiva scudo per difenredere la squadra	15	0
-7	carica	attaca con il 120% del danno arma	7	12
-8	cura	cura un obiettivo di 20 punti vita	3	-20
-9	curaplus	cura un obiettivo di 100 punti vita	5	-100
-10	furia	attaca con il 200% di danno, ma perde 50 punti vita	30	200
-11	antidoto	cura stato avvelenato	0	0
-12	resuscita	riveve una persona	10	-10
-13	veleno	avvelena il nemico	15	30
-14	fulmine_base	colpisce il nemico con un fulmine	15	40
-15	mal di pancia	perdi 10 punti vita	0	30
+1	attacco	Attacco base comune a tutti	0	10
+2	fuoco base	Lancia una palla di fuoco	5	20
+3	acqua base	Lancia una palla di acqua	5	20
+4	terra base	Lancia una palla di terra	5	20
+5	fuoco medio	Piu potente di fuoco base	10	40
+6	acqua medio	Piu potente di acqua base	10	40
+7	carica	Attacca con il 120% del danno 	7	120
+8	cura	Cura un obiettivo di 20 punti vita	3	-20
+9	cura medio	Cura un obiettivo di 100 punti vita	5	-100
+10	furia	Attacca con il 200% di danno, ma perde 50 punti vita	30	200
+11	antidoto	Cura stato avvelenato	0	0
+12	resuscita	Riveve una persona	10	-10
+13	veleno	Avvelena il nemico	15	30
+14	fulmine base	Colpisce il nemico con un fulmine	15	40
+15	medicina potente	Cura 40 punti vita	6	-40
+16	paralizzante	Paralizza il nemico	0	0
+17	medicina speciale 	Cura 100 punti vita	12	-100
+18	panacea minore	Cura tutti gli stati a parte la morte e lo zombie	0	0
+19	etere	Ripristina 20 pm	-20	0
+20	etere potente	Ripristina 100 pm	-100	0
+21	terra medio	Piu potente di terra base	10	40
+22	fulmine medio	Piu potente di fulmine base	30	80
+23	scudo perfetto	Para il prossimo attacco	5	0
+24	agilità	Stato Agile sul bersaglio	10	0
+25	rigene	Stato Rigene sul bersaglio	30	0
+26	scudo 	Può parare il prossimo attacco	0	0
+27	falciata 	Attacco con falce potente, può causare sanguinamento	15	150
+28	medicamento	Usa delle erbe per curare	5	-30
+29	richiamo	Richiama un cane pastore che azzanna il bersaglio	20	200
+30	canzone	Canta una canzone paesana che può far addormentare	10	0
+31	baraonda	Fa confusione durante il combattimento, causando vari status	40	0
+32	Pizza!	Ripristina punti vita e causa vari status positivi	10	-50
+33	mani in pasta	Impasta le mani al bersaglio, causa paralisi	15	0
+34	pala invincibile	Sbatte la pala in testa al bersaglio con grande forza	20	300
+35	lancio	Lancio di coltello al bersaglio	5	150
+36	lacerazione	Taglio di coltello che può far sanguinare	10	200
+37	tiro preciso	Tiro con arco che può paralizzare il bersaglio	15	80
+38	tiro di forza	Tiro molto potente con arco 	20	250
+39	antiparalisi	Cura una persona paralizzata	0	0
+40	mal di pancia	Provocato da cibo avariato	0	15

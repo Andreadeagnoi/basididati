@@ -286,8 +286,7 @@ public class ResPack {
 	public static final String t_RICHIEDE = "Richiede";
 	public static final String q_RICHIEDE = "CREATE TABLE  if not exists Richiede(\r\n" + 
 			"ID_Tecnica INTEGER NOT NULL,\r\n" + 
-			"ID_Oggetto INTEGER NOT NULL,\r\n" + 
-			"Quantita INTEGER,\r\n" + 
+			"ID_Oggetto INTEGER NOT NULL, " + 
 			"PRIMARY KEY(ID_Tecnica, ID_Oggetto),\r\n" + 
 			"CHECK(ID_Tecnica >= 0 AND ID_Oggetto >= 0),\r\n" + 
 			"FOREIGN KEY(ID_Tecnica) REFERENCES TECNICA(ID_Tecnica)\r\n" + 

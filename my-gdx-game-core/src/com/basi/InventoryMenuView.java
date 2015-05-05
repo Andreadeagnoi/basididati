@@ -81,6 +81,7 @@ public class InventoryMenuView implements Screen{
 	private Label characterLevel;
 	private ArrayList<Table> charCells = new ArrayList<Table>();
 	int i = 0;
+	private ScrollPane scrollItemList;
 
 	public InventoryMenuView(final SadogashimaEditor editor) {
 		this.editor = editor;
@@ -175,7 +176,8 @@ public class InventoryMenuView implements Screen{
 		itemListTable.defaults().width(WIDTH*2).height(HEIGHT);
 		currentTab = "consumables";
 		fillItemList();
-		tabTable.add(itemListTable).height(HEIGHT*5).width(WIDTH*5).colspan(3);
+		scrollItemList = new ScrollPane(itemListTable);
+		tabTable.add(scrollItemList).height(HEIGHT*5).width(WIDTH*5).colspan(3);
 
 		//setup item's info table
 		//it will occupy 6x2 cells

@@ -3,3 +3,8 @@ par	paralizzato	non puo attaccare
 mor	morto	non puo fare niente
 ral	rallentato	perde 50% agilita
 bru	bruciato	perde 1% di vita
+scu	scudo	para l'' attacco
+rig	rigene	recupera 5% dei pv ogni turno
+agi	agile	raddoppia l'' agilità 
+san	sanguinamento	ogni turno perde 5% di vita
+add	addormentato	non può attaccare

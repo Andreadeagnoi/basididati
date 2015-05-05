@@ -1,5 +1,13 @@
-stampanteEpson	1	1
-schermoLg	2	1
-tastieraTrust	3	1
-mouseLogitech	4	2
-mouseLogitech	5	1
+Lupo	19	1
+Cavallo Pazzo	1	1
+Scheletro	20	1
+Vedova Nera	6	1
+Necrospettro	13	1
+Orco	31	1
+Pirata	8	1
+Sahagin	1	1
+Scorpione	42	1
+Bruco	7	1
+Gorilla	26	1
+Pirata	5	1
+Pirata	3	1

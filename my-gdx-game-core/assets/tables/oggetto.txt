@@ -1,10 +1,57 @@
-1	pozione	sprite_pozione	cura 20 di vita	consumabile	NULL	8	NULL	NULL	NULL	NULL	NULL	NULL
-2	spada_legno	sprite_spada_l	spada in legno	equip	arma	NULL	0	0	10	0	0	0
-3	elmo_legno	sprite_elmo_l	elmo in legno	equip	testa	NULL	10	0	0	2	0	1
-4	armatura_legno	sprite_armatura_l	armatura in legno	equip	corpo	NULL	10	0	0	2	0	1
-5	chiave_porta	sprite_chiave_p	chiave della camera	chiave	NULL	NULL	NULL	NULL	NULL	NULL	NULL	NULL
-6	veleno	sprite_veleno	avvelena il nemico	consumabile	NULL	NULL	NULL	NULL	NULL	NULL	NULL	NULL
-7	paralizzante	sprite_paralizzante	paralizza il nemico	consumabile	NULL	NULL	NULL	NULL	NULL	NULL	NULL	NULL
-8	spada_mithril	sprite_spada_m	spada in mithril	equip	arma	NULL	0	0	50	0	0	10
-9	armatura_mithril	sprite_armatura_m	armatura in mithril	equip	corpo	NULL	100	30	0	50	0	30
-10	merda	sprite_merda	cibo della mensa	consumabile	NULL	15	NULL	NULL	NULL	NULL	NULL	NULL
+1	pozione	sprite_pozione	cura 20 di vita	consumabile	8	null	null	null	null	null	null	null
+2	spada e scudo di legno	sprite_spada_l	spada e scudo in legno	equip	arma	null	0	0	10	5	0	0
+3	elmo di legno	sprite_elmo_l	elmo in legno	equip	testa	null	10	0	0	2	0	1
+4	armatura di legno	sprite_armatura_l	armatura in legno	equip	corpo	null	10	0	0	2	0	1
+5	chiave della camera	sprite_chiave_p	chiave della camera	chiave	null	null	null	null	null	null	null	null
+6	veleno	sprite_veleno	avvelena il nemico	consumabile	null	13	null	null	null	null	null	null
+7	paralizzante	sprite_paralizzante	paralizza il nemico	consumabile	null	16	null	null	null	null	null	null
+8	spada e scudo di mithril	sprite_spada_m	spada e scudo in mithril	equip	arma	null	0	0	50	50	0	10
+9	armatura di mithril	sprite_armatura_m	armatura in mithril	equip	corpo	null	100	30	0	50	0	30
+10	abito semplice	sprite_abito_s	abito di cotone	equip	corpo	null	0	0	0	4	0	0
+11	abito del viandante	sprite_abito_v	abito usato dai viandanti	equip	corpo	null	0	0	0	7	0	0
+12	boxer	sprite_boxer	mutandoni da uomo	equip	corpo	null	0	0	0	8	0	0
+13	veste di seta	sprite_veste_s	veste femminile molto provocante	equip	corpo	null	0	0	0	10	0	0
+14	armatura di pelle	sprite_armatura_p	armatura in ecopelle	equip	corpo	null	0	0	0	11	0	0
+15	divisa da templare	sprite_armatura_t	armatura usata dagli illuminati	equip	corpo	null	0	0	0	13	0	0
+16	armatura a scaglie	sprite_armatura_s	armatura ricoperta da ecoscaglie	equip	corpo	null	0	0	0	17	0	0
+17	cotta di maglia	sprite_cotta	Veste composta da veri anelli di ferro	equip	corpo	null	0	0	0	20	0	0
+18	armatura da bonzo	sprite_armatura_b	armatura utilizzata da bonzi corrotti	equip	corpo	null	0	0	0	25	0	0
+19	scialle di pelliccia	sprite_scialle	Una delle migliori armature in ecopelliccia	equip	corpo	null	0	0	0	40	0	0
+20	coperchio	sprite_coperchio	Scudo improvvisato	equip	arma	null	0	0	0	1	0	0
+21	Spada e Scudo di pelle	sprite_scudo_p	Scudo in ecopelle	equip	arma	null	0	0	3	3	0	0
+22	Spada e Scudo Micio	sprite_scudo_m	Scudo con un bassorilievo raffigurante un micio	equip	arma	null	0	0	6	5	0	0
+23	Spada e Scudo di ferro	sprite_scudo_f	Spada e scudo di ferro	equip	arma	null	0	0	8	8	0	0
+24	Spada con Scudo a scaglie	sprite_scudo_s	Scudo di ecoscaglie	equip	arma	null	0	0	8	10	0	0
+25	Spada con Scudo magico	sprite_scudo_m	Scudo con rune magiche	equip	arma	null	0	20	8	13	0	0
+26	Bandana	sprite_bandana	Bandana rossa	equip	testa	null	0	0	0	1	0	0
+27	Fermaglio	sprite_fermaglio	Fermaglio carino	equip	testa	null	0	0	0	2	0	0
+28	Turbante	sprite_turbante	Turbante orientale	equip	testa	null	0	0	0	5	0	0
+29	Elmetto di ferro	sprite_elmo_f	Elmetto eccellente	equip	testa	null	0	0	0	10	0	0
+30	Corona del re	sprite_corona	Corona regale	equip	testa	null	20	20	0	13	0	0
+31	Bastone di cipresso	sprite_bastone	prima forma di attacco	equip	arma	null	0	0	1	0	0	0
+32	Spada e scudo del soldato	sprite_spada_s	Spada e scudo da guerra	equip	arma	null	0	0	3	3	0	0
+33	Spada e scudo di platino	sprite_spada_p	Spada pregiata	equip	arma	null	0	0	10	5	0	0
+34	Lancia di ferro	sprite_lancia_f	Lancia di ferro	equip	arma	null	0	0	5	0	0	0
+35	Lancia demoniaca	sprite_lancia_d	Lancia forgiata da un diavolo	equip	arma	null	0	0	10	0	0	0
+36	Ascia di pietra	sprite_ascia_p	Ascia incisa da una pietra rozzamente	equip	arma	null	0	0	15	0	0	0
+37	Ascia barbarica	sprite_ascia_b	Ascia leggendaria	equip	arma	null	0	0	100	0	0	0
+38	Falce di ferro	sprite_falce_f	Falce usata da comuni contadini	equip	arma	null	0	0	10	0	0	0
+39	Falce della Morte	sprite_falce_m	Falce usata dalla Morte	equip	arma	null	0	0	100	0	0	0
+40	Coltellaccio	sprite_coltellaccio	Coltello usato dai migliori chef	equip	arma	null	0	0	15	0	0	0
+41	Spaccalame	sprite_spaccalame	Coltello che si dice possa tagliare lame	equip	arma	null	0	0	50	0	0	0
+42	Medicina potente	sprite_medicina_p	Medicina migliore della pozione	consumabile	null	15	null	null	null	null	null	null
+43	Antidoto	sprite_antidoto	Antidoto contro il veleno	consumabile	null	11	null	null	null	null	null	null
+44	Medicina speciale	sprite_medicina_s	Cura 100 pv	consumabile	null	17	null	null	null	null	null	null
+45	Panacea	sprite_panacea	cura tutti gli stati a parte morte e zombie	consumabile	null	18	null	null	null	null	null	null
+46	Bacchetta	sprite_bacchetta	Bacchetta poco potente	equip	arma	null	0	0	0	0	3	0
+47	Bacchetta potente	sprite_bacchetta_p	Bacchetta dal forte mana	equip	arma	null	0	0	0	0	20	0
+48	Etere	sprite_etere	Bevanda che ripristina 20 pm	consumabile	null	19	null	null	null	null	null	null
+49	Etere potente	sprite_etere_p	Bevanda che ripristina 100 pm	consumabile	null	20	null	null	null	null	null	null
+50	Arco di betulla	sprite_arco	Arco flessibile usato per cacciare 	equip	arma	null	0	0	10	0	0	5
+51	Arco rinforzato	sprite_arco_r	Arco resistente e preciso	equip	arma	null	0	0	20	0	0	10
+52	Arco angelico	sprite_arco_a	Arco leggendario usato dagli angeli	equip	arma	null	50	0	50	0	0	33
+53	Pala di legno	sprite_pala_l	Pala normale da pizzaiolo	equip	arma	null	0	0	10	10	0	0
+54	Pala da battaglia	sprite_pala_b	Pala da pizzaiolo modificata per il combattimento	equip	arma	null	0	0	30	20	0	0
+55	Pala suprema	sprite_pala_s	Pala da pizzaiolo tramandata da Totò Sapore	equip	arma	null	0	0	60	40	0	0
+56	Antiparalisi	sprite_antiparalisi	Cura dalla paralisi	consumabile	null	39	null	null	null	null	null	null
+57	Cibo avariato	sprite_cibo	Cibo andato di male	consumabile	null	39	null	null	null	null	null	null

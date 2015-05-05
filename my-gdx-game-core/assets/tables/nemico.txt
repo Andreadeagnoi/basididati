@@ -1,9 +1,20 @@
-stampanteEpson	goblin	un goblin a forma di stampante	sprite_stampanteEpson	10	0	1	1	0	1
-schermoLg	goblin	un goblin a froma di schermo	sprite_schermoLg	10	0	2	1	0	1
-tastieraTrust	goblin	un goblin a forma di tastiera	sprite_tastieraTrust	10	0	3	1	0	1
-mouseLogitech	goblin	un gobiln a forma di mouse	sprite_mouseLogitech	10	0	4	1	0	1
-Fimi	elfo	elfo in grado di lanciare palle di fuoco	sprite_fimi	958	340	220	42	502	40
-Wamia	elfo	elfo che usa i poteri della natura per curare	sprite_wamia	1594	500	340	51	675	30
-Minothring	bestia	le corna di questa bestia sono molto preziose	sprite_minothring	1219	0	195	68	357	60
-Spookloak	spiriti	uno spirito notturno che aiuta le persone 	sprite_spookloak	2355	507	389	60	48	88
-Ponee	bestia	un cucciolo di bestia unicorno	sprite_ponee	973	389	331	46	329	321
+Goblin	Goblin	I goblin sono piccole e malefiche creature	sp_goblin	8	2	4	4	3	1
+Guardia Goblin	Goblin	Sono i goblin di rango superiore	sp_guardia_goblin	16	4	8	8	6	2
+Lupo	Bestia	Lupi selvaggi	sp_lupo	20	8	5	0	18	1
+Cavallo Pazzo	Bestia	Un cavallo pazzo delle alte montagne	sp_cavallo_pazzo	64	10	15	12	2	3
+Scheletro	Non morto	Uno scheletro guerriero	sp_scheletro	10	10	2	13	2	3
+Vedova Nera	Insetto	Un ragno gigante che mangia i passanti	sp_vedova_nera	28	10	7	0	15	5
+Gigaverme	Insetto	Un verme gigante che si nutre di cadaveri	sp_gigaverme	64	17	14	8	9	2
+Zombie	Non morto	Un cadavere vivente	sp_zombie	20	10	10	5	0	6
+Necrospettro	Non morto	Un fantasma in grado di lanciare magie	sp_necrospettro	48	20	6	6	6	6
+Cobra	Bestia	Un serpente molto velenoso	sp_cobra	56	14	6	6	15	6
+Orco	Bestia	Un orco e  un goblin evoluto	sp_orco	100	25	18	10	9	4
+Lucertola	Bestia	Una lucertola gigante del deserto	sp_lucertola	92	18	23	12	9	5
+Pirata	Uomo	Un malvivente dei mari	sp_pirata	25	2	10	0	16	2
+Sahagin	Bestia	Una bestia marina	sp_sahagin	28	7	10	4	36	4
+Occhione	Non morto	Un fantasma che assomiglia a un occhio gigante	sp_occhione	10	4	6	5	43	5
+Scorpione	Insetto	Scorpione gigante dei deserti molto velenoso	sp_scorpione	84	22	21	10	27	5
+Ombra	Non morto	Un fantasma notturno molto pericoloso	sp_ombra	50	10	13	0	13	15
+Gargolla	Bestia	Una statua che si trasforma in una bestia volante	sp_gargolla	80	20	8	6	1	10
+Bruco	Insetto	Un verme gigante molto velenoso	sp_bruco	70	20	13	5	16	10
+Gorilla	Bestia	Una bestia che aggredisce i passanti	sp_gorilla	80	0	20	13	25	0
