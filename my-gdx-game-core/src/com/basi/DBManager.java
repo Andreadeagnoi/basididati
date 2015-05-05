@@ -552,7 +552,7 @@ public void storeSavedData(){
 						+ rowData[0] + "','"
 						+ rowData[1] + "',"
 						+ rowData[2] + ",'"
-						+ rowData[3] +  "')");
+						+ rowData[3] +  "');");
 			} catch (SQLiteGdxException e) {
 				e.printStackTrace();
 				return;
