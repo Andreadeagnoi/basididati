@@ -255,7 +255,7 @@ public class InventoryMenuView implements Screen{
 //		itemInfoTable.debug();
 //		partyTable.debug();
 		//Add actors to stage
-		inventoryTable.add(tabTable);
+		inventoryTable.add(tabTable).center();
 		inventoryTable.add(itemInfoTable);
 		inventoryTable.row();
 		inventoryTable.add(scrollParty).left().height(HEIGHT*2).width(WIDTH*7).colspan(2);
@@ -327,19 +327,21 @@ public class InventoryMenuView implements Screen{
 					t_quantity.setText(String.valueOf(currentItem.getQuantity()));
 				}
 			});
-			itemListTable.add(itemLabel).width(WIDTH*2).padLeft(10);
+			
 			
 			if (!colonnaDestra){
-				itemListTable.add().width(WIDTH-20);
+				itemListTable.add(itemLabel).width(WIDTH*2-10);
+				itemListTable.add().width(WIDTH);
 			}
 			else {
+				itemListTable.add(itemLabel).width(WIDTH*2-10).padLeft(10);
 				itemListTable.row();
 			}
 			
 			colonnaDestra = !colonnaDestra;
 		}
 		if(colonnaDestra){
-			itemListTable.add().width(WIDTH*2).padLeft(10);
+			itemListTable.add().width(WIDTH*2);
 		}
 		
 	}

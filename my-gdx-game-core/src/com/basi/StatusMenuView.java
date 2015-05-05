@@ -165,7 +165,6 @@ public class StatusMenuView implements Screen{
 				t_className.setText(selectedChar.getActiveClass());
 				t_classExp.setText(""+selectedChar.getExp());
 				t_arm1.setText(selectedChar.getArm1());
-				t_arm2.setText(""+selectedChar.getArm2());
 				t_body.setText(""+selectedChar.getBody());
 				t_accessory.setText(""+selectedChar.getAccessory());
 			}
@@ -245,31 +244,24 @@ public class StatusMenuView implements Screen{
 		//define equipment content (3*5)
 		//first row EQUIPMENT
 		l_equipment = new Label(ResPack.EQUIPMENT, uiSkin);
-		classStats.add(l_equipment).colspan(4).align(Align.left);
+		classStats.add(l_equipment).colspan(3).align(Align.left);
 		//second row  ARM1 NULL NULL ARM2
 		//labels
-		
 		l_arm1 = new Label(ResPack.ARM1, uiSkinReduced);
-		equipment.add(l_arm1).width(WIDTH*2).height((int)(HEIGHT*3/10));
-		equipment.add().height((int)(HEIGHT*3/10));
-		l_body = new Label(ResPack.BODY, uiSkinReduced);
-		equipment.add(l_body).width(WIDTH*2).height((int)(HEIGHT*3/10)).row();
+		equipment.add(l_arm1).width(WIDTH*5).height((int)(HEIGHT*3/10)).colspan(3).row();
 		//fields
 		t_arm1 = new Label(String.valueOf(selectedChar.getArm1()), uiSkin);
-		equipment.add(t_arm1).width(WIDTH*2).height((int)(HEIGHT*7/10));
-		equipment.add().height((int)(HEIGHT*7/10));
-		t_body = new Label(String.valueOf(selectedChar.getBody()), uiSkin);
-		equipment.add(t_body).width(WIDTH*2).height((int)(HEIGHT*7/10)).row();	
+		equipment.add(t_arm1).width(WIDTH*5).height((int)(HEIGHT*7/10)).colspan(3).row();
 		//third row  ARM1 NULL NULL ARM2
 		//labels
-		l_arm2 = new Label(ResPack.ARM2, uiSkinReduced);
-		equipment.add(l_arm2).width(WIDTH*2).height((int)(HEIGHT*3/10));
+		l_body = new Label(ResPack.BODY, uiSkinReduced);
+		equipment.add(l_body).width(WIDTH*2).height((int)(HEIGHT*3/10));
 		equipment.add().height((int)(HEIGHT*3/10));
 		l_accessory = new Label(ResPack.ACCESSORY, uiSkinReduced);
 		equipment.add(l_accessory).width(WIDTH*2).height((int)(HEIGHT*3/10)).row();
 		//fields
-		t_arm2 = new Label(String.valueOf(selectedChar.getArm2()), uiSkin);
-		equipment.add(t_arm2).width(WIDTH*2).height((int)(HEIGHT*7/10));
+		t_body = new Label(String.valueOf(selectedChar.getBody()), uiSkin);
+		equipment.add(t_body).width(WIDTH*2).height((int)(HEIGHT*7/10));
 		equipment.add().height((int)(HEIGHT*7/10));
 		t_accessory = new Label(String.valueOf(selectedChar.getAccessory()), uiSkin);
 		equipment.add(t_accessory).width(WIDTH*2).height((int)(HEIGHT*7/10)).row();	

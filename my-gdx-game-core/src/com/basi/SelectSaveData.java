@@ -123,8 +123,6 @@ public class SelectSaveData implements Screen {
 					table.add(buttonRow(genSave.getCreationTime(),ResPack.MENU)).width(100);
 					table.row();
 				}
-				
-				
 			}
 		});
 		table.add(saveTable).colspan(6).row();
