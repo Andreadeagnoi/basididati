@@ -117,13 +117,13 @@ public class SelectSaveData implements Screen {
 				}
 				if(!processedSaveName.equals("")){
 					SaveData genSave = ResPack.db.insertSave(processedSaveName);
-					table.add(new TextField(String.valueOf(genSave.getCreationTime()), ResPack._SKIN));
-					table.add(new TextField(genSave.getSaveName(), ResPack._SKIN));
-					table.add(new TextField(String.valueOf(genSave.getTotalPlayTime()), ResPack._SKIN)).width(150);
-					table.add(new TextField(String.valueOf(genSave.getLastSaveTime()), ResPack._SKIN));
-					table.add(buttonRow(genSave.getCreationTime(),ResPack.EDIT)).width(100);
-					table.add(buttonRow(genSave.getCreationTime(),ResPack.MENU)).width(100);
-					table.row();
+					saveTable.add(new TextField(String.valueOf(genSave.getCreationTime()), ResPack._SKIN));
+					saveTable.add(new TextField(genSave.getSaveName(), ResPack._SKIN));
+					saveTable.add(new TextField(String.valueOf(genSave.getTotalPlayTime()), ResPack._SKIN)).width(150);
+					saveTable.add(new TextField(String.valueOf(genSave.getLastSaveTime()), ResPack._SKIN));
+					saveTable.add(buttonRow(genSave.getCreationTime(),ResPack.EDIT)).width(100);
+					saveTable.add(buttonRow(genSave.getCreationTime(),ResPack.MENU)).width(100);
+					saveTable.row();
 				}
 			}
 		});
