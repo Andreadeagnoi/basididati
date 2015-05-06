@@ -57,7 +57,7 @@ public class ResPack {
 	public static final String KEY = "Chiave";
 	public static final String INFO = "Info";
 	public static final String DESCRIPTION = "Descrizione";
-	public static final String QUANTITY = "Q.tà";
+	public static final String QUANTITY = "Q.ta";
 	public static final String THROW = "butta";
 	public static final String SELECTITEM = "Seleziona un oggetto";
 	public static final String OK = "OK";

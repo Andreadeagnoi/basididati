@@ -1,4 +1,4 @@
-1	pozione	sprite_pozione	cura 20 di vita	consumabile	8	null	null	null	null	null	null	null
+1	pozione	sprite_pozione	cura 20 di vita	consumabile	null	8	null	null	null	null	null	null
 2	spada e scudo di legno	sprite_spada_l	spada e scudo in legno	equip	arma	null	0	0	10	5	0	0
 3	elmo di legno	sprite_elmo_l	elmo in legno	equip	testa	null	10	0	0	2	0	1
 4	armatura di legno	sprite_armatura_l	armatura in legno	equip	corpo	null	10	0	0	2	0	1
@@ -52,6 +52,6 @@
 52	Arco angelico	sprite_arco_a	Arco leggendario usato dagli angeli	equip	arma	null	50	0	50	0	0	33
 53	Pala di legno	sprite_pala_l	Pala normale da pizzaiolo	equip	arma	null	0	0	10	10	0	0
 54	Pala da battaglia	sprite_pala_b	Pala da pizzaiolo modificata per il combattimento	equip	arma	null	0	0	30	20	0	0
-55	Pala suprema	sprite_pala_s	Pala da pizzaiolo tramandata da Totò Sapore	equip	arma	null	0	0	60	40	0	0
+55	Pala suprema	sprite_pala_s	Pala da pizzaiolo tramandata da Totï¿½ Sapore	equip	arma	null	0	0	60	40	0	0
 56	Antiparalisi	sprite_antiparalisi	Cura dalla paralisi	consumabile	null	39	null	null	null	null	null	null
 57	Cibo avariato	sprite_cibo	Cibo andato di male	consumabile	null	39	null	null	null	null	null	null
