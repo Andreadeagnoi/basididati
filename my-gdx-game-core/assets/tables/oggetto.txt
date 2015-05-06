@@ -54,4 +54,4 @@
 54	Pala da battaglia	sprite_pala_b	Pala da pizzaiolo modificata per il combattimento	equip	arma	null	0	0	30	20	0	0
 55	Pala suprema	sprite_pala_s	Pala da pizzaiolo tramandata da Tot� Sapore	equip	arma	null	0	0	60	40	0	0
 56	Antiparalisi	sprite_antiparalisi	Cura dalla paralisi	consumabile	null	39	null	null	null	null	null	null
-57	Cibo avariato	sprite_cibo	Cibo andato di male	consumabile	null	39	null	null	null	null	null	null
+57	Cibo avariato	sprite_cibo	Cibo andato di male	consumabile	null	40	null	null	null	null	null	null

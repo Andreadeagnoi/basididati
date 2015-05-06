@@ -132,7 +132,7 @@ public class DBManager {
 	private  void createTables(){
 		try {
 			dbHandler.openOrCreateDatabase();
-			dbHandler.execSQL(ResPack.q_SALVATAGGIO); //Created when I create the db
+			//dbHandler.execSQL(ResPack.q_SALVATAGGIO); //Created when I create the db
 			dbHandler.execSQL(ResPack.q_PERSONAGGIO);	
 			dbHandler.execSQL(ResPack.q_ISTANZA_PERSONAGGIO);
 			dbHandler.execSQL(ResPack.q_CLASSE);
@@ -199,13 +199,14 @@ public class DBManager {
 		CharacterData tempChar = null;
 		
 		try {
-			cursorCharacter = dbHandler.rawQuery("SELECT DataCreazione, Id_personaggio, Nome, Sprite,"
-					+ "IP_HP, IP_MP ,IP_ATK, IP_DEF, IP_INT, IP_AGI, "
-					+ "ID_Classe, NomeClasse,"
-					+ "InUso, LivelloClasse, EXP "
-					+ "FROM ISTANZA_PERSONAGGIO NATURAL JOIN Appartiene NATURAL JOIN CLASSE "
-					+ "WHERE DataCreazione = datetime('" + ResPack.currentSave + "','utc')"
-					+ "		AND Appartiene.inUso = 1");
+			
+			
+			cursorCharacter = dbHandler.rawQuery("SELECT DataCreazione, Id_personaggio, Istanza_Personaggio.Nome, Sprite, IP_HP, IP_MP ,IP_ATK, IP_DEF, IP_INT, IP_AGI, Classe.ID_Classe, Classe.Nome, InUso, LivelloClasse, EXP \r\n" + 
+					"FROM ISTANZA_PERSONAGGIO \r\n" + 
+					"        NATURAL JOIN Appartiene \r\n" + 
+					"            JOIN CLASSE ON CLASSE.Id_Classe = Appartiene.Id_Classe\r\n" + 
+					"WHERE DataCreazione = datetime('" + ResPack.currentSave + "','utc')"
+							+ "AND Appartiene.inUso = 1;");
 		} catch (SQLiteGdxException e) {
 			e.printStackTrace();
 		}
@@ -231,9 +232,12 @@ public class DBManager {
 			tempChar = charList.remove(i);
 			//get all the character's equipment, this is lazy i should get the id and then put the item in the character data
 			try {
-				cursorEquipment = dbHandler.rawQuery("SELECT oggetto.nome, tipoequip "
-						+ "FROM ISTANZA_PERSONAGGIO LEFT JOIN equipaggia ON ISTANZA_PERSONAGGIO.ID_PERSONAGGIO = EQUIPAGGIA.ID_PERSONAGGIO"
-						+ " LEFT JOIN oggetto ON EQUIPAGGIA.ID_OGGETTO = OGGETTO.ID_OGGETTO "
+			 
+				cursorEquipment = dbHandler.rawQuery(	"SELECT oggetto.nome, tipoequip \r\n" + 
+						"FROM ISTANZA_PERSONAGGIO \r\n" + 
+						"        JOIN equipaggia ON ISTANZA_PERSONAGGIO.ID_PERSONAGGIO = EQUIPAGGIA.ID_PERSONAGGIO \r\n" + 
+						"						AND ISTANZA_PERSONAGGIO.DataCreazione = EQUIPAGGIA.DataCreazione\r\n" + 
+						"            JOIN oggetto ON EQUIPAGGIA.ID_OGGETTO = OGGETTO.ID_OGGETTO \r\n" 
 						+ "WHERE equipaggia.DataCreazione = datetime('" + ResPack.currentSave + "','utc') "
 						+ "AND EQUIPAGGIA.id_personaggio = " + tempChar.getId());
 			} catch (SQLiteGdxException e) {
