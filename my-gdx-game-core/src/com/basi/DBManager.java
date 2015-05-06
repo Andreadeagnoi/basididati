@@ -207,7 +207,8 @@ public class DBManager {
 					+ "ID_Classe, NomeClasse,"
 					+ "InUso, LivelloClasse, EXP "
 					+ "FROM ISTANZA_PERSONAGGIO NATURAL JOIN Appartiene NATURAL JOIN CLASSE "
-					+ "WHERE DataCreazione = '" + ResPack.currentSave + "'");
+					+ "WHERE DataCreazione = '" + ResPack.currentSave + "'"
+					+ "		AND Appartiene.inUso = 1");
 		} catch (SQLiteGdxException e) {
 			e.printStackTrace();
 		}
