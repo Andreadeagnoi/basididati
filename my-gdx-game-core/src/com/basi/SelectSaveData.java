@@ -124,6 +124,7 @@ public class SelectSaveData implements Screen {
 					saveTable.add(buttonRow(genSave.getCreationTime(),ResPack.EDIT)).width(100);
 					saveTable.add(buttonRow(genSave.getCreationTime(),ResPack.MENU)).width(100);
 					saveTable.row();
+					genSaveName.setText("");
 				}
 			}
 		});

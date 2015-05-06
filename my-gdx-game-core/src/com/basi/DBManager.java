@@ -39,9 +39,6 @@ public class DBManager {
 	private static final String DATABASE_NAME = "rpg.db";
 	private static final int DATABASE_VERSION = 1;
 
-
-
-
 	public DBManager() {
 		dbHandler = DatabaseFactory.getNewDatabase(DATABASE_NAME,
 				DATABASE_VERSION, ResPack.DBCREATE, null);
@@ -77,7 +74,7 @@ public class DBManager {
 		}
 		//retrieve the save
 		try {
-			cursor = dbHandler.rawQuery("SELECT Nome,DataCreazione,TempoGiocato,DataUltimoSalvataggio "
+			cursor = dbHandler.rawQuery("SELECT Nome,datetime(DataCreazione,'localtime'),TempoGiocato,datetime(DataUltimoSalvataggio,'localtime') "
 					+ "FROM SALVATAGGIO_GIOCATORE ORDER BY DataCreazione DESC;") ;
 		} catch (SQLiteGdxException e) {
 			e.printStackTrace();
@@ -96,8 +93,8 @@ public class DBManager {
 		}
 		try {
 			dbHandler.execSQL("INSERT INTO istanza_personaggio "
-					+ " VALUES (1,'" + genSave.getCreationTime() + 
-						"','" + cursor.getString(1) +
+					+ " VALUES (1,datetime('" + genSave.getCreationTime() + 
+						"','utc'),'" + cursor.getString(1) +
 						"','" + cursor.getString(2) +
 						"'," + cursor.getInt(3) + 
 						"," + cursor.getInt(4) + 
@@ -106,7 +103,7 @@ public class DBManager {
 						"," + cursor.getInt(7) + 
 						"," + cursor.getInt(8) + ")" );
 			dbHandler.execSQL("INSERT INTO appartiene "
-					+ " VALUES (1,'"+ genSave.getCreationTime()+"',1,1,1,0)");
+					+ " VALUES (1,datetime('"+ genSave.getCreationTime()+"','utc'),1,1,1,0)");
 		} catch (SQLiteGdxException e) {
 			e.printStackTrace();
 		}
@@ -115,14 +112,14 @@ public class DBManager {
 	
 	public void deleteSaveData(String saveDate){
 		try {
-			dbHandler.execSQL("DELETE FROM Possiede WHERE DataCreazione ='" 
-					+ saveDate + "'");
-			dbHandler.execSQL("DELETE FROM Appartiene WHERE DataCreazione ='" 
-					+ saveDate + "'");
-			dbHandler.execSQL("DELETE FROM Istanza_Personaggio WHERE DataCreazione ='" 
-					+ saveDate + "'");
-			dbHandler.execSQL("DELETE FROM SALVATAGGIO_GIOCATORE WHERE DataCreazione ='" 
-								+ saveDate + "'");
+			dbHandler.execSQL("DELETE FROM Possiede WHERE DataCreazione = datetime('" 
+					+ saveDate + "','utc')");
+			dbHandler.execSQL("DELETE FROM Appartiene WHERE DataCreazione =datetime('" 
+					+ saveDate + "','utc')");
+			dbHandler.execSQL("DELETE FROM Istanza_Personaggio WHERE DataCreazione =datetime('" 
+					+ saveDate + "','utc')");
+			dbHandler.execSQL("DELETE FROM SALVATAGGIO_GIOCATORE WHERE DataCreazione =datetime('" 
+								+ saveDate + "','utc')");
 		} catch (SQLiteGdxException e) {
 			e.printStackTrace();
 		}
@@ -171,7 +168,7 @@ public class DBManager {
 		SaveData tempSave;
 
 		try {
-			cursor = dbHandler.rawQuery("SELECT Nome,DataCreazione,TempoGiocato,DataUltimoSalvataggio "
+			cursor = dbHandler.rawQuery("SELECT Nome,datetime(DataCreazione,'localtime'),TempoGiocato,datetime(DataUltimoSalvataggio,'localtime') "
 					+ "FROM SALVATAGGIO_GIOCATORE ;") ;
 		} catch (SQLiteGdxException e) {
 			e.printStackTrace();
@@ -207,7 +204,7 @@ public class DBManager {
 					+ "ID_Classe, NomeClasse,"
 					+ "InUso, LivelloClasse, EXP "
 					+ "FROM ISTANZA_PERSONAGGIO NATURAL JOIN Appartiene NATURAL JOIN CLASSE "
-					+ "WHERE DataCreazione = '" + ResPack.currentSave + "'"
+					+ "WHERE DataCreazione = datetime('" + ResPack.currentSave + "','utc')"
 					+ "		AND Appartiene.inUso = 1");
 		} catch (SQLiteGdxException e) {
 			e.printStackTrace();
@@ -237,7 +234,7 @@ public class DBManager {
 				cursorEquipment = dbHandler.rawQuery("SELECT oggetto.nome, tipoequip "
 						+ "FROM ISTANZA_PERSONAGGIO LEFT JOIN equipaggia ON ISTANZA_PERSONAGGIO.ID_PERSONAGGIO = EQUIPAGGIA.ID_PERSONAGGIO"
 						+ " LEFT JOIN oggetto ON EQUIPAGGIA.ID_OGGETTO = OGGETTO.ID_OGGETTO "
-						+ "WHERE equipaggia.DataCreazione = '" + ResPack.currentSave + "' "
+						+ "WHERE equipaggia.DataCreazione = datetime('" + ResPack.currentSave + "','utc') "
 						+ "AND EQUIPAGGIA.id_personaggio = " + tempChar.getId());
 			} catch (SQLiteGdxException e) {
 				e.printStackTrace();
@@ -295,7 +292,7 @@ public class DBManager {
 					+ "Nome, Sprite, Descrizione, POSSIEDE.Quantita,"
 					+ "HP, MP ,ATK, DEF, INT, AGI, TECNICA "
 					+ "FROM OGGETTO NATURAL JOIN Possiede "
-					+ "WHERE DataCreazione = '" + ResPack.currentSave + "'");
+					+ "WHERE DataCreazione = datetime('" + ResPack.currentSave + "','utc')");
 		} catch (SQLiteGdxException e) {
 			e.printStackTrace();
 		}
@@ -373,7 +370,7 @@ public class DBManager {
 			cursor = dbHandler.rawQuery("SELECT * "
 					+ "FROM tecnica NATURAL JOIN impara NATURAL JOIN appartiene "
 					+ "WHERE appartiene.id_Personaggio = " + charId + " AND "
-					+ " appartiene.DataCreazione = '" + ResPack.currentSave + "' AND "
+					+ " appartiene.DataCreazione = datetime('" + ResPack.currentSave + "','utc') AND "
 					+ " appartiene.LivelloClasse > impara.LivelloRichiesto "
 					+ " AND appartiene.inUso = 1");
 		} catch (SQLiteGdxException e) {
@@ -411,6 +408,15 @@ public class DBManager {
 	
 public void storeSavedData(){
 		
+		try {
+			dbHandler.execSQL("UPDATE Salvataggio_giocatore "
+					+ " SET DataUltimoSalvataggio =  CURRENT_TIMESTAMP"  
+					+ " WHERE datacreazione = datetime('" + ResPack.currentSave + "','utc')"
+					);
+		} catch (SQLiteGdxException e) {
+			e.printStackTrace();
+		}
+		
 		HashMap<String, ItemData> oldInventory = new HashMap<String, ItemData>();
 		ArrayList<ItemData> inventory = getInventory();
 		for (ItemData item : inventory) {
@@ -425,7 +431,7 @@ public void storeSavedData(){
 							//the item will be deleted from the db
 						dbHandler.execSQL("DELETE FROM possiede"
 								+ " WHERE id_oggetto =" + itemId 
-								+ " AND DataCreazione = '" + ResPack.currentSave + "'");
+								+ " AND DataCreazione = datetime('" + ResPack.currentSave + "','utc')");
 						}
 						else if (oldInventory.get(itemId).getQuantity() == 0){
 							//the item will be inserted into the possiede table
@@ -440,7 +446,7 @@ public void storeSavedData(){
 							//the item quantity will be updated
 							dbHandler.execSQL("UPDATE possiede "
 									+ " SET quantita = " + ResPack.inventory.getQuantity(itemId) 
-									+ " WHERE datacreazione = '" + ResPack.currentSave + "'"
+									+ " WHERE datacreazione = datetime('" + ResPack.currentSave + "','utc')"
 									+ " AND id_oggetto = " + itemId
 									);
 						}
@@ -471,7 +477,7 @@ public void storeSavedData(){
 						+ "  ip_int = " + currentChar.getC_int() + ","
 						+ "  ip_agi = " + currentChar.getC_agi() 
 						+ " WHERE id_personaggio = " + charId
-						+ " AND datacreazione ='" + ResPack.currentSave + "'"
+						+ " AND datacreazione = datetime('" + ResPack.currentSave + "','utc')"
 						);
 				
 			} catch (SQLiteGdxException e) {
