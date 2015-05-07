@@ -98,6 +98,7 @@ public class SelectSaveData implements Screen {
 		//let's add a button to generate saves
 		genSave = new TextButton("inserisci salvataggio",ResPack._SKIN);
 		genSaveName = new TextField("",ResPack._SKIN);
+		genSaveName.setMaxLength(20);
 		
 		genSave.addListener(new ClickListener(){
 			@Override 

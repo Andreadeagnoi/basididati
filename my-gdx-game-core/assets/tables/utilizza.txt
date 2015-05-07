@@ -37,3 +37,4 @@ Lucertola	16
 Lupo	24
 Scheletro	23
 Pirata	30
+Gorilla	41
