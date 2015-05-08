@@ -92,6 +92,7 @@ public class StatusMenuView implements Screen{
 	private ArrayList<String> nameList; //list of the party's names
 	private CharacterData selectedChar;
 	private Texture backTexture;
+	private Texture texture;
 	
 	
 	public StatusMenuView(final SadogashimaEditor editor) {
@@ -167,6 +168,10 @@ public class StatusMenuView implements Screen{
 				t_arm1.setText(selectedChar.getArm1());
 				t_body.setText(""+selectedChar.getBody());
 				t_accessory.setText(""+selectedChar.getAccessory());
+				texture = new Texture(Gdx.files.internal("sprite\\" + selectedChar.getSprite() + ".png"));
+				sprite = new Image(texture);
+				spriteTable.clear();
+				spriteTable.add(sprite).width(WIDTH-10).padRight(10);
 			}
 		});
 		
@@ -224,7 +229,7 @@ public class StatusMenuView implements Screen{
 		charStats.add(t_agi).row();
 		
 		//define sprite content
-		Texture  texture = new Texture(Gdx.files.internal("data/inaho.png"));
+		texture = new Texture(Gdx.files.internal("sprite\\" + selectedChar.getSprite() + ".png"));
 		sprite = new Image(texture);
 		sprite.setWidth(WIDTH-20);
 		sprite.setHeight(HEIGHT*2-20);
@@ -300,7 +305,6 @@ public class StatusMenuView implements Screen{
 	public void render(float delta) {
 		Gdx.gl.glClearColor(0, 0, 0.2f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
 		stage.act();
 		stage.draw();
 		
